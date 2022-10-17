@@ -1,0 +1,10 @@
+
+#include "xe_common.xcconfig"
+
+CONFIGURATION_BUILD_DIR     = $(XE_BUILD_DIR_OUT)
+CONFIGURATION_TEMP_DIR      = $(XE_BUILD_DIR_INT)
+
+ALWAYS_SEARCH_USER_PATHS    = YES
+USER_HEADER_SEARCH_PATHS    = $(XE_SOURCE)
+
+OTHER_LDFLAGS              = -L$(XE_BUILD_DIR_OUT) -lstb-macos -lxengine-base-macos -lxengine-platform-macos -lxengine-metal-macos -framework metal -framework metalkit -framework foundation
