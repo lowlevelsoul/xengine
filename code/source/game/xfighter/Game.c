@@ -90,14 +90,6 @@ void Game_Initialise(void) {
     
     xprintf("=== Game Init ==================\n");
     
-    Resource_RegisterFactory( model_resource_factory, "bmdl" );
-    Resource_RegisterFactory( texture_resource_factory, "png" );
-    Resource_RegisterFactory( texture_resource_factory, "tga" );
-    Resource_RegisterFactory( texture_resource_factory, "jpg" );
-    Resource_RegisterFactory( texture_resource_factory, "btex" );
-    Resource_RegisterFactory( material_resource_factory, "mat" );
-    Resource_RegisterFactory( material_resource_factory, "bmat" );
-    
     Ecs_RegisterComponent( comp_transform_t, ECS_MAX_ENTITIES );
     Ecs_RegisterComponent( comp_shipmodel_t, 32 );
     Ecs_RegisterComponent( comp_preview_t, 32 );
@@ -108,8 +100,8 @@ void Game_Initialise(void) {
     
     Camera_Initialise( &gameLocal.camera );
     
-    vec3_t eye = {0, 15, 0 };
-    vec3_t lookat = {0, 0, 20 };
+    vec3_t eye = {0, 3, -2 };
+    vec3_t lookat = {0, 1, 0 };
     vec3_t up = {0, 1, 0 };
     Camera_SetLookAt( &gameLocal.camera, &eye, &lookat, &up );
     
@@ -125,17 +117,6 @@ void Game_Finalise(void) {
 void Game_Think( float timeStep ) {
     gameLocal.rotation += 45 * (1.0f / 60.0f );
     while (gameLocal.rotation > 360.0f ) gameLocal.rotation -= 360.0f;
-    
-    ecs_think_params_t thinkParams = { timeStep, NULL };
-    gameLocal.thinkParams = thinkParams;
-    
-    Ecs_SystemThink( gameLocal.previewSystem, &thinkParams );
-    Ecs_SystemThink( gameLocal.transformSystem, &thinkParams );
-    
-    /* This needs to be called so that the ECS can clean up
-       messages and do some housekeeping
-     */
-    Ecs_EndFrame();
 }
 
 /*=======================================================================================================================================*/
@@ -147,17 +128,17 @@ void Game_Draw( float timeStep ) {
     Render_GetDisplaySize( &dispW, &dispH );
     aspect = (float) dispW / (float) dispH;
     
-    Camera_SetShape( &gameLocal.camera, 80.0f, aspect, 5, 1000 );
+    Camera_SetShape( &gameLocal.camera, 80.0f, aspect, 1, 1000 );
     Camera_UpdateMatrices( &gameLocal.camera );
     
     vec3_t axis = {0, 1, 0};
     _Mat4_SetRotationAA( &modelMat, &axis, scalar_DegToRad( gameLocal.rotation ) );
-    Vec4_Set( modelMat.rows[3], 0, 0, 20, 1 );
+    Vec4_Set( modelMat.rows[3], 0, 0, 0, 1 );
     
     int32_t viewport[] = {0, 0, (int32_t)dispW, (int32_t) dispH };
     
     Render_Begin( &gameLocal.camera, viewport );
-        Render_SubmitModel( gameLocal.shipModel, gameLocal.shipMaterial, &modelMat );
+        Render_SubmitModel( gameLocal.shipModel, Model_GetMaterials( gameLocal.shipModel ), &modelMat );
         //Ecs_SystemThink( gameLocal.shipModelSystem, &gameLocal.thinkParams );
     Render_End();
 }

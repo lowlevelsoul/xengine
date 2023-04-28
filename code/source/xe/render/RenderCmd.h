@@ -41,6 +41,8 @@ typedef struct material_s material_t;
 typedef struct render_cmd_draw_s {
     model_t *   model;
     mat4_t      xform;
+    uint32_t    indexStart;
+    uint32_t    indexCount;
     
     struct render_cmd_draw_s * next;
 } render_cmd_draw_t;

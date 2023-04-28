@@ -24,7 +24,12 @@
 #include "Fs.h"
 #include "Xe.h"
 #include "resource/Resource.h"
+#include "render/Model.h"
+#include "render/Material.h"
+#include "render/MaterialResource.h"
+#include "render/Texture.h"
 #include "ecs/Ecs.h"
+
 
 //CVAR_INT(app_dispWidth, "Display width for the application", 640);
 //CVAR_INT(app_dispHeight, "Display height for the application", 480);
@@ -51,6 +56,15 @@ void XE_Initialise(void) {
     //CVAR_initialise();
     FS_Initialise();
     Resource_Initialise();
+    
+    Resource_RegisterFactory( model_resource_factory, "bmdl" );
+    Resource_RegisterFactory( texture_resource_factory, "png" );
+    Resource_RegisterFactory( texture_resource_factory, "tga" );
+    Resource_RegisterFactory( texture_resource_factory, "jpg" );
+    Resource_RegisterFactory( texture_resource_factory, "btex" );
+    Resource_RegisterFactory( material_resource_factory, "mat" );
+    Resource_RegisterFactory( material_resource_factory, "bmat" );
+    
     Ecs_Initialise();
     
     Game_Create( &engine.gameInterface );

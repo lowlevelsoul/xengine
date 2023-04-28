@@ -243,17 +243,17 @@ void MaterialResource_LoadBinary( material_t * mat, file_t * file, const char * 
     
     if ( albedoPath != NULL ) {
         texRes = Resource_Load( albedoPath );
-        Material_SetTextureAlbedo( matParse.mat, (texture_t*) Resource_GetData( texRes ) );
+        Material_SetTextureAlbedo( mat, (texture_t*) Resource_GetData( texRes ) );
     }
     
     if ( amrPath != NULL ) {
         texRes = Resource_Load( amrPath );
-        Material_SetTextureAmr( matParse.mat, (texture_t*) Resource_GetData( texRes ) );
+        Material_SetTextureAmr( mat, (texture_t*) Resource_GetData( texRes ) );
     }
     
     if ( amrPath != NULL ) {
         texRes = Resource_Load( amrPath );
-        Material_SetTextureAmr( matParse.mat, (texture_t*) Resource_GetData( texRes ) );
+        Material_SetTextureAmr( mat, (texture_t*) Resource_GetData( texRes ) );
     }
     
 }

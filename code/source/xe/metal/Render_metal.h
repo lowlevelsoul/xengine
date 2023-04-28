@@ -29,6 +29,11 @@
 #import <Metal/Metal.h>
 #import <MetalKit/MetalKit.h>
 
+typedef enum default_tex_e {
+    DEFAULT_TEX_BLACK = 0,
+    DEFAULT_TEX_COUNT,
+} default_tex_t;
+
 typedef struct render3d_metal_s {
     render3d_t                 base;               /* Base data for the common render functionality */
     
@@ -38,6 +43,9 @@ typedef struct render3d_metal_s {
     id<MTLDepthStencilState>    depthStateDrawLit;
     id <MTLCommandQueue>        commandQueue;    
     dispatch_semaphore_t        inflightSemaphore;
+    
+    texture_t *                 defaultTextures[ DEFAULT_TEX_COUNT ];
+    
 } render3d_metal_t;
 
 extern render3d_metal_t * const render3dMetal;

@@ -52,6 +52,8 @@ XE_API void        Model_GetBounds( model_t * self_, vec3_t * boundsMin, vec3_t 
 XE_API void        Model_Load( model_t * self_, file_t * file,  const char * path );
 XE_API void        Model_SetMaterial( model_t * self_, uint32_t index, material_t * mat );
 XE_API material_t ** Model_GetMaterials( model_t * self_ );
+XE_API size_t       Model_GetMeshCount( model_t * self_ );
+XE_API const mesh_t * Model_GetMeshes( model_t * self_ );
 
 typedef struct resource_factory_s resource_factory_t;
 extern resource_factory_t * model_resource_factory;

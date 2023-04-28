@@ -52,6 +52,6 @@ XE_API void Render_Begin( camera_t * camera, const int32_t * viewport );
 
 XE_API void Render_End(void);
 
-XE_API void Render_SubmitModel( model_t * model, material_t * mat, const mat4_t * xform );
+XE_API void Render_SubmitModel( model_t * model, material_t ** materials, const mat4_t * xform );
 
 #endif

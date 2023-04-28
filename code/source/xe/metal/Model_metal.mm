@@ -134,3 +134,15 @@ material_t ** Model_GetMaterials( model_t * self_ ) {
     model_metal_t * modelMtl = (model_metal_t *) self_;
     return modelMtl->materials;
 }
+
+/*=======================================================================================================================================*/
+size_t Model_GetMeshCount( model_t * self_ ) {
+    model_metal_t * modelMtl = (model_metal_t *) self_;
+    return modelMtl->meshCount;
+}
+
+/*=======================================================================================================================================*/
+const mesh_t *  Model_GetMeshes( model_t * self_ ) {
+    model_metal_t * modelMtl = (model_metal_t *) self_;
+    return modelMtl->meshes;
+}

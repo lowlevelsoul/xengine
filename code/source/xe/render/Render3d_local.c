@@ -44,14 +44,16 @@ inline static render_cmd_material_t * Render_GetMaterialCmd( material_t * mat ) 
            this material*/
         assert( render3d->currScene->materialCount < render3d->currScene->materialCapacity );
         matCmd = &render3d->currScene->materials[ render3d->currScene->materialCount ];
-        ++render3d->currScene->materialCount;
         
         matCmd->head = NULL;
         matCmd->tail = NULL;
         matCmd->material = mat;
         
-        /* Need to set the material timestamp */
+        /* Need to set the material timestamp and its batch index */
         matLocal->timeStamp = render3d->materialTimestamp;
+        matLocal->batchIndex = (int64_t) render3d->currScene->materialCount;
+        
+        ++render3d->currScene->materialCount;
     }
     
     return matCmd;
@@ -93,12 +95,23 @@ void Render_End(void) {
 }
 
 /*=======================================================================================================================================*/
-void Render_SubmitModel( model_t * model, material_t * mat, const mat4_t * xform ) {
-    render_cmd_material_t * matCmd = Render_GetMaterialCmd( mat );
-    render_cmd_draw_t * drawCmd = (render_cmd_draw_t *) FrameHeap_Alloc( render3d->batchHeap, sizeof( render_cmd_draw_t ) );
+void Render_SubmitModel( model_t * model, material_t ** materials, const mat4_t * xform ) {
     
-    RENDER_CMD_ADD_ITEM( matCmd, drawCmd )
+    size_t meshCount = Model_GetMeshCount( model );
+    const mesh_t * meshes = Model_GetMeshes( model );
     
-    drawCmd->model = model;
-    drawCmd->xform = *xform;
+    render_cmd_draw_t * drawCmd = (render_cmd_draw_t *) FrameHeap_Alloc( render3d->batchHeap, sizeof( render_cmd_draw_t ) * meshCount);
+    
+    for ( uint32_t m = 0; m < meshCount; ++m ) {
+        render_cmd_material_t * matCmd = Render_GetMaterialCmd( materials[ m ] );
+        
+        drawCmd->model = model;
+        drawCmd->xform = *xform;
+        drawCmd->indexStart = meshes[ m ].indexStart;
+        drawCmd->indexCount = meshes[ m ].indexCount;
+        
+        RENDER_CMD_ADD_ITEM( matCmd, drawCmd )
+        
+        ++drawCmd;
+    }
 }

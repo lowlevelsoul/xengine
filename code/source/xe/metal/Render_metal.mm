@@ -28,6 +28,7 @@
 #include "render/Material_local.h"
 #include "metal/Texture_metal.h"
 #include "shaders/Draw3d_lit.h"
+#include "resource/Resource.h"
 
 uint8_t render3dMemory[sizeof(render3d_metal_t)];
 render3d_metal_t * const render3dMetal = (render3d_metal_t*) render3dMemory;
@@ -59,9 +60,9 @@ void Render_Initialise( render_params_t * params ) {
     render3dMetal->mtkView = (__bridge MTKView* ) params->nativeView;
     render3dMetal->mtlDevice = render3dMetal->mtkView.device;
     
-    render3dMetal->base.currScene = NULL;
-    render3dMetal->base.materialTimestamp = 0;
-    render3dMetal->base.batchMemSize = 1024 * 1024 * 2;
+    render3dMetal->base.currScene           = NULL;
+    render3dMetal->base.materialTimestamp   = 0;
+    render3dMetal->base.batchMemSize        = 1024 * 1024 * 2;
     render3dMetal->base.batchMaterialCapacity = 128;
     render3dMetal->base.batchMem = Mem_Alloc( render3d->batchMemSize );
     render3dMetal->base.batchHeap = FrameHeap_Create( (uintptr_t) render3d->batchMem, render3d->batchMemSize );
@@ -74,6 +75,8 @@ void Render_Initialise( render_params_t * params ) {
     
     Render_CreateAllPipelines();
     Render_CreateRenderStates();
+    
+    render3dMetal->defaultTextures[ DEFAULT_TEX_BLACK ] = (texture_t *) Resource_GetData( Resource_Load( "~/system/textures/black.btex" ) );
 }
 
 /*=======================================================================================================================================*/
@@ -249,12 +252,13 @@ void Render_PassDrawLit( render_cmd_scene3d_t * scene, id<MTLRenderCommandEncode
                                    atIndex: Draw3dLit_BufferModelConst ];
             
             MTLIndexType indexType_ = ( modelMetal->indexStride == 2 ) ? MTLIndexTypeUInt16 : MTLIndexTypeUInt32;
+            size_t indexOffset = drawCmd->indexStart * modelMetal->indexStride;
             
             [renderEncoder drawIndexedPrimitives: MTLPrimitiveTypeTriangle
-                                indexCount: modelMetal->indexCount
+                                indexCount: drawCmd->indexCount
                                  indexType: indexType_
                                indexBuffer: modelMetal->indices
-                         indexBufferOffset: 0 ];
+                         indexBufferOffset: indexOffset ];
         }
     }
 }
@@ -266,7 +270,8 @@ void Render_SetMaterial( material_t * mat , id<MTLRenderCommandEncoder> renderEn
     material_local_t * matLocal = ( material_local_t * ) mat;
     
     texAlbedo = (texture_metal_t *) matLocal->textureAlbedo;
-    texGlow = (texture_metal_t *) matLocal->textureGlow;
+    texGlow = (matLocal->textureGlow != NULL) ? (texture_metal_t *) matLocal->textureGlow : (texture_metal_t *) render3dMetal->defaultTextures[ DEFAULT_TEX_BLACK ];
+    
     [ renderEncoder setFragmentTexture: texAlbedo->m_texture atIndex: Draw3dLit_Pixel_TextureAlbedo ];
     [ renderEncoder setFragmentTexture: texGlow->m_texture atIndex: Draw3dLit_Pixel_TextureGlow ];
 }
