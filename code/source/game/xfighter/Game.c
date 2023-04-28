@@ -52,7 +52,7 @@ typedef struct game_s {
 
 static game_t gameLocal;
 game_t * const game = &gameLocal;
-static boolean_t gameInit = false;
+static bool_t gameInit = false;
 
 void Game_Initialise(void);
 void Game_Finalise(void);
@@ -90,33 +90,21 @@ void Game_Initialise(void) {
     
     xprintf("=== Game Init ==================\n");
     
-    Resource_RegisterFactory( model_resource_factory, "mdl" );
+    Resource_RegisterFactory( model_resource_factory, "bmdl" );
     Resource_RegisterFactory( texture_resource_factory, "png" );
     Resource_RegisterFactory( texture_resource_factory, "tga" );
     Resource_RegisterFactory( texture_resource_factory, "jpg" );
+    Resource_RegisterFactory( texture_resource_factory, "btex" );
     Resource_RegisterFactory( material_resource_factory, "mat" );
+    Resource_RegisterFactory( material_resource_factory, "bmat" );
     
     Ecs_RegisterComponent( comp_transform_t, ECS_MAX_ENTITIES );
     Ecs_RegisterComponent( comp_shipmodel_t, 32 );
     Ecs_RegisterComponent( comp_preview_t, 32 );
-    
-    gameLocal.transformSystem =  Ecs_RegisterSystem( &sys_transform, comp_transform_t );
-    gameLocal.shipModelSystem = Ecs_RegisterSystem( &sys_shipmodel, comp_shipmodel_t );
-    gameLocal.previewSystem = Ecs_RegisterSystem( &sys_preview, comp_preview_t );
-    
-    gameLocal.player = Ecs_EntityAlloc();
-    comp_transform_t * compTransform = Ecs_AddComponent( gameLocal.player, comp_transform_t );
-    comp_shipmodel_t * shipModel = Ecs_AddComponent( gameLocal.player, comp_shipmodel_t );
-    comp_preview_t * preview = Ecs_AddComponent( gameLocal.player, comp_preview_t );
-    Ecs_EntityConstructDefault( gameLocal.player );
-    
-    resource_t * modelRes = Resource_Load( "~/rx2/ship.mdl" );
-    resource_t * materialRes = Resource_Load( "~/rx2/red.mat" );
+        
+    resource_t * modelRes = Resource_Load( "~/models/barbarian/barbarian_lod0.bmdl" );
     
     game->shipModel = (model_t *) Resource_GetData( modelRes );
-    game->shipMaterial = ( material_t * ) Resource_GetData( materialRes );
-    shipModel->model = game->shipModel;
-    shipModel->material = game->shipMaterial;
     
     Camera_Initialise( &gameLocal.camera );
     
@@ -169,8 +157,8 @@ void Game_Draw( float timeStep ) {
     int32_t viewport[] = {0, 0, (int32_t)dispW, (int32_t) dispH };
     
     Render_Begin( &gameLocal.camera, viewport );
-    //Render_SubmitModel( gameLocal.shipModel, gameLocal.shipMaterial, &modelMat );
-    Ecs_SystemThink( gameLocal.shipModelSystem, &gameLocal.thinkParams );
+        Render_SubmitModel( gameLocal.shipModel, gameLocal.shipMaterial, &modelMat );
+        //Ecs_SystemThink( gameLocal.shipModelSystem, &gameLocal.thinkParams );
     Render_End();
 }
 

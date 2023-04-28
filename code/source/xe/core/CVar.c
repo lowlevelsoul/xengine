@@ -47,7 +47,7 @@ static cvar_system_t cvarSystemLocal;
 static cvar_system_t* cvarSystem = NULL;
 
 static void CVAR_add(cvar_t* cvar);
-static boolean_t CVAR_findHashIndex(int32_t* index, uint32_t value, const uint32_t* valueArray, size_t arraySize);
+static bool_t CVAR_findHashIndex(int32_t* index, uint32_t value, const uint32_t* valueArray, size_t arraySize);
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
 static char* CVAR_mallocString(size_t strLen) {
@@ -94,7 +94,7 @@ cvar_t* CVAR_find(const char* name) {
     int32_t index = -1;
     uint32_t hash = CRC_calcFromString(name);
     
-    boolean_t found = CVAR_findHashIndex(&index, hash, cvarSystem->cvarHashes, cvarSystem->cvarCount);
+    bool_t found = CVAR_findHashIndex(&index, hash, cvarSystem->cvarHashes, cvarSystem->cvarCount);
     if (found == FALSE) {
         return NULL;
     }
@@ -132,7 +132,7 @@ void CVAR_add(cvar_t* cvar) {
     
     /* Search for the name has - it shoukd be unique, so should not be found. In this case
       the find function returns the insertion index */
-    boolean_t found = CVAR_findHashIndex(&index, hash, cvarSystem->cvarHashes, cvarSystem->cvarCount);
+    bool_t found = CVAR_findHashIndex(&index, hash, cvarSystem->cvarHashes, cvarSystem->cvarCount);
     assert(found == FALSE);
     
     /* Move all of the hashes/cvar ptrs above the insertion point up one place */
@@ -148,7 +148,7 @@ void CVAR_add(cvar_t* cvar) {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-boolean_t CVAR_findHashIndex(int32_t* index, uint32_t value, const uint32_t* valueArray, size_t arraySize) {
+bool_t CVAR_findHashIndex(int32_t* index, uint32_t value, const uint32_t* valueArray, size_t arraySize) {
     return BSEARCH_uint32(index, value, valueArray, arraySize);
 }
 

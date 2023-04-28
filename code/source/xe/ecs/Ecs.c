@@ -60,7 +60,7 @@ typedef struct ecs_s {
 } ecs_t;
 
 static ecs_t ecs;
-static boolean_t ecsInit = false;
+static bool_t ecsInit = false;
 
 /*=======================================================================================================================================*/
 void Ecs_Initialise(void) {
@@ -144,7 +144,7 @@ void Ecs_RegisterNamedComponent( const char * name, size_t capacity, size_t stru
     
     uint32_t componentIndex = ( uint32_t ) ecs.componentCount;
     int32_t insertIndex = -1;
-    boolean_t found;
+    bool_t found;
     uint64_t nameHash;
     
     /* Insert the name pointer into a sorted look-up map  */
@@ -227,7 +227,7 @@ void * Ecs_AddComponentInternal( ecs_entity_t ent, ecs_component_array_t * compA
 /*=======================================================================================================================================*/
 void * Ecs_AddNamedComponent( ecs_entity_t ent, const char * compName ) {
     int32_t index = -1;
-    boolean_t found = Bsearch_FindVoidPtr( &index, (void*) compName, (const void**) ecs.componentNames, ecs.componentCount );
+    bool_t found = Bsearch_FindVoidPtr( &index, (void*) compName, (const void**) ecs.componentNames, ecs.componentCount );
     xassert( found == true );
     
     /* Returned index is actually an index into the name map, which contains the index of the component
@@ -241,7 +241,7 @@ void * Ecs_AddNamedComponent( ecs_entity_t ent, const char * compName ) {
 void * Ecs_AddHashedNamedComponent( ecs_entity_t ent, const char * compName ) {
     uint64_t hash = FH64_CalcFromCStr( compName );
     int32_t index = -1;
-    boolean_t found = Bsearch_FindUint64( &index, hash, ecs.componentNameHashes, ecs.componentCount );
+    bool_t found = Bsearch_FindUint64( &index, hash, ecs.componentNameHashes, ecs.componentCount );
     xassert( found == true );
     
     /* Returned index is actually an index into the name map, which contains the index of the component
@@ -254,7 +254,7 @@ void * Ecs_AddHashedNamedComponent( ecs_entity_t ent, const char * compName ) {
 /*=======================================================================================================================================*/
 int32_t Ecs_GetComponentArrayIndex( const char * name ) {
     int32_t index = -1;
-    boolean_t found = Bsearch_FindVoidPtr( &index, (void*) name, (const void**) ecs.componentNames, ecs.componentCount );
+    bool_t found = Bsearch_FindVoidPtr( &index, (void*) name, (const void**) ecs.componentNames, ecs.componentCount );
     if ( found == false ) {
         return -1;
     }
@@ -388,7 +388,7 @@ void Ecs_SystemThink( int32_t systemIndex, ecs_think_params_t * params ) {
 }
 
 /*=======================================================================================================================================*/
-static boolean_t Ecs_IsMessageCommited( ecs_entity_info_t * info ) {
+static bool_t Ecs_IsMessageCommited( ecs_entity_info_t * info ) {
     return atomic_load( &info->messagePtr ) == atomic_load( &info->messageCommitPtr ) ? true : false;
 }
 
@@ -398,7 +398,7 @@ void Ecs_SendMessage( ecs_entity_t ent, uint16_t msgId, const void * data, size_
     
     uint32_t ptr = 0;
     uint32_t newPtr = 0;
-    boolean_t loop = true;
+    bool_t loop = true;
     
     do {
         /* Wait for any current messages being written to commit */

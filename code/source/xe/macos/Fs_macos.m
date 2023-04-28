@@ -37,7 +37,7 @@
 typedef struct file_data_s {
     uint64_t    index;
     FILE*       file;
-    boolean_t       free;
+    bool_t       free;
 } file_data_t;
 
 typedef struct fs_s {
@@ -54,9 +54,9 @@ typedef struct fs_s {
 fs_t fsLocal;
 fs_t* fileSystem = NULL;
 
-static boolean_t FS_MakePath( str_t * pathOut, const char * path );
+static bool_t FS_MakePath( str_t * pathOut, const char * path );
 
-static boolean_t FS_FindFreeFile(int32_t* indexOut);
+static bool_t FS_FindFreeFile(int32_t* indexOut);
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
 void FS_Initialise(void) {
@@ -90,8 +90,8 @@ void FS_Finalise(void) {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-boolean_t FS_FileOpen( file_t * self_, const char* path, const char* mode) {
-    boolean_t makePathOk = FALSE;
+bool_t FS_FileOpen( file_t * self_, const char* path, const char* mode) {
+    bool_t makePathOk = FALSE;
     
     FILE*  file = NULL;
     
@@ -152,7 +152,7 @@ uintptr_t FS_FileTell(file_t* file) {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-boolean_t FS_FileSeek(file_t* file, uintptr_t pos) {
+bool_t FS_FileSeek(file_t* file, uintptr_t pos) {
     file_data_t * fileData = (file_data_t * ) file->data;
     int res;
     
@@ -179,7 +179,7 @@ size_t FS_FileWrite(file_t* file, const void* buffer, size_t elementSize, size_t
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-static boolean_t FS_MakePath( str_t * pathOut, const char * path ) {
+static bool_t FS_MakePath( str_t * pathOut, const char * path ) {
     if (path[0] == '~') {
         /* Path has a ~ prefix - so make an absolute path based on the data folder */
         
@@ -206,11 +206,11 @@ void FS_GetCurrentFolder( str_t * pathOut ) {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-char FS_folderSep() {
+char FS_FolderSep() {
     return '/';
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-char FS_folderSepOther() {
+char FS_FolderSepOther() {
     return '/';
 }

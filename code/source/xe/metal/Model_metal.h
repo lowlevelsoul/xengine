@@ -24,6 +24,8 @@
 #import <Metal/Metal.h>
 #include "render/Model.h"
 
+typedef struct material_s material_t;
+
 typedef struct model_metal_s {
     id<MTLBuffer>       vertices;
     id<MTLBuffer>       indices;
@@ -35,6 +37,10 @@ typedef struct model_metal_s {
     size_t              indexCount;
     size_t              indexStride;
     size_t              indexSize;
+    size_t              meshCount;
+    
+    mesh_t *            meshes;
+    material_t **       materials;
     
     vec3_t              boundsMin;
     vec3_t              boundsMax;

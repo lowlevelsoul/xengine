@@ -39,9 +39,9 @@ typedef vec4_t sphere_t;
 
 XE_API void Frustum_SetShape( frustum_t * self_, float fov, float aspect, float near, float far );
 XE_API void Frustum_SetTransform( frustum_t * self_, const mat4_t * xform );
-XE_API void Frustum_CalculatePlanes( frustum_t * self_, boolean_t useTransform );
+XE_API void Frustum_CalculatePlanes( frustum_t * self_, bool_t useTransform );
 
-XE_API boolean_t Frustum_ClipSegment( const frustum_t * self_, vec3_t *result , const vec3_t * p0, const vec3_t * p1 );
-XE_API boolean_t Frustum_TestSphere( const frustum_t * self_, vec3_t * closestPoint, const sphere_t * sphere );
+XE_API bool_t Frustum_ClipSegment( const frustum_t * self_, vec3_t *result , const vec3_t * p0, const vec3_t * p1 );
+XE_API bool_t Frustum_TestSphere( const frustum_t * self_, vec3_t * closestPoint, const sphere_t * sphere );
 
 #endif

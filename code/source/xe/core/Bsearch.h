@@ -31,11 +31,11 @@
 #define BSEARCH_BODY(INDEX_TYPE, VALUE_TYPE, INDEX_PTR, VALUE, ARRAY, ARRAY_SIZE)\
     INDEX_TYPE first = 0;\
     INDEX_TYPE last = (INDEX_TYPE)( ARRAY_SIZE - 1 );\
-    boolean_t found = FALSE;\
+    bool_t found = false;\
     while ( first <= last ) {\
         INDEX_TYPE mid = ( ( last - first ) / 2 ) + first;\
         if ( ARRAY[ mid ] == VALUE ) {\
-            found = TRUE;\
+            found = true;\
             first = mid;\
             break;\
         } else if ( ARRAY[ mid ] < VALUE ) {\
@@ -49,14 +49,14 @@
     }\
     return found;
 
-XE_API boolean_t Bsearch_FindUint16( int32_t * indexOut, uint16_t value, const uint16_t * ValueArray, size_t arraySize);
+XE_API bool_t Bsearch_FindUint16( int32_t * indexOut, uint16_t value, const uint16_t * ValueArray, size_t arraySize);
 
-XE_API boolean_t Bsearch_FindUint32( int32_t * indexOut, uint32_t value, const uint32_t * ValueArray, size_t arraySize);
+XE_API bool_t Bsearch_FindUint32( int32_t * indexOut, uint32_t value, const uint32_t * ValueArray, size_t arraySize);
 
-XE_API boolean_t Bsearch_FindUint64( int32_t * indexOut, uint64_t value, const uint64_t * ValueArray, size_t arraySize);
+XE_API bool_t Bsearch_FindUint64( int32_t * indexOut, uint64_t value, const uint64_t * ValueArray, size_t arraySize);
 
-XE_API boolean_t Bsearch_FindUintPtr( int32_t * indexOut, uintptr_t value, const uintptr_t * ValueArray, size_t arraySize);
+XE_API bool_t Bsearch_FindUintPtr( int32_t * indexOut, uintptr_t value, const uintptr_t * ValueArray, size_t arraySize);
 
-XE_API boolean_t Bsearch_FindVoidPtr( int32_t * indexOut, void * value, const void ** ValueArray, size_t arraySize);
+XE_API bool_t Bsearch_FindVoidPtr( int32_t * indexOut, void * value, const void ** ValueArray, size_t arraySize);
 
 #endif

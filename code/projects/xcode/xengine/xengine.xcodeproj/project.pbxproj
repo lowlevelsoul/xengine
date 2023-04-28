@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A445B7D29FC16D700BC8784 /* MaterialStream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A445B7C29FC16D700BC8784 /* MaterialStream.c */; };
+		1A445B7E29FC1C2400BC8784 /* Material_local.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2728F538A400CF10A8 /* Material_local.c */; };
+		1A445B8129FC384500BC8784 /* TexStream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A445B8029FC384500BC8784 /* TexStream.c */; };
 		D326364428F450A800099842 /* ConvexShape.c in Sources */ = {isa = PBXBuildFile; fileRef = D326364328F450A800099842 /* ConvexShape.c */; };
 		D326364728F45B8000099842 /* ShapeInst.h in Headers */ = {isa = PBXBuildFile; fileRef = D326364528F45B8000099842 /* ShapeInst.h */; };
 		D326364828F45B8000099842 /* ShapeInst.c in Sources */ = {isa = PBXBuildFile; fileRef = D326364628F45B8000099842 /* ShapeInst.c */; };
@@ -51,7 +54,6 @@
 		D37D2C3328F538A400CF10A8 /* ModelStream.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2428F538A400CF10A8 /* ModelStream.c */; };
 		D37D2C3428F538A400CF10A8 /* Render3d_local.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2528F538A400CF10A8 /* Render3d_local.c */; };
 		D37D2C3528F538A400CF10A8 /* Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = D37D2C2628F538A400CF10A8 /* Texture.h */; };
-		D37D2C3628F538A400CF10A8 /* Material_local.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2728F538A400CF10A8 /* Material_local.c */; };
 		D37D2C3728F538A400CF10A8 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = D37D2C2828F538A400CF10A8 /* Material.h */; };
 		D37D2C3828F538A400CF10A8 /* Camera.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2928F538A400CF10A8 /* Camera.c */; };
 		D37D2C3928F538A400CF10A8 /* Render3d.h in Headers */ = {isa = PBXBuildFile; fileRef = D37D2C2A28F538A400CF10A8 /* Render3d.h */; };
@@ -110,6 +112,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A445B7B29FC162400BC8784 /* MaterialStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialStream.h; sourceTree = "<group>"; };
+		1A445B7C29FC16D700BC8784 /* MaterialStream.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MaterialStream.c; sourceTree = "<group>"; };
+		1A445B7F29FC376700BC8784 /* TexStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TexStream.h; sourceTree = "<group>"; };
+		1A445B8029FC384500BC8784 /* TexStream.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = TexStream.c; sourceTree = "<group>"; };
 		D326364228F44F8300099842 /* ConvexShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexShape.h; sourceTree = "<group>"; };
 		D326364328F450A800099842 /* ConvexShape.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ConvexShape.c; sourceTree = "<group>"; };
 		D326364528F45B8000099842 /* ShapeInst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeInst.h; sourceTree = "<group>"; };
@@ -515,6 +521,10 @@
 				D37D2C2628F538A400CF10A8 /* Texture.h */,
 				D37D2C4928F5C3D300CF10A8 /* MaterialResource.h */,
 				D37D2C4A28F5C3D300CF10A8 /* MaterialResource.c */,
+				1A445B7B29FC162400BC8784 /* MaterialStream.h */,
+				1A445B7C29FC16D700BC8784 /* MaterialStream.c */,
+				1A445B7F29FC376700BC8784 /* TexStream.h */,
+				1A445B8029FC384500BC8784 /* TexStream.c */,
 			);
 			path = render;
 			sourceTree = "<group>";
@@ -811,12 +821,14 @@
 				D3B9E9B028F2D12600214B63 /* farmhash.cpp in Sources */,
 				D37D2C4C28F5C3D400CF10A8 /* MaterialResource.c in Sources */,
 				D36A590328ED5BD300F171D1 /* Mem.c in Sources */,
+				1A445B7D29FC16D700BC8784 /* MaterialStream.c in Sources */,
 				D36A590A28ED5BD300F171D1 /* Crc32.c in Sources */,
 				D36A598E28F13FC700F171D1 /* Str.c in Sources */,
 				D36A590428ED5BD300F171D1 /* Fs.c in Sources */,
+				1A445B8129FC384500BC8784 /* TexStream.c in Sources */,
+				1A445B7E29FC1C2400BC8784 /* Material_local.c in Sources */,
 				D36A595428EDAF3F00F171D1 /* FrameHeap.c in Sources */,
 				D37D2C3328F538A400CF10A8 /* ModelStream.c in Sources */,
-				D37D2C3628F538A400CF10A8 /* Material_local.c in Sources */,
 				D3B9E9B528F2D17200214B63 /* fh64.c in Sources */,
 				D37D2C3428F538A400CF10A8 /* Render3d_local.c in Sources */,
 				D37D2C5B28F8782C00CF10A8 /* Ecs.c in Sources */,

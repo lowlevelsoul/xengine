@@ -30,6 +30,7 @@ typedef struct material_local_s {
     int64_t         batchIndex;
     texture_t *     textureAlbedo;
     texture_t *     textureGlow;
+    texture_t *     textureAmr;
 } material_local_t;
 
 #endif

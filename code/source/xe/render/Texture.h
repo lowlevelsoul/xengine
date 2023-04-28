@@ -66,7 +66,8 @@ XE_API uint32_t Texture_GetWidth( texture_t * self_ );
 XE_API uint32_t Texture_GetHeight( texture_t * self_ );
 XE_API uint32_t Texture_GetMipCount( texture_t * self_ );
 
-XE_API boolean_t Texture_Load( texture_t * self_, file_t * file );
+XE_API bool_t Texture_LoadImage( texture_t * self_, file_t * file, const char * path );
+XE_API bool_t Texture_LoadBtex( texture_t * self_, file_t * file, const char * path );
 
 extern resource_factory_t * texture_resource_factory;
 

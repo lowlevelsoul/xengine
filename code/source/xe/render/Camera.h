@@ -46,8 +46,8 @@ typedef struct camera_s {
     mat4_t      projection;
     
     camera_mode_t mode;
-    boolean_t   transformStale;
-    boolean_t   projectionScale;
+    bool_t   transformStale;
+    bool_t   projectionScale;
 } camera_t;
 
 

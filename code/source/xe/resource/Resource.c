@@ -57,7 +57,7 @@ typedef struct resource_mgr_s {
 } resource_mgr_t;
 
 static resource_mgr_t res;
-static boolean_t resInit = false;
+static bool_t resInit = false;
 
 /*=======================================================================================================================================*/
 void * Resource_GetData( resource_t * self_ ) {
@@ -98,12 +98,12 @@ uint64_t Resource_CalcExtensionHashCStr( const char * ext ) {
 /*=======================================================================================================================================*/
 str_t Resource_GetPathExtensionCStr( const char * path ) {
     Str_CopyCStr( &res.pathTemp, path );
-    boolean_t gotExt = Str_PathGetExtension( &res.extTemp, res.pathTemp );
+    bool_t gotExt = Str_PathGetExtension( &res.extTemp, res.pathTemp );
     return ( gotExt == false ) ? NULL : res.extTemp;
 }
 
 /*=======================================================================================================================================*/
-boolean_t Resource_GetExtensionHashFromPathCStr( uint64_t * hashOut, const char * path ) {
+bool_t Resource_GetExtensionHashFromPathCStr( uint64_t * hashOut, const char * path ) {
     str_t extStr = Resource_GetPathExtensionCStr( path );
     if ( extStr == NULL ) {
         *hashOut = 0;
@@ -138,11 +138,11 @@ uint64_t Resource_CalcPathHash( str_t path ) {
 /*=======================================================================================================================================*/
 resource_factory_t * Resource_FindFactory( const char * path ) {
     uint64_t hash = 0;
-    boolean_t gotExtHash = Resource_GetExtensionHashFromPathCStr( &hash, path );
+    bool_t gotExtHash = Resource_GetExtensionHashFromPathCStr( &hash, path );
     assert( gotExtHash == true );
     
     int32_t index = -1;
-    boolean_t found = Bsearch_FindUint64( &index,  hash, res.factoryHashes, res.factoryCount );
+    bool_t found = Bsearch_FindUint64( &index,  hash, res.factoryHashes, res.factoryCount );
     if ( found == false ) {
         return NULL;
     }
@@ -156,7 +156,7 @@ resource_t * Resource_FindInternal( const char * path ) {
     uint64_t hash = Resource_CalcPathHashCStr( path );
     
     int32_t index = -1;
-    boolean_t found = Bsearch_FindUint64( &index, hash, res.resourceHashes, res.resourceCount );
+    bool_t found = Bsearch_FindUint64( &index, hash, res.resourceHashes, res.resourceCount );
     if ( found == false ) {
         return NULL;
     }
@@ -201,7 +201,7 @@ void Resource_RegisterFactory( resource_factory_t * factory, const char * ext ) 
     
     /* Get the insertion position of the hash in the sorted array */
     int32_t index = -1;
-    boolean_t found = Bsearch_FindUint64( &index,  hash, res.factoryHashes, res.factoryCount );
+    bool_t found = Bsearch_FindUint64( &index,  hash, res.factoryHashes, res.factoryCount );
     assert( found == false );
     
     uint32_t factoryPos = (uint32_t) res.factoryCount;
@@ -216,7 +216,7 @@ void Resource_RegisterFactory( resource_factory_t * factory, const char * ext ) 
 /*=======================================================================================================================================*/
 void Resource_Add( resource_data_t * resToAdd ) {
     int32_t index = -1;
-    boolean_t found = Bsearch_FindUint64( &index, resToAdd->pathHash, res.resourceHashes, res.resourceCount );
+    bool_t found = Bsearch_FindUint64( &index, resToAdd->pathHash, res.resourceHashes, res.resourceCount );
     assert( found == false );
     
     Array_InsertAtPosUint64( index, resToAdd->pathHash, res.resourceHashes, res.resourceCount, MAX_RESOURCES );
@@ -225,7 +225,7 @@ void Resource_Add( resource_data_t * resToAdd ) {
 }
 
 /*=======================================================================================================================================*/
-resource_t * Resource_LoadInternal( const char * path, boolean_t loadNow ) {
+resource_t * Resource_LoadInternal( const char * path, bool_t loadNow ) {
     xprintf("Loading resource %s\n", path);
     
     /* If the resource already exists, we'll just return it */
@@ -264,8 +264,8 @@ resource_t * Resource_LoadInternal( const char * path, boolean_t loadNow ) {
         xprintf("    Loading now\n");
         /* Load the resource now if required */
         file_t file;
-        boolean_t openOk = FS_FileOpen( &file, path, "rb" );
-        xerror( openOk == false, "Could not open resource file '%' for reading\n", path );
+        bool_t openOk = FS_FileOpen( &file, path, "rb" );
+        xerror( openOk == false, "Could not open resource file '%s' for reading\n", path );
         
         factory->load( resource, &file, path );
         

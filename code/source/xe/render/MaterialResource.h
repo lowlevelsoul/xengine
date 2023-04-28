@@ -32,7 +32,7 @@ XE_API void MaterialResource_EndParsing(void);
 XE_API void MaterialResource_SetAlbedoTexture( parse_literal_t * path );
 XE_API void MaterialResource_SetGlowTexture( parse_literal_t * path );
 XE_API void MaterialResource_LogError( const char * fmt, ... );
-XE_API boolean_t MaterialResource_HasErrors( void );
+XE_API bool_t MaterialResource_HasErrors( void );
 XE_API void MaterialResource_IncLine( void );
 
 #endif

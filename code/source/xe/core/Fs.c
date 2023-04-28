@@ -28,10 +28,10 @@ const char* FS_getExt(const char* pathIn) {
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-boolean_t FS_appendPath(char* path, size_t pathBuffSize, const char* pathAppend) {
+bool_t FS_appendPath(char* path, size_t pathBuffSize, const char* pathAppend) {
     size_t currPathLen, appendPathLen, pathNewLen;
     char pathTrailingChar, appendLeadingChar;
-    boolean_t hasTrailingSep, hasLeadingSep;
+    bool_t hasTrailingSep, hasLeadingSep;
     
     assert(path != NULL);
     assert(pathAppend != NULL);
@@ -47,17 +47,17 @@ boolean_t FS_appendPath(char* path, size_t pathBuffSize, const char* pathAppend)
     
     pathNewLen = currPathLen + appendPathLen;
     
-    if ((hasTrailingSep == TRUE) && (hasLeadingSep == TRUE)) {
+    if ((hasTrailingSep == true) && (hasLeadingSep == true)) {
         /* There is a leading and traing separator - so trim the separator
            from the pathh we're appending */
         ++pathAppend;
         --pathNewLen;
-    } else if ((hasTrailingSep == FALSE) && (hasLeadingSep == FALSE)) {
+    } else if ((hasTrailingSep == false) && (hasLeadingSep == false)) {
         /* There is neither a trailing or leading path separator, s
            so we need to add one
          */
         if (currPathLen == pathBuffSize) {
-            return FALSE;
+            return false;
         }
         
         path[currPathLen++] = FS_FolderSep();
@@ -68,11 +68,11 @@ boolean_t FS_appendPath(char* path, size_t pathBuffSize, const char* pathAppend)
        errr...append the path!
     */
     if (pathNewLen >= pathBuffSize) {
-        return FALSE;
+        return false;
     }
     
     strcpy(&path[currPathLen], pathAppend);
     
-    return TRUE;
+    return false;
 }
 

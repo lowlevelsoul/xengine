@@ -28,12 +28,6 @@
 #   include <TargetConditionals.h>
 #endif
 
-#ifndef __cplusplus
-typedef uint32_t boolean_t;
-#define TRUE 1
-#define FALSE 0
-#endif
-
 #define X_INLINE inline
 
 typedef enum bool_e {
@@ -51,5 +45,7 @@ typedef enum bool_e {
 #else
 #   define XE_API
 #endif
+
+#define XE_CALC_OFFSET_PTR( TYPE, PTR, OFFS ) (TYPE) (((uintptr_t)PTR) + OFFS)
 
 #endif

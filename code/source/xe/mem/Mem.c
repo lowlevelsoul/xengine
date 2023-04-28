@@ -36,7 +36,7 @@ typedef struct mem_s {
 } mem_t;
 
 mem_t mem;
-boolean_t memInit = false;
+bool_t memInit = false;
 
 /*=======================================================================================================================================*/
 void * default_malloc( size_t size ) {
@@ -128,7 +128,7 @@ typedef struct mem_manager_s {
     allocator_t     globalAlloctor;
 } mem_manager_t;
 
-static boolean_t memManagerInit = FALSE;
+static bool_t memManagerInit = FALSE;
 static mem_manager_t memManager;
 
 static void* AllocatorDefault_MallocAligned( size_t size, size_t alignAmt );
@@ -240,7 +240,7 @@ void Mem_AddHeap(uint32_t heapId, void* heapMem, size_t heapMemSize) {
     
     /* Add the heap into the arrays sorted by the heap base address */
     int32_t index = - 1;
-    boolean_t found = Bsearch_FindUintPtr(&index, (uintptr_t)heapMem, memManager.heapAddresSorted, memManager.heapCount);
+    bool_t found = Bsearch_FindUintPtr(&index, (uintptr_t)heapMem, memManager.heapAddresSorted, memManager.heapCount);
     xasserte(found == false, "This heap address is already in use");
     
     Array_InsertAtPosUintPtr(index, (uintptr_t) heapMem, memManager.heapAddresSorted, memManager.heapCount, HEAP_CAPACITY);

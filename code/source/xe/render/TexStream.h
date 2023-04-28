@@ -18,30 +18,40 @@
 ===========================================================================================================================================
 */
 
-#ifndef __FS_H__
-#define __FS_H__
+#ifndef __TEXTURESTREAM_H__
+#define __TEXTURESTREAM_H__
 
 #include "core/Common.h"
-#include "Str.h"
 
-typedef struct file_s {
-    uint64_t        data[8];
-} file_t;
+#define TEXSTREAM_VERSION 2
+#define TEXSTREAM_MAX_MIP_COUNT 32
 
-XE_API void        FS_Initialise       ( void );
-XE_API void        FS_Finalise         ( void );
+#define TEXSTREAM_F_IMAGE_BIN = 0x00000001;
 
-XE_API bool_t   FS_FileOpen         ( file_t * self_, const char* path, const char* mode );
-XE_API void        FS_FileClose        ( file_t * file );
-XE_API size_t      FS_FileLength       ( file_t * file );
-XE_API uintptr_t   FS_FileTell         ( file_t * file );
-XE_API bool_t   FS_FileSeek         ( file_t * file, uintptr_t pos );
-XE_API size_t      FS_FileRead         ( file_t * file, void* buffer, size_t elementSize, size_t elementCount );
-XE_API size_t      FS_FileWrite        ( file_t * file, const void* buffer, size_t elementSize, size_t elementCount );
+typedef enum tex_stream_format_e {
+    TEXSTREAM_FORMAT_RGB_U8 = 0,
+    TEXSTREAM_FORMAT_RGBA_U8,
+    TEXSTREAM_FORMAT_RGB_BC1,
+    TEXSTREAM_FORMAT_RGBA_BC1,
+    TEXSTREAM_FORMAT_RGBA_BC2,
+    TEXSTREAM_FORMAT_RGBA_BC3,
+    
+    TEXSTREAM_FORMAT_RGB_ETC2,
+    TEXSTREAM_FORMAT_RGBA_ETC2,
+    
+    TEXSTREAM_FORMAT_NONE = 0xffffffff
+} tex_stream_format_t;
 
-XE_API const char* FS_GetExt           ( const char* pathIn );
-XE_API char        FS_FolderSep        ( void );
-XE_API char        FS_FolderSepOther   ( void );
-XE_API void        FS_GetCurrentFolder ( str_t * pathOut );
+typedef struct tex_stream_s {
+        uint32_t        version;
+        uint32_t        flags;
+        uint32_t        format;
+        uint32_t        width;
+        uint32_t        height;
+        uint32_t        mipCount;
+        uint32_t        offsImages[ TEXSTREAM_MAX_MIP_COUNT ];
+} tex_stream_t;
+
+XE_API const uint8_t * TexStream_GetImage( const tex_stream_t * str, uint32_t index );
 
 #endif

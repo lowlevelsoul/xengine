@@ -147,7 +147,7 @@ void * EcsComponentArray_GetComponentForEntity( ecs_component_array_t * self_, e
 }
 
 /*=======================================================================================================================================*/
-boolean_t EcsComponentArray_HasEntity( const ecs_component_array_t * self_, ecs_entity_t ent ) {
+bool_t EcsComponentArray_HasEntity( const ecs_component_array_t * self_, ecs_entity_t ent ) {
     ecs_array_data_t * data = (ecs_array_data_t *) self_;
     
     xassert( ent != ECS_ENTITY_NULL );

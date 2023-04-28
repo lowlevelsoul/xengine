@@ -26,7 +26,7 @@
 
 // Version 5 - skin influences
 // Version 6 - built-in materials
-#define MODEL_STREAM_VERSION 6
+#define MODEL_STREAM_VERSION 7
 #define F_MODEL_STREAM_SKINNED 1
     
 typedef struct mesh_stream_s {

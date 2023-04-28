@@ -32,7 +32,7 @@ typedef char * str_t;
     /param rhs The string that is being queried
     /returns true if th string is empty, false if not. The string is assumed to be emtpy if rhs is NULL
  */
-XE_API boolean_t Str_IsEmpty( const str_t rhs );
+XE_API bool_t Str_IsEmpty( const str_t rhs );
 
 /**
     /brief Returns the length of a dynamic string
@@ -116,12 +116,14 @@ XE_API void Str_AppendPath( str_t * self_, const str_t rhs );
 
 XE_API intptr_t Str_PathFindExtension( const str_t self_ );
 
-XE_API boolean_t Str_PathRemoveExtension( str_t * self_ );
+XE_API bool_t Str_PathRemoveExtension( str_t * self_ );
 
-XE_API boolean_t Str_PathGetExtension( str_t * ext, const str_t path );
+XE_API bool_t Str_PathGetExtension( str_t * ext, const str_t path );
 
 XE_API void Str_VFormatArgs( str_t * self_, const char * fmt, va_list vaArgs );
 
 XE_API void Str_VFormat( str_t * self_, const char * fmt, ... );
+
+XE_API bool_t Str_PathRemoveLastElement( str_t * self_ );
 
 #endif

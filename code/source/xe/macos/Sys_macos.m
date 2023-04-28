@@ -24,7 +24,7 @@
 #import <stdarg.h>
 
 static sys_macos_t sys;
-static boolean_t sysInit = bool_false;
+static bool_t sysInit = bool_false;
 static str_t printStrResult = NULL;
 
 /*======================================================================================================================================= */

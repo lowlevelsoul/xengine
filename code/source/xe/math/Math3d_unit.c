@@ -25,7 +25,7 @@
 #define DEG90_RAD 1.5708f
 
 /*=======================================================================================================================================*/
-boolean_t vec3_testSimilarity( const vec3_t* a, const vec3_t* b, float tol) {
+bool_t vec3_testSimilarity( const vec3_t* a, const vec3_t* b, float tol) {
     vec3_t delta;
     float deltaMag;
 
@@ -35,7 +35,7 @@ boolean_t vec3_testSimilarity( const vec3_t* a, const vec3_t* b, float tol) {
 }
 
 /*=======================================================================================================================================*/
-boolean_t mat3_testSimilarity( const mat3_t* a, const mat3_t* b, float tol ) {
+bool_t mat3_testSimilarity( const mat3_t* a, const mat3_t* b, float tol ) {
     vec3_t tstVec;
     vec3_t resA, resB;
 
@@ -44,12 +44,12 @@ boolean_t mat3_testSimilarity( const mat3_t* a, const mat3_t* b, float tol ) {
     _Mat3_Transform( &resA, a, &tstVec );
     _Mat3_Transform( &resB, b, &tstVec );
 
-    boolean_t same = vec3_testSimilarity( &resA, &resB, tol );
+    bool_t same = vec3_testSimilarity( &resA, &resB, tol );
     return same;
 }
 
 /*=======================================================================================================================================*/
-boolean_t mat3_testInverse(float tol) {
+bool_t mat3_testInverse(float tol) {
     vec3_t rotAxis, srcVec, rotVec, rotVecInv;
     mat3_t rotMat, rotMatInv;
 
@@ -63,12 +63,12 @@ boolean_t mat3_testInverse(float tol) {
     _Mat3_Transform( &rotVec, &rotMat, &srcVec );
     _Mat3_Transform( &rotVecInv, &rotMatInv, &rotVec );
 
-    boolean_t same = vec3_testSimilarity( &rotVecInv, &srcVec, tol );
+    bool_t same = vec3_testSimilarity( &rotVecInv, &srcVec, tol );
     return same;
 }
 
 /*=======================================================================================================================================*/
-boolean_t mat3_testRotationAA(float tol) {
+bool_t mat3_testRotationAA(float tol) {
     vec3_t rotAxis, srcVec, rotVec, tstVec;
     mat3_t rotMat;
 
@@ -78,6 +78,6 @@ boolean_t mat3_testRotationAA(float tol) {
     _Mat3_Transform( &rotVec, &rotMat, &srcVec );
 
     Vec3_Set( tstVec, 0, 5, -5 );
-    boolean_t same = vec3_testSimilarity( &tstVec, &rotVec, tol );
+    bool_t same = vec3_testSimilarity( &tstVec, &rotVec, tol );
     return same;
 }

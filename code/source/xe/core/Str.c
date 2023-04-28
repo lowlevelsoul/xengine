@@ -165,7 +165,7 @@ void Str_EnsureLength( str_t * str, size_t desiredLength ) {
 }
 
 /*=======================================================================================================================================*/
-boolean_t Str_IsEmpty( const str_t rhs ) {
+bool_t Str_IsEmpty( const str_t rhs ) {
     str_header_t * rhsHeader = Str_GetHeader(rhs);
     if ( rhs == NULL ) {
         return true;
@@ -294,8 +294,8 @@ void Str_AppendCStr(str_t * self_, const char * rhs ) {
 
 /*=======================================================================================================================================*/
 void Str_Concat(str_t * dst, const str_t lhs, const str_t rhs ) {
-    boolean_t lhsEmpty = Str_IsEmpty( lhs );
-    boolean_t rhsEmpty = Str_IsEmpty( rhs );
+    bool_t lhsEmpty = Str_IsEmpty( lhs );
+    bool_t rhsEmpty = Str_IsEmpty( rhs );
     
     if ( lhsEmpty != rhsEmpty ) {
         /* Only one string is valid - we can just perform a copy */
@@ -445,8 +445,8 @@ void Str_AppendPathCStr( str_t * self_, const char * pathItem ) {
     
     /* If we get to here we have to properly append the path */
     str_header_t * selfHeader = Str_GetHeader( *self_ );
-    boolean_t selfHasSep = (*self_)[ selfHeader->length - 1 ] == '/' || (*self_)[ selfHeader->length - 1 ] == '\\';
-    boolean_t pathItemHasSep = pathItem[0] == '/' || pathItem[0] == '\\';
+    bool_t selfHasSep = (*self_)[ selfHeader->length - 1 ] == '/' || (*self_)[ selfHeader->length - 1 ] == '\\';
+    bool_t pathItemHasSep = pathItem[0] == '/' || pathItem[0] == '\\';
     
     if ( selfHasSep == pathItemHasSep ) {
         if ( selfHasSep == true ) {
@@ -484,8 +484,8 @@ void Str_AppendPath( str_t * self_, str_t rhs ) {
     /* If we get to here we have to properly append the path */
     str_header_t * selfHeader = Str_GetHeader( *self_ );
     char selfLastChar = (*self_)[ selfHeader->length - 1 ];
-    boolean_t selfHasSep = selfLastChar == '/' || selfLastChar == '\\';
-    boolean_t rhsHasSep = rhs[0] == '/' || rhs[0] == '\\';
+    bool_t selfHasSep = selfLastChar == '/' || selfLastChar == '\\';
+    bool_t rhsHasSep = rhs[0] == '/' || rhs[0] == '\\';
     
     if ( selfHasSep == rhsHasSep ) {
         if ( selfHasSep == true ) {
@@ -528,7 +528,41 @@ intptr_t Str_PathFindExtension( const str_t self_ ) {
 
 
 /*=======================================================================================================================================*/
-boolean_t Str_PathRemoveExtension( str_t * self_ ) {
+bool_t Str_PathRemoveLastElement( str_t * self_ ) {
+    const char * lastSep0 = NULL;
+    const char * lastSep1 = NULL;
+    const char * lastSep = NULL;
+    
+    if ( *self_ == NULL ) {
+        return false;
+    }
+    
+    lastSep0 = strrchr( *self_, '\\' );
+    lastSep1 = strrchr( *self_, '/' );
+    
+    if ( lastSep0 == NULL && lastSep1 == NULL ) {
+        /* No final element. So return */
+        return false;
+    }
+    
+    if ( lastSep0 != NULL && lastSep1 != NULL ) {
+        /* We found both seperator types. We need to find the last one */
+        lastSep = ( lastSep0 > lastSep1 ) ? lastSep0 : lastSep1;
+    }
+    else {
+        /* Only found one of the seperator types, so determine which one */
+        lastSep = ( lastSep0 != NULL ) ? lastSep0 : lastSep1;
+    }
+    
+    size_t newLength = ( size_t ) ( lastSep - *self_);
+    Str_SetLength( self_, newLength );
+    
+    return true;
+}
+
+
+/*=======================================================================================================================================*/
+bool_t Str_PathRemoveExtension( str_t * self_ ) {
     intptr_t extPos = Str_PathFindExtension( *self_ );
     if (extPos == STR_NOT_FOUND ) {
         return false;
@@ -539,7 +573,7 @@ boolean_t Str_PathRemoveExtension( str_t * self_ ) {
 }
 
 /*=======================================================================================================================================*/
-boolean_t Str_PathGetExtension( str_t * ext, const str_t path ) {
+bool_t Str_PathGetExtension( str_t * ext, const str_t path ) {
     intptr_t extPos = Str_PathFindExtension( path );
     if (extPos == STR_NOT_FOUND ) {
         return false;

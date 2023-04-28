@@ -28,15 +28,15 @@
 static void         ModelResource_Load( resource_t * self_, file_t * file, const char * path );
 static void *       ModelResource_Alloc( void );
 static void         ModelResource_Free( void * data );
+static void         Model_LoadMaterials( model_t * self_, model_stream_t * str, const char * path );
 
 DEFINE_RESOURCE_FACTORY("Model", Model, model )
 
 /*=======================================================================================================================================*/
-void Model_Load( model_t * self_, file_t * file ) {
+void Model_Load( model_t * self_, file_t * file, const char * path ) {
     model_stream_t * str = NULL;
     const void * vertexStr = NULL;
     const void * indexStr = NULL;
-    uint16_t * tempIndices = NULL;
     vec3_t bmin, bmax;
     size_t amtRead;
     
@@ -52,41 +52,59 @@ void Model_Load( model_t * self_, file_t * file ) {
     str = (model_stream_t *) data;
     assert( str->version == MODEL_STREAM_VERSION );
     
-    /* Can only have a single mesh */
-    assert( str->meshCount == 1 );
-    
     vertexStr = ModelStream_GetVertices( str );
     indexStr = ModelStream_GetIndices( str );
     
-    Model_Create( self_, str->vertexCount, str->indexCount, 0 );
+    Model_Create( self_, str->vertexCount, str->indexCount, str->meshCount, 0 );
     
     /* Write the vertex data */
     Model_WriteVertexData( self_, vertexStr, 0, str->vertexCount );
     
-    /* Write the index Data */
-    /* Note: Have to convert to uint16 for now */
-    assert( str->vertexCount < 65535 );
-    tempIndices = (uint16_t *) Mem_Alloc( sizeof(uint16_t) * str->indexCount );
+    /* Write the index Data */    
+    Model_WriteIndexData( self_, indexStr, 0, str->indexCount );
     
-    for ( int n = 0; n < str->indexCount; ++n ) {
-        tempIndices[n] = (uint16_t) ((const uint32_t *) indexStr)[n];
-    }
-    
-    Model_WriteIndexData( self_, tempIndices, 0, str->indexCount );
-    Mem_Free( tempIndices );
+    /* Write the mesh data */
+    Model_WriteMeshData( self_, ModelStream_GetMeshes( str ), 0, str->meshCount );
     
     /* Set model bounds */
     ModelStream_GetBounds( str, &bmin, &bmax );
     Model_SetBounds( self_, &bmin, &bmax );
+    
+    /* Load materials */
+    if ( path != NULL ) {
+        Model_LoadMaterials( self_, str, path );
+    }
     
     /* All done. Clean up! */
     Mem_Free( data );
 }
 
 /*=======================================================================================================================================*/
+void Model_LoadMaterials( model_t * self_, model_stream_t * str, const char * path ) {
+    
+    const mesh_stream_t * meshStr = ModelStream_GetMeshes( str );
+    resource_t * res = NULL;
+    
+    str_t resourceFolder = NULL;
+    str_t materialResPath = NULL;
+    Str_SetCapacity( &materialResPath, 256 );
+    Str_CopyCStr( &resourceFolder, path );
+    Str_PathRemoveLastElement( &resourceFolder );
+    
+    for ( uint32_t m = 0; m < str->meshCount; ++m ) {
+        const char * meshMat = ModelStream_GetMaterialNames( str ) + meshStr->material;
+        Str_Copy( &materialResPath, resourceFolder );
+        Str_AppendPathCStr( &materialResPath, meshMat );
+                
+        res = Resource_Load( materialResPath );
+        Model_SetMaterial( self_, m, (material_t*) Resource_GetData( res ) );
+    }
+}
+
+/*=======================================================================================================================================*/
 void ModelResource_Load( resource_t * self_, file_t * file, const char * path ) {
     model_t * model = (model_t*) Resource_GetData( self_ );
-    Model_Load( model, file );
+    Model_Load( model, file, path );
 }
 
 /*=======================================================================================================================================*/

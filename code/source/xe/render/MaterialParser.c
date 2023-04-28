@@ -1632,7 +1632,7 @@ yyreturn:
 
 
 /*====================================================================================================================*/
-boolean_t MaterialResource_Parse( file_t * file ) {
+bool_t MaterialResource_Parse( file_t * file ) {
 
     /* Get the length of the file and allocate a buffer with space for two 
      null terminators at the end. This is a requirement for certain 

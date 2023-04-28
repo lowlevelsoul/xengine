@@ -35,7 +35,7 @@ typedef struct engine_s {
     game_interface_t gameInterface;
     mem_allocator_t * gameAllocator;
     uint64_t lastTick;
-    boolean_t firstFrame;
+    bool_t firstFrame;
 } engine_t;
 
 engine_t engine;

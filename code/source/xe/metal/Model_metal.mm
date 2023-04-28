@@ -21,10 +21,13 @@
 #include "render/Model.h"
 #include "metal/Model_metal.h"
 #include "metal/Render_metal.h"
+#include "mem/Mem.h"
 #include <new>
 
 /*=======================================================================================================================================*/
-void Model_Create( model_t * self_, size_t vertexCount, size_t indexCount, uint64_t flags) {
+void Model_Create( model_t * self_, size_t vertexCount, size_t indexCount, size_t meshCount, uint64_t flags) {
+    static_assert( sizeof(model_t) >= sizeof(model_metal_t), "Size of model_t is too small for implementation" );
+    
     model_metal_t * modelMtl = new( (void*)self_ ) model_metal_t;
     
     modelMtl->vertexCount = vertexCount;
@@ -32,8 +35,13 @@ void Model_Create( model_t * self_, size_t vertexCount, size_t indexCount, uint6
     modelMtl->vertexSize = modelMtl->vertexCount * modelMtl->vertexStride;
     
     modelMtl->indexCount = indexCount;
-    modelMtl->indexStride = sizeof(uint16_t);
+    modelMtl->indexStride = sizeof(uint32_t);
     modelMtl->indexSize = modelMtl->indexCount * modelMtl->indexStride;
+    
+    modelMtl->meshCount = meshCount;
+    modelMtl->meshes = (mesh_t *) Mem_Alloc( sizeof(mesh_t) * meshCount );
+    modelMtl->materials = (material_t**) Mem_Alloc( sizeof(void*) * meshCount );
+    memset( modelMtl->materials, 0, sizeof(void*) * meshCount );
     
     id<MTLDevice> mtlDevice = Render_GetDevice();
     modelMtl->vertices = [ mtlDevice newBufferWithLength:modelMtl->vertexSize options:0 ];
@@ -46,15 +54,31 @@ void Model_Create( model_t * self_, size_t vertexCount, size_t indexCount, uint6
 /*=======================================================================================================================================*/
 void Model_Destroy( model_t * self_ ) {
     model_metal_t * modelMtl = (model_metal_t *) self_;
+    assert( self_ != nullptr );
     
     modelMtl->vertices = nil;
     modelMtl->indices = nil;
+    
+    Mem_Free( modelMtl->meshes );
+    Mem_Free( modelMtl->materials );
     
     modelMtl->~model_metal_t();
 }
 
 /*=======================================================================================================================================*/
+void Model_WriteMeshData( model_t * self_, const void * src, uintptr_t start, size_t count ) {
+    model_metal_t * modelMtl = (model_metal_t *) self_;
+    
+    assert( self_ != nullptr );
+    assert( start + count <= modelMtl->meshCount );
+    
+    size_t countBytes = count * sizeof( mesh_t );
+    memcpy( &modelMtl->meshes[ start ], src, countBytes );
+}
+
+/*=======================================================================================================================================*/
 void Model_WriteVertexData( model_t * self_, const void * src, uintptr_t start, size_t count ) {
+    assert( self_ != nullptr );
     model_metal_t * modelMtl = (model_metal_t *) self_;
     
     assert( start + count <= modelMtl->vertexCount );
@@ -65,6 +89,7 @@ void Model_WriteVertexData( model_t * self_, const void * src, uintptr_t start, 
 
 /*=======================================================================================================================================*/
 void Model_WriteIndexData( model_t * self_, const void * src, uintptr_t start, size_t count ) {
+    assert( self_ != nullptr );
     model_metal_t * modelMtl = (model_metal_t *) self_;
     
     assert( start + count <= modelMtl->indexCount );
@@ -75,6 +100,7 @@ void Model_WriteIndexData( model_t * self_, const void * src, uintptr_t start, s
 
 /*=======================================================================================================================================*/
 void Model_SetBounds( model_t * self_, const vec3_t * boundsMin, const vec3_t * boundsMax ) {
+    assert( self_ != nullptr );
     model_metal_t * modelMtl = (model_metal_t *) self_;
     Vec3_Copy( modelMtl->boundsMin, *boundsMin );
     Vec3_Copy( modelMtl->boundsMax, *boundsMax );
@@ -82,6 +108,7 @@ void Model_SetBounds( model_t * self_, const vec3_t * boundsMin, const vec3_t * 
 
 /*=======================================================================================================================================*/
 void Model_GetBounds( model_t * self_, vec3_t * boundsMin, vec3_t * boundsMax ) {
+    assert( self_ != nullptr );
     model_metal_t * modelMtl = (model_metal_t *) self_;
     if ( boundsMin != nullptr ) {
         Vec3_Copy( *boundsMin,  modelMtl->boundsMin );
@@ -90,4 +117,20 @@ void Model_GetBounds( model_t * self_, vec3_t * boundsMin, vec3_t * boundsMax ) 
     if ( boundsMax != nullptr ) {
         Vec3_Copy( *boundsMax,  modelMtl->boundsMax );
     }
+}
+
+
+/*=======================================================================================================================================*/
+void Model_SetMaterial( model_t * self_, uint32_t index, material_t * mat ) {
+    assert( self_ != nullptr );
+    model_metal_t * modelMtl = (model_metal_t *) self_;
+    
+    assert( index < modelMtl->meshCount );
+    modelMtl->materials[ index ] = mat;
+}
+
+/*=======================================================================================================================================*/
+material_t ** Model_GetMaterials( model_t * self_ ) {
+    model_metal_t * modelMtl = (model_metal_t *) self_;
+    return modelMtl->materials;
 }

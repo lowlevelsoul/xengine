@@ -18,30 +18,10 @@
 ===========================================================================================================================================
 */
 
-#ifndef __FS_H__
-#define __FS_H__
+#include "render/TexStream.h"
 
-#include "core/Common.h"
-#include "Str.h"
-
-typedef struct file_s {
-    uint64_t        data[8];
-} file_t;
-
-XE_API void        FS_Initialise       ( void );
-XE_API void        FS_Finalise         ( void );
-
-XE_API bool_t   FS_FileOpen         ( file_t * self_, const char* path, const char* mode );
-XE_API void        FS_FileClose        ( file_t * file );
-XE_API size_t      FS_FileLength       ( file_t * file );
-XE_API uintptr_t   FS_FileTell         ( file_t * file );
-XE_API bool_t   FS_FileSeek         ( file_t * file, uintptr_t pos );
-XE_API size_t      FS_FileRead         ( file_t * file, void* buffer, size_t elementSize, size_t elementCount );
-XE_API size_t      FS_FileWrite        ( file_t * file, const void* buffer, size_t elementSize, size_t elementCount );
-
-XE_API const char* FS_GetExt           ( const char* pathIn );
-XE_API char        FS_FolderSep        ( void );
-XE_API char        FS_FolderSepOther   ( void );
-XE_API void        FS_GetCurrentFolder ( str_t * pathOut );
-
-#endif
+/*=======================================================================================================================================*/
+const uint8_t * TexStream_GetImage( const tex_stream_t * str, uint32_t index ) {
+    const uint8_t * ptr = XE_CALC_OFFSET_PTR( const uint8_t *, str, str->offsImages[ index ] );
+    return ptr;
+}

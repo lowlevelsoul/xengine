@@ -32,7 +32,7 @@
 uint8_t render3dMemory[sizeof(render3d_metal_t)];
 render3d_metal_t * const render3dMetal = (render3d_metal_t*) render3dMemory;
 render3d_t * const render3d = (render3d_t*) render3dMemory;
-boolean_t render3dInit = false;
+bool_t render3dInit = bool_false;
 
 static void Render_CreateRenderStates();
 static void Render_CreateAllPipelines();

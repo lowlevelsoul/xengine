@@ -55,7 +55,7 @@ void Frustum_SetTransform( frustum_t * self_, const mat4_t * xform ) {
 }
 
 /*=======================================================================================================================================*/
-void Frustum_CalculatePlanes( frustum_t * self_, boolean_t useTransform ) {
+void Frustum_CalculatePlanes( frustum_t * self_, bool_t useTransform ) {
     /* Construct the frustum vertices in local space */
     xassert( self_ != NULL );
     
@@ -136,10 +136,10 @@ void Frustum_ClipPoint( const frustum_t * self_, vec3_t * result, const vec3_t *
 }
 
 //======================================================================================================================
-boolean_t Frustum_ClipSegment( const frustum_t * self_, vec3_t *result , const vec3_t * p0, const vec3_t * p1 ) {
+bool_t Frustum_ClipSegment( const frustum_t * self_, vec3_t *result , const vec3_t * p0, const vec3_t * p1 ) {
     
     float closestT = 1;
-    boolean_t haveHit = false;
+    bool_t haveHit = false;
     plane_result_t hit;
     vec3_t q;
     float t;
@@ -170,7 +170,7 @@ boolean_t Frustum_ClipSegment( const frustum_t * self_, vec3_t *result , const v
 }
 
 //======================================================================================================================
-boolean_t Frustum_TestSphere( const frustum_t * self_, vec3_t * closestPoint, const sphere_t * sphere ) {
+bool_t Frustum_TestSphere( const frustum_t * self_, vec3_t * closestPoint, const sphere_t * sphere ) {
     
     vec3_t center;
     vec3_t delta;

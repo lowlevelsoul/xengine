@@ -48,7 +48,7 @@ typedef struct lexer_s {
 } lexer_t;
 
 lexer_t lexer;
-boolean_t lexerInit = false;
+bool_t lexerInit = false;
 
 static const char * WHITESPACE_CHARS = " \r\t\n\v\f";
 static const char * PUNC_CHARS = ";<>()[],.{}=";
@@ -151,14 +151,14 @@ void Lexer_LogPrint( log_type_t logType, const char * fmt, ... ) {
 /*=======================================================================================================================================*/
 lexer_result_t Lexer_EatWhiteSpace(void) {
     char currChar = 0;
-    boolean_t loop = true;
+    bool_t loop = true;
     
     do {
         if ( lexer.curr->pos >= lexer.curr->length ) {
             loop = false;
         }
         else {
-            boolean_t foundChar = false;
+            bool_t foundChar = false;
             currChar = lexer.states->text[ lexer.states->pos ];
             
             for ( const char * testChar = WHITESPACE_CHARS; *testChar != 0; ++testChar ) {
@@ -190,7 +190,7 @@ lexer_result_t Lexer_GetString( lexer_token_t * tokenOut ) {
     char currChar = LEXER_TEXT;
     uintptr_t endPos = LEXER_POS;
     uintptr_t startPos = endPos;
-    boolean_t loop = true;
+    bool_t loop = true;
 
     /* If we encounter the opening quote, move past it */
     if ( currChar == '\'' || currChar == '\"' ) {
@@ -258,7 +258,7 @@ lexer_result_t Lexer_EatCommentSingle(void) {
 }
 
 /*=======================================================================================================================================*/
-boolean_t Lexer_IsPunctuation(void) {
+bool_t Lexer_IsPunctuation(void) {
     for ( const char * p = PUNC_CHARS; *p != 0; ++ p ) {
         if ( *p == LEXER_TEXT ) {
             return true;
@@ -269,7 +269,7 @@ boolean_t Lexer_IsPunctuation(void) {
 }
 
 /*=======================================================================================================================================*/
-boolean_t Lexer_IsSingleLineComment(void) {
+bool_t Lexer_IsSingleLineComment(void) {
     if ( LEXER_TEXT == '/' ) {
         if ( lexer.curr->text[ LEXER_LENGTH + 1 ]  == '/' ) {
             return true;
@@ -282,7 +282,7 @@ boolean_t Lexer_IsSingleLineComment(void) {
 /*=======================================================================================================================================*/
 lexer_result_t Lexer_GetNextToken( lexer_token_t * tokenOut ) {
     lexer_result_t res;
-    boolean_t loop = false;
+    bool_t loop = false;
     
     do {
         if ( lexer.curr->pos >= lexer.curr->length ) {

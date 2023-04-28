@@ -31,7 +31,7 @@
 #define SYS_MAX_LISTENERS 8
 
 typedef struct sys_macos_s {
-    boolean_t                   timeIsMonotomic;
+    bool_t                   timeIsMonotomic;
     mach_timebase_info_data_t   timeBaseInfo;
     uint64_t                    machStartTime;
     struct timeval              tvStartTime;

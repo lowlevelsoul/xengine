@@ -19,17 +19,44 @@
 */
 
 #include "render/Texture.h"
+#include "render/TexStream.h"
 #include "stb_image.h"
 #include "Fs.h"
 #include "mem/Mem.h"
 #include <assert.h>
+#include <string.h>
 
 DEFINE_RESOURCE_FACTORY( "Texture", Texture, texture )
 
+static const SURFACE_FORMAT TEX_FORMAT_TABLE[] = {
+    SURFACE_FORMAT_RGB_U8,            // FORMAT_RGB_U8
+    SURFACE_FORMAT_RGBA_U8,           // FORMAT_RGBA_U8
+    SURFACE_FORMAT_RGB_BC1,           // FORMAT_RGB_BC1
+    SURFACE_FORMAT_NIL,               // FORMAT_RGBA_BC1
+    SURFACE_FORMAT_RGBA_BC2,          // FORMAT_RGBA_BC2
+    SURFACE_FORMAT_RGBA_BC3,          // FORMAT_RGBA_BC3
+    SURFACE_FORMAT_RGB_ETC2,          // FORMAT_RGB_ETC2
+    SURFACE_FORMAT_RGBA_ETC2,         // FORMAT_RGB_ETC2
+    SURFACE_FORMAT_NIL,
+    SURFACE_FORMAT_NIL,
+    SURFACE_FORMAT_NIL,
+    SURFACE_FORMAT_NIL,
+    SURFACE_FORMAT_NIL,
+    SURFACE_FORMAT_NIL
+};
+
 /*=======================================================================================================================================*/
 void TextureResource_Load( resource_t * self_, file_t * file, const char * path ) {
-    texture_t * model = (texture_t*) Resource_GetData( self_ );
-    Texture_Load( model, file );
+    texture_t * tex = (texture_t*) Resource_GetData( self_ );
+    
+    const char * btexExt = strstr( path, ".btex" );
+    
+    if ( btexExt != NULL ) {
+        Texture_LoadBtex( tex, file, path );
+    }
+    else {
+        Texture_LoadImage( tex, file, path );
+    }
 }
 
 /*=======================================================================================================================================*/
@@ -43,7 +70,7 @@ void  TextureResource_Free( void * data ) {
 }
 
 /*=========================================================================================================================================*/
-boolean_t Texture_LoadStbi( texture_t * self_, file_t * file ) {
+bool_t Texture_LoadStbi( texture_t * self_, file_t * file ) {
     void * buffer  = NULL;
     size_t bufferLen = 0;
     size_t amtRead=  0;
@@ -71,7 +98,33 @@ boolean_t Texture_LoadStbi( texture_t * self_, file_t * file ) {
 }
 
 /*=========================================================================================================================================*/
-boolean_t Texture_Load( texture_t * self_, file_t * file ) {
+bool_t Texture_LoadImage( texture_t * self_, file_t * file, const char * path  ) {
     /* TODO: Add support for compiled image loading with mips from a tex stream */
     return Texture_LoadStbi( self_, file );
+}
+
+/*=========================================================================================================================================*/
+bool_t Texture_LoadBtex( texture_t * self_, file_t * file, const char * path ) {
+    
+    size_t dataLength = FS_FileLength( file );
+    void * data = Mem_Alloc( dataLength );
+    assert( data != NULL );
+    
+    size_t amtRead = FS_FileRead( file, data, sizeof(uint8_t) , dataLength );
+    assert( amtRead == dataLength );
+    
+    tex_stream_t * str = ( tex_stream_t * ) data;
+    
+    SURFACE_FORMAT texFmt = TEX_FORMAT_TABLE[ str->format ];
+    
+    Texture_Create( self_, texFmt, str->width, str->height, str->mipCount, TEXTURE_USAGE_SHADER_READ );
+    
+    for( uint32_t i = 0; i <= str->mipCount; ++i ) {
+        const uint8_t * buffer = TexStream_GetImage( str, i );
+        Texture_Write( self_, buffer, i );
+    }
+    
+    Mem_Free( data );
+    
+    return true;
 }

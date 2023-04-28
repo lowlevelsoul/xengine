@@ -21,26 +21,26 @@
 #include "core/Bsearch.h"
 
 /*=======================================================================================================================================*/
-boolean_t Bsearch_FindUint16(int32_t* indexOut, uint16_t value, const uint16_t* valueArray, size_t arraySize) {
+bool_t Bsearch_FindUint16(int32_t* indexOut, uint16_t value, const uint16_t* valueArray, size_t arraySize) {
     BSEARCH_BODY(int16_t, uint16_t, indexOut, value, valueArray, arraySize)
 }
 
 /*=======================================================================================================================================*/
-boolean_t Bsearch_FindUint32(int32_t* indexOut, uint32_t value, const uint32_t* valueArray, size_t arraySize) {
+bool_t Bsearch_FindUint32(int32_t* indexOut, uint32_t value, const uint32_t* valueArray, size_t arraySize) {
    BSEARCH_BODY(int32_t, uint32_t, indexOut, value, valueArray, arraySize)
 }
 
 /*=======================================================================================================================================*/
-boolean_t Bsearch_FindUint64(int32_t* indexOut, uint64_t value, const uint64_t* valueArray, size_t arraySize) {
+bool_t Bsearch_FindUint64(int32_t* indexOut, uint64_t value, const uint64_t* valueArray, size_t arraySize) {
    BSEARCH_BODY(int32_t, uint64_t, indexOut, value, valueArray, arraySize)
 }
 
 /*=======================================================================================================================================*/
-boolean_t Bsearch_FindUintPtr(int32_t* indexOut, uintptr_t value, const uintptr_t* valueArray, size_t arraySize) {
+bool_t Bsearch_FindUintPtr(int32_t* indexOut, uintptr_t value, const uintptr_t* valueArray, size_t arraySize) {
    BSEARCH_BODY(int32_t, uintptrt, indexOut, value, valueArray, arraySize)
 }
 
 /*=======================================================================================================================================*/
-boolean_t Bsearch_FindVoidPtr( int32_t * indexOut, void * value, const void ** valueArray, size_t arraySize) {
+bool_t Bsearch_FindVoidPtr( int32_t * indexOut, void * value, const void ** valueArray, size_t arraySize) {
     BSEARCH_BODY(int32_t, void*, indexOut, value, valueArray, arraySize );
 }

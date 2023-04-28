@@ -39,7 +39,7 @@ XE_API void EcsComponentArray_Destroy( ecs_component_array_t * self_ );
 XE_API void * EcsComponentArray_AddEntity( ecs_component_array_t * self_, ecs_entity_t ent );
 XE_API void EcsComponentArray_RemoveEntity( ecs_component_array_t * self_, ecs_entity_t ent );
 XE_API void * EcsComponentArray_GetComponentForEntity( ecs_component_array_t * self_, ecs_entity_t ent );
-XE_API boolean_t EcsComponentArray_HasEntity( const ecs_component_array_t * self_, ecs_entity_t ent );
+XE_API bool_t EcsComponentArray_HasEntity( const ecs_component_array_t * self_, ecs_entity_t ent );
 XE_API const char * EcsComponentArray_GetName( const ecs_component_array_t * self_ );
 XE_API void EcsComponentArray_GetActiveComponents( ecs_component_array_t * self_, ecs_component_list_t * activeListOut );
 
