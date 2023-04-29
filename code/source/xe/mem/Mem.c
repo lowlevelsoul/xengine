@@ -19,6 +19,7 @@
 */
 
 #include "core/Common.h"
+#include "core/Sys.h"
 #include "mem/Mem.h"
 #include "Debug.h"
 #include "core/CVar.h"
@@ -29,10 +30,15 @@
 #include <assert.h>
 //#include "tlsf/tlsf.h"
 #include <pthread.h>
+#include <malloc/malloc.h>
 
 typedef struct mem_s {
     mem_allocator_t     defaultAllocator;
     mem_allocator_t *   allocator;
+    sys_mutex_t         mutex;
+    uint64_t            numAllocs;
+    uint64_t            numFrees;
+    uint64_t            memSizeAlloc;
 } mem_t;
 
 mem_t mem;
@@ -58,16 +64,27 @@ void default_free( void * memory ) {
     free( memory );
 }
 
+/*=======================================================================================================================================*//*=======================================================================================================================================*/
+size_t default_get_block_size( void * memory ) {
+    return malloc_size( memory );
+}
+
 /*=======================================================================================================================================*/
 void Mem_Initialise( mem_allocator_t * allocator ) {
     if ( memInit == true ) {
         return;
     }
     
+    Sys_MutexCreate( &mem.mutex );
     mem.defaultAllocator.malloc = default_malloc;
     mem.defaultAllocator.mallocAligned = default_mallocAligned;
     mem.defaultAllocator.realloc = default_realloc;
     mem.defaultAllocator.free = default_free;
+    mem.defaultAllocator.get_block_size = default_get_block_size;
+    
+    mem.numAllocs = 0;
+    mem.numFrees = 0;
+    mem.memSizeAlloc = 0;
     
     mem.allocator = ( allocator == NULL ) ? &mem.defaultAllocator : allocator;
     
@@ -80,25 +97,66 @@ void Mem_Finalise(void) {
         return;
     }
     
+    Sys_MutexDestroy( &mem.mutex );
     memInit = false;
 }
 
 /*=======================================================================================================================================*/
 void * Mem_Alloc( size_t size ) {
+    void * ptr = NULL;
     assert( memInit == true );
-    return mem.allocator->malloc( size );
+    
+    Sys_MutexLock( &mem.mutex );
+    {
+        ++mem.numAllocs;
+        ptr =  mem.allocator->malloc( size );
+        mem.memSizeAlloc += mem.allocator->get_block_size( ptr );
+    }
+    Sys_MutexUnlock( &mem.mutex );
+    
+    return ptr;
 }
 
 /*=======================================================================================================================================*/
 void * Mem_AllocAligned( size_t size, size_t alignment ) {
+    void * ptr = NULL;
     assert( memInit == true );
-    return mem.allocator->mallocAligned( size, alignment );
+    
+    Sys_MutexLock( &mem.mutex );
+    {
+        ++mem.numAllocs;
+        ptr =  mem.allocator->mallocAligned( size, alignment );
+        mem.memSizeAlloc += mem.allocator->get_block_size( ptr );
+    }
+    Sys_MutexUnlock( &mem.mutex );
+    
+    return ptr;
 }
 
 /*=======================================================================================================================================*/
 void Mem_Free( void * block ) {
     assert( memInit == true );
-    mem.allocator->free( block );
+    Sys_MutexLock( &mem.mutex );
+    {
+        ++mem.numFrees;
+        mem.memSizeAlloc -= mem.allocator->get_block_size( block );
+        mem.allocator->free( block );
+    }
+    Sys_MutexUnlock( &mem.mutex );
+    
+}
+
+/*=======================================================================================================================================*/
+void Mem_GetStats( mem_stats_t * stats ) {
+    assert( memInit == true );
+    
+    Sys_MutexLock( &mem.mutex );
+    {
+        stats->numAllocs = mem.numAllocs;
+        stats->numFrees = mem.numFrees;
+        stats->sizeAlloc = mem.memSizeAlloc;
+    }
+    Sys_MutexUnlock( &mem.mutex );
 }
 
 
@@ -120,7 +178,7 @@ typedef struct heap_s {
 
 /* Internal struct used to hold the memory system state */
 typedef struct mem_manager_s {
-    pthread_mutex_t mutex;
+    pthread_sys_mutex_t mutex;
     heap_t          heaps[HEAP_CAPACITY];
     uintptr_t       heapAddresSorted[HEAP_CAPACITY];
     uint32_t        heapAddressMap[HEAP_CAPACITY];

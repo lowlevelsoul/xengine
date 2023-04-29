@@ -119,3 +119,24 @@ void Sys_AssertPrintf( const char * file, int line, const char * fmt, ... ) {
     Str_Destroy( &msg );
     Str_Destroy( &header );
 }
+
+
+void Sys_MutexCreate( sys_mutex_t * self_ ) {
+    
+}
+
+void Sys_MutexDestroy( sys_mutex_t * self_ ) {
+    
+}
+
+void Sys_MutexLock( sys_mutex_t * self_ ) {
+    
+}
+
+void Sys_MutexTryLock( sys_mutex_t * self_ ) {
+    
+}
+
+void Sys_MutexUnlock( sys_mutex_t * self_ ) {
+    
+}

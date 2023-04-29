@@ -36,11 +36,14 @@
 //CVAR_INT(app_dispFullscreen, "1 = fullscreen, 0 = windowed", 0);
 //CVAR_STRING(app_title, "Title for the app window", "XEngine");
 
+#define MEM_STATS_FREQUENCY 120
+
 typedef struct engine_s {
     game_interface_t gameInterface;
     mem_allocator_t * gameAllocator;
     uint64_t lastTick;
     bool_t firstFrame;
+    uint64_t        memStatFrameCount;
 } engine_t;
 
 engine_t engine;
@@ -50,6 +53,7 @@ void XE_Initialise(void) {
     
     engine.gameAllocator = Game_GetAllocator();
     engine.firstFrame = true;
+    engine.memStatFrameCount = MEM_STATS_FREQUENCY;
     
     Mem_Initialise( engine.gameAllocator );
     Sys_Initialise();
@@ -109,6 +113,16 @@ void XE_Think(void) {
     }
     
     engine.gameInterface.think( deltaTime );
+    
+    --engine.memStatFrameCount;
+    if (  engine.memStatFrameCount == 0 ) {
+        mem_stats_t stats;
+        Mem_GetStats( &stats );
+        double allocMB = (double) stats.sizeAlloc / (1024.0f * 1024.0f);
+        xprintf("==Mem Stats==\n    Num Allocs %lu\n    Num Frees %lu\n    Total Allocated %4.4lf\n", stats.numAllocs, stats.numFrees, allocMB );
+        engine.memStatFrameCount = MEM_STATS_FREQUENCY;
+    }
+    
     engine.gameInterface.draw( deltaTime );
 }
 

@@ -23,9 +23,9 @@
 
 #include "core/Common.h"
 
-typedef struct mutex_s {
+typedef struct sys_mutex_s {
     uint64_t data[8];
-} mutex_t;
+} sys_mutex_t;
 
 #define Sys_Align(V, A) ((V )% (A) == 0 ) ? (V) : (V) + ((A) - ((V) % (A)))
 
@@ -41,11 +41,11 @@ XE_API void Sys_AssertPrintf( const char * file, int line, const char * fmt, ...
 XE_API void Sys_Breakpoint();
 XE_API void Sys_Exit( int code );
 
-XE_API void Sys_MutexCreate( mutex_t * self_ );
-XE_API void Sys_MutexDestroy( mutex_t * self_ );
-XE_API void Sys_MutexLock( mutex_t * self_ );
-XE_API void Sys_MutexTryLock( mutex_t * self_ );
-XE_API void Sys_MutexUnlock( mutex_t * self_ );
+XE_API void Sys_MutexCreate( sys_mutex_t * self_ );
+XE_API void Sys_MutexDestroy( sys_mutex_t * self_ );
+XE_API void Sys_MutexLock( sys_mutex_t * self_ );
+XE_API void Sys_MutexTryLock( sys_mutex_t * self_ );
+XE_API void Sys_MutexUnlock( sys_mutex_t * self_ );
 
 #if defined( DEBUG ) || defined( _DEBUG )
 #   define xassert(C) (void)((C) || ( Sys_AssertPrintf( __FILE__, __LINE__, #C), Sys_Breakpoint(), 0))
