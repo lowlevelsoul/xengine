@@ -1,0 +1,6 @@
+#include "xe_common.xcconfig"
+
+ASSIMP_ROOT                     = $(XE_ROOT)/../../../libs/assimp-master
+ASSIMP_INCLUDE                  = $(ASSIMP_ROOT)/include $(ASSIMP_ROOT)/build/xcode/include
+ASSIMP_LINK                     = -L$(ASSIMP_ROOT)/build/xcode/lib/Release  -lassimp
+ASSIMP_CONTRIB_LINK             = -L$(ASSIMP_ROOT)/build/xcode/contrib/irrXML/Release -lIrrXML -lzlibstatic

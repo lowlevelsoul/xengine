@@ -1,7 +1,7 @@
 /*
 ===========================================================================================================================================
 
-    Copyright 2016 - 2022 James Steele
+    Copyright 2022 James Steele
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
     files(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge,
@@ -18,43 +18,42 @@
 ===========================================================================================================================================
 */
 
+#ifndef __MODELBUILDER_PCH__
+#define __MODELBUILDER_PCH__
+
+#include <stdint.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "core/Common.h"
 #include "core/Sys.h"
+#include "core/Fs.h"
+#include "core/Str.h"
+#include "core/Id.h"
+#include "core/fh64.h"
+#include "core/Crc32.h"
 #include "core/Array.h"
-#include "Debug.h"
+#include "core/Bsearch.h"
 
-void Array_InsertAtPosUint32(int32_t pos, uint32_t value, uint32_t* valueArray, size_t valueArraySize, size_t valueArrayCapacity) {
-    xassert(valueArraySize < valueArrayCapacity);
-    for(int32_t i=(int32_t)valueArraySize; i > pos; --i) {
-        valueArray[i] = valueArray[i-1];
-    }
+#include "math/Math3d.h"
+
+#ifdef __cplusplus
+#   include <cmath>
+#   include <cmath>
+#   include <string>
+#   include <vector>
+#   include <map>
+#   include "mathcc/Math3d.h"
+#   include "toolapp/RefObject.h"
+#   include "toolapp/RefPointer.h"
+#   include "toolapp/ToolMemStream.h"
+#   include "toolapp/Lexer.h"
+#   include "toolapp/ToolApp.h"
     
-    valueArray[pos] = value;
-}
+#   include <assimp/Importer.hpp>
+#   include <assimp/scene.h>
+#endif
 
-void Array_InsertAtPosUint64(int32_t pos, uint64_t value, uint64_t* valueArray, size_t valueArraySize, size_t valueArrayCapacity) {
-    xassert(valueArraySize < valueArrayCapacity);
-    for(int32_t i=(int32_t)valueArraySize; i > pos; --i) {
-        valueArray[i] = valueArray[i-1];
-    }
-    
-    valueArray[pos] = value;
-}
-
-void Array_InsertAtPosUintPtr(int32_t pos, uintptr_t value, uintptr_t* valueArray, size_t valueArraySize, size_t valueArrayCapacity) {
-    xassert(valueArraySize < valueArrayCapacity);
-    for(int32_t i=(int32_t)valueArraySize; i > pos; --i) {
-        valueArray[i] = valueArray[i-1];
-    }
-    
-    valueArray[pos] = value;
-}
-
-
-void Array_InsertAtPosVoidPtr(int32_t pos, void * value, void ** valueArray, size_t valueArraySize, size_t valueArrayCapacity) {
-    xassert(valueArraySize < valueArrayCapacity);
-    for(int32_t i=(int32_t)valueArraySize; i > pos; --i) {
-        valueArray[i] = valueArray[i-1];
-    }
-    
-    valueArray[pos] = value;
-}
+#endif /* ToolApp_pch */

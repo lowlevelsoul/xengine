@@ -89,11 +89,7 @@ void Game_Destroy( game_interface_t * self_) {
 void Game_Initialise(void) {
     
     xprintf("=== Game Init ==================\n");
-    
-    Ecs_RegisterComponent( comp_transform_t, ECS_MAX_ENTITIES );
-    Ecs_RegisterComponent( comp_shipmodel_t, 32 );
-    Ecs_RegisterComponent( comp_preview_t, 32 );
-        
+
     resource_t * modelRes = Resource_Load( "~/models/barbarian/barbarian_lod0.bmdl" );
     
     game->shipModel = (model_t *) Resource_GetData( modelRes );

@@ -54,8 +54,6 @@ typedef struct fs_s {
 fs_t fsLocal;
 fs_t* fileSystem = NULL;
 
-static bool_t FS_MakePath( str_t * pathOut, const char * path );
-
 static bool_t FS_FindFreeFile(int32_t* indexOut);
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
@@ -179,7 +177,7 @@ size_t FS_FileWrite(file_t* file, const void* buffer, size_t elementSize, size_t
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
-static bool_t FS_MakePath( str_t * pathOut, const char * path ) {
+bool_t FS_MakePath( str_t * pathOut, const char * path ) {
     if (path[0] == '~') {
         /* Path has a ~ prefix - so make an absolute path based on the data folder */
         
@@ -203,6 +201,21 @@ void FS_GetCurrentFolder( str_t * pathOut ) {
         Str_SetLength( pathOut, currDirPath.length );
         Str_CopyCStr( pathOut, pathStrUtf8 );
     }
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------*/
+bool_t FS_CreateFolder( const char * path ) {
+    FS_MakePath( &fileSystem->filePathTmp, path );
+    
+    NSFileManager* fileMgr = [ NSFileManager defaultManager ];
+    NSString *pathNs = [ NSString stringWithUTF8String:fileSystem->filePathTmp ];
+    
+    BOOL res = [ fileMgr createDirectoryAtPath: pathNs
+                   withIntermediateDirectories: true
+                                    attributes: nil
+                                         error: nil ];
+    
+    return ( res == YES ) ? bool_true : bool_false ;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/

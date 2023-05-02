@@ -39,12 +39,12 @@ void Sys_Initialise(void) {
     sys.timeIsMonotomic  = ( res == 0 ) ? bool_true : bool_false;
 
     if ( sys.timeIsMonotomic == bool_true ) {
-        //fxprintf("System clock is monotomic\n");
+        //xprintf("System clock is monotomic\n");
         /* CPU clock is constant, so use the machine absolute time tick as our clock-tick */
         sys.machStartTime = mach_absolute_time();
     }
     else {
-        //fxprintf("System clock is non-monotomic\n");
+        //xprintf("System clock is non-monotomic\n");
         /* CPU clock is not constant, so use the absolute system time */
         gettimeofday( &sys.tvStartTime, NULL );
     }
@@ -120,23 +120,27 @@ void Sys_AssertPrintf( const char * file, int line, const char * fmt, ... ) {
     Str_Destroy( &header );
 }
 
-
+/*======================================================================================================================================= */
 void Sys_MutexCreate( sys_mutex_t * self_ ) {
     
 }
 
+/*======================================================================================================================================= */
 void Sys_MutexDestroy( sys_mutex_t * self_ ) {
     
 }
 
+/*======================================================================================================================================= */
 void Sys_MutexLock( sys_mutex_t * self_ ) {
     
 }
 
+/*======================================================================================================================================= */
 void Sys_MutexTryLock( sys_mutex_t * self_ ) {
     
 }
 
+/*======================================================================================================================================= */
 void Sys_MutexUnlock( sys_mutex_t * self_ ) {
     
 }

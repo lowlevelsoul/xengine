@@ -18,6 +18,7 @@
 ===========================================================================================================================================
 */
 
+#include "core/Sys.h"
 #include "math/Math3d.h"
 
 /*=======================================================================================================================================*/
@@ -34,7 +35,7 @@ void _Vec3_MixCosine( vec3_t * dst, const vec3_t * from, const vec3_t * to, floa
 float _Vec3_Normalise(vec3_t* dst, const vec3_t* src) {
     float mag = Vec3_Magnitude( *src );
     float fac = 1.0f / mag;
-    xassert( scalar_IsValid( fac ) == ztrue );
+    xassert( scalar_IsValid( fac ) == true );
     
     Vec3_Muls( *dst, *src, fac );
     return mag;
@@ -59,7 +60,7 @@ void _Vec3_Mix(vec3_t* dst, const vec3_t* a, const vec3_t* b, float t) {
 float _Vec4_Normalise( vec4_t* dst, const vec4_t* src ) {
     float mag = Vec4_Magnitude( *src );
     float fac = 1.0f / mag;
-    xassert( scalar_valid( fac ) == ztrue );
+    xassert( scalar_IsValid( fac ) == true );
 
     Vec4_Muls( *dst, *src, fac );
     return mag;

@@ -99,6 +99,9 @@ void Model_LoadMaterials( model_t * self_, model_stream_t * str, const char * pa
         res = Resource_Load( materialResPath );
         Model_SetMaterial( self_, m, (material_t*) Resource_GetData( res ) );
     }
+    
+    Str_Destroy( &resourceFolder );
+    Str_Destroy( &materialResPath );
 }
 
 /*=======================================================================================================================================*/

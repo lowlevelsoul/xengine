@@ -158,6 +158,15 @@ XE_API void _Vec4_Mix( vec4_t* dst, const vec4_t* a, const vec4_t* b, float t );
  Mat3
 =========================================================================================================================================
 */
+
+#define Mat3_SetDiagonal( D, R0, R1, R2) ( Vec3_SetXyz( (D).rows[0], (R0), 0, 0 ), Vec3_SetXyz( (D).rows[1], 0, (R1), 0 ), Vec3_SetXyz( (D).rows[2], 0, 0, (R2) ) )
+#define Mat3_SetIdentity(M) _Mat3_SetIdentity( &( M ) )
+#define Mat3_Concat( D, L, R ) _Mat3_Concat( &(D), &(L), &(R) )
+#define Mat3_Inverse( L, R ) _Mat3_Inverse( &(L), &(R) )
+#define Mat3_SetRotationAA( L, AXIS, ANGLE ) _Mat3_SetRotationAA( &(L), &(AXIS), (ANGLE) )
+#define Mat3_SetRotationQ( L, Q ) _Mat3_SetRotationQ( &(L), &(Q) )
+#define Mat3_Transform( D, M, S) _Mat3_Transform( &(D), &(M), &(S) );
+
 XE_API void _Mat3_SetIdentity( mat3_t* dst );
 XE_API void _Mat3_Concat( mat3_t* dst, const mat3_t* lhs, const mat3_t* rhs );
 XE_API void _Mat3_Inverse( mat3_t* dst, const mat3_t* src );
@@ -170,12 +179,15 @@ XE_API void _Mat3_Transform( vec3_t* dst, const mat3_t* xform, const vec3_t* src
 Mat4
 =========================================================================================================================================
 */
+
+#define Mat4_SetDiagonal( D, R0, R1, R2, R3) ( Vec4_SetXyzw( (D).rows[0], (R0), 0, 0, 0 ), Vec4_SetXyzw( (D).rows[1], 0, (R1), 0, 0 ), Vec4_SetXyzw( (D).rows[2], 0, 0, (R2), 0 ), Vec4_SetXyzw( (D).rows[3], 0, 0, (0, (R3) ) )
 #define Mat4_SetIdentity(M) _Mat4_SetIdentity( &( M ) )
 #define Mat4_Concat( D, L, R ) _Mat4_Concat( &(D), &(L), &(R) )
 #define Mat4_Inverse( L, R ) _Mat4_Inverse( &(L), &(R) )
 #define Mat4_SetRotationAA( L, AXIS, ANGLE ) _Mat4_SetRotationAA( &(L), &(AXIS), (ANGLE) )
 #define Mat4_SetRotationQ( L, Q ) _Mat4_SetRotationQ( &(L), &(Q) )
 #define Mat4_SetTranslationVec3( L, T ) Vec4_SetFromVec3( (L).rows[3], (T), 1 )
+#define Mat4_SetTranslation( L, T ) Vec4_Set( (L).rows[3], (T) )
 
 XE_API void _Mat4_SetIdentity( mat4_t* dst );
 XE_API void _Mat4_Concat( mat4_t* dst, const mat4_t* lhs, const mat4_t* rhs );

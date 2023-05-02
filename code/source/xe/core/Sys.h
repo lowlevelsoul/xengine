@@ -38,7 +38,7 @@ XE_API uint64_t Sys_GetTicks(void);
 XE_API void Sys_Printf( const char * fmt, ... );
 XE_API void Sys_AssertPrintf( const char * file, int line, const char * fmt, ... );
 
-XE_API void Sys_Breakpoint();
+XE_API void Sys_Breakpoint(void);
 XE_API void Sys_Exit( int code );
 
 XE_API void Sys_MutexCreate( sys_mutex_t * self_ );

@@ -24,8 +24,8 @@
 #include "core/Common.h"
 #include "Str.h"
 
-uint64_t FH64_Calc( const uint8_t * buffer, size_t bufferLen );
-uint64_t FH64_CalcStr( const str_t str );
-uint64_t FH64_CalcFromCStr( const char * str );
+XE_API uint64_t FH64_Calc( const uint8_t * buffer, size_t bufferLen );
+XE_API uint64_t FH64_CalcStr( const str_t str );
+XE_API uint64_t FH64_CalcFromCStr( const char * str );
 
 #endif
