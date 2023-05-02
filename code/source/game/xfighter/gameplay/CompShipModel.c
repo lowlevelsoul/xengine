@@ -18,6 +18,7 @@
 ===========================================================================================================================================
 */
 
+#include "core/Sys.h"
 #include "CompShipModel.h"
 #include "CompTransform.h"
 #include "CompMessages.h"

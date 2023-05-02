@@ -48,6 +48,7 @@ typedef struct fs_s {
     str_t       basePath;
     str_t       filePathTmp;
     str_t       dataFolderPath;
+    str_t       assetFolderPath;
     
 } fs_t;
 
@@ -68,6 +69,7 @@ void FS_Initialise(void) {
     Str_SetCapacity( &fsLocal.basePath, 2048 );
     Str_SetCapacity( &fsLocal.filePathTmp, 2048 );
     Str_SetCapacity( &fsLocal.dataFolderPath, 2048 );
+    Str_SetCapacity( &fsLocal.assetFolderPath, 2048 );
     
     /* Setup the data folder based on the current folder */
     /* TODO - check for config or water mark in app Data folder */
@@ -76,9 +78,13 @@ void FS_Initialise(void) {
     Str_Copy( &fsLocal.dataFolderPath, fileSystem->basePath );
     Str_AppendPathCStr( &fsLocal.dataFolderPath, "/data" );
     
+    Str_Copy( &fsLocal.assetFolderPath, fileSystem->basePath );
+    Str_AppendPathCStr( &fsLocal.assetFolderPath, "../../assets" );
+    
     xprintf("=== FS Init ====================\n");
     xprintf("     Working path: %s\n", fileSystem->basePath );
     xprintf("        Data path: %s\n", fileSystem->dataFolderPath );
+    xprintf("       Asset path: %s\n", fileSystem->assetFolderPath );
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
@@ -182,6 +188,11 @@ bool_t FS_MakePath( str_t * pathOut, const char * path ) {
         /* Path has a ~ prefix - so make an absolute path based on the data folder */
         
         Str_Copy( pathOut, fileSystem->dataFolderPath );
+        Str_AppendPathCStr( pathOut, path+1 );
+    } else if (path[0] == '@') {
+        /* Path has a ~ prefix - so make an absolute path based on the data folder */
+        
+        Str_Copy( pathOut, fileSystem->assetFolderPath );
         Str_AppendPathCStr( pathOut, path+1 );
     } else {
         /* Path has no prefix - just treat it as a normal path and copy */
