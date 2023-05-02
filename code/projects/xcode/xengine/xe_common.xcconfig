@@ -3,10 +3,14 @@ XE_ROOT             = $(PROJECT_DIR)/../../..
 XE_SOURCE           = $(XE_ROOT)/source/xe
 XE_SOURCE_TOOLS     = $(XE_ROOT)/source/tools
 
-XE_LIBS_SOURCE      = $(XE_SOURCE)/libs
+XE_LIBS_SOURCE      = $(XE_ROOT)/source/libs
 XE_STB              = $(XE_LIBS_SOURCE)/stb
+XE_ETC2COMP         = $(XE_LIBS_SOURCE)/etc2comp/EtcLib/Etc $(XE_LIBS_SOURCE)/etc2comp/EtcLib/EtcCodec
+XE_SQUISH           = $(XE_LIBS_SOURCE)/squish
+XE_AVIR             = $(XE_LIBS_SOURCE)/avir
 
-XE_LIBS_INCLUDE     = $(XE_STB)
+
+XE_LIBS_INCLUDE     = $(XE_STB) $(XE_ETC2COMP) $(XE_SQUISH) $(XE_AVIR)
 
 
 XE_BUILD_DIR            = $(XE_ROOT)/build/$(PLATFORM_NAME)/$(CONFIGURATION)
