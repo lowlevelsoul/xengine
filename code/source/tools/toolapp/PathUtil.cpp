@@ -82,7 +82,7 @@ namespace PathUtil {
             return false;
         }
         
-        path.resize( lastSepPos - 1 );
+        path.resize( lastSepPos );
         return true;        
     }
 

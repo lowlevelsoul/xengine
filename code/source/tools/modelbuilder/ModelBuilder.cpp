@@ -175,10 +175,10 @@ void ModelBuilder::WriteMaterial( const char * srcModelPath, const char * dstPat
     std::string basePath = srcModelPath;
     std::string fileName;
     
-    PathUtil::GetLastPathElement(fileName, basePath );
+    PathUtil::RemoveLastPathElement( basePath );
     
     std::string matPath = basePath;
-    matPath.append( mat->name.c_str() );
+    PathUtil::AppendPath( matPath, mat->name.c_str() );
     matPath.append( ".bmat" );
     
     std::string matParamsPath = matPath;
