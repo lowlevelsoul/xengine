@@ -1,7 +1,7 @@
 /*
 ===========================================================================================================================================
 
-    Copyright 2016 - 2022 James Steele
+    Copyright 2022 James Steele
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
     files(the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge,
@@ -18,24 +18,39 @@
 ===========================================================================================================================================
 */
 
-#ifndef __MATERIALSTREAM_H__
-#define __MATERIALSTREAM_H__
+#ifndef __MATBUILDER_PCH__
+#define __MATBUILDER_PCH__
+
+#include <stdint.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "core/Common.h"
+#include "core/Sys.h"
+#include "core/Fs.h"
+#include "core/Str.h"
+#include "core/Id.h"
+#include "core/fh64.h"
+#include "core/Crc32.h"
+#include "core/Array.h"
+#include "core/Bsearch.h"
 
-#define  MATERIAL_STREAM_VERSION 1
+#include "math/Math3d.h"
 
-typedef struct material_stream_s {
-    uint32_t        version;
-    uint32_t        flags;
-    uint32_t        offsAlbedoTexture;
-    uint32_t        offsAmrTexture;
-    uint32_t        offsGlowTexture;
-    float           transparency;
-} material_stream_t;
-
-XE_API const char * MaterialStream_GetAlbedo( const material_stream_t * str );
-XE_API const char * MaterialStream_GetAmr( const material_stream_t * str );
-XE_API const char * MaterialStream_GetGlow( const material_stream_t * str );
+#ifdef __cplusplus
+#   include <cmath>
+#   include <cmath>
+#   include <string>
+#   include <vector>
+#   include <map>
+#   include "mathcc/Math3d.h"
+#   include "toolapp/RefObject.h"
+#   include "toolapp/RefPointer.h"
+#   include "toolapp/ToolMemStream.h"
+#   include "toolapp/Lexer.h"
+#   include "toolapp/ToolApp.h"
+#endif
 
 #endif

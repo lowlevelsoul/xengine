@@ -107,6 +107,8 @@
 		1A445CCB2A017D3A00BC8784 /* EtcSortedBlockList.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A445CA82A017D3A00BC8784 /* EtcSortedBlockList.h */; };
 		1A445CCC2A017D3A00BC8784 /* EtcBlock4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A445CA92A017D3A00BC8784 /* EtcBlock4x4.cpp */; };
 		1A445CCD2A017D3A00BC8784 /* EtcBlock4x4Encoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A445CAA2A017D3A00BC8784 /* EtcBlock4x4Encoding.h */; };
+		1A445CEE2A0227B100BC8784 /* MatBuilderApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A445CEA2A0227B100BC8784 /* MatBuilderApp.cpp */; };
+		1A445CEF2A0227B100BC8784 /* MatBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A445CED2A0227B100BC8784 /* MatBuilder.cpp */; };
 		D326364428F450A800099842 /* ConvexShape.c in Sources */ = {isa = PBXBuildFile; fileRef = D326364328F450A800099842 /* ConvexShape.c */; };
 		D326364728F45B8000099842 /* ShapeInst.h in Headers */ = {isa = PBXBuildFile; fileRef = D326364528F45B8000099842 /* ShapeInst.h */; };
 		D326364828F45B8000099842 /* ShapeInst.c in Sources */ = {isa = PBXBuildFile; fileRef = D326364628F45B8000099842 /* ShapeInst.c */; };
@@ -262,6 +264,27 @@
 			remoteGlobalIDString = 1A445B8729FD8F8400BC8784;
 			remoteInfo = "xengine-toolapp";
 		};
+		1A445CF02A0228EE00BC8784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36A588428ED538600F171D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D36A58E328ED5BB300F171D1;
+			remoteInfo = "xengine-base-macos";
+		};
+		1A445CF22A0228EE00BC8784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36A588428ED538600F171D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D36A58F228ED5BBF00F171D1;
+			remoteInfo = "xengine-platform-macos";
+		};
+		1A445CF42A0228EE00BC8784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36A588428ED538600F171D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A445B8729FD8F8400BC8784;
+			remoteInfo = "xengine-toolapp";
+		};
 		D36A593028ED623500F171D1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D36A588428ED538600F171D1 /* Project object */;
@@ -296,6 +319,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		1A445C162A017BC800BC8784 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		1A445CDD2A0226E400BC8784 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -450,6 +482,13 @@
 		1A445CA82A017D3A00BC8784 /* EtcSortedBlockList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtcSortedBlockList.h; sourceTree = "<group>"; };
 		1A445CA92A017D3A00BC8784 /* EtcBlock4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EtcBlock4x4.cpp; sourceTree = "<group>"; };
 		1A445CAA2A017D3A00BC8784 /* EtcBlock4x4Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EtcBlock4x4Encoding.h; sourceTree = "<group>"; };
+		1A445CDF2A0226E400BC8784 /* matbuilder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matbuilder; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A445CE72A0226FC00BC8784 /* xe_matbuilder.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = xe_matbuilder.xcconfig; sourceTree = "<group>"; };
+		1A445CE82A02270F00BC8784 /* MatBuilder.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatBuilder.pch; sourceTree = "<group>"; };
+		1A445CEA2A0227B100BC8784 /* MatBuilderApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatBuilderApp.cpp; sourceTree = "<group>"; };
+		1A445CEB2A0227B100BC8784 /* MatBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatBuilder.h; sourceTree = "<group>"; };
+		1A445CEC2A0227B100BC8784 /* MatBuilderApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatBuilderApp.h; sourceTree = "<group>"; };
+		1A445CED2A0227B100BC8784 /* MatBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatBuilder.cpp; sourceTree = "<group>"; };
 		D326364228F44F8300099842 /* ConvexShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexShape.h; sourceTree = "<group>"; };
 		D326364328F450A800099842 /* ConvexShape.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ConvexShape.c; sourceTree = "<group>"; };
 		D326364528F45B8000099842 /* ShapeInst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeInst.h; sourceTree = "<group>"; };
@@ -608,6 +647,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1A445CDC2A0226E400BC8784 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D36A58E228ED5BB300F171D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -669,6 +715,7 @@
 		1A445B8329FD8F4900BC8784 /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				1A445CE92A0227B100BC8784 /* matbuilder */,
 				1A445C1F2A017BD100BC8784 /* texturebuilder */,
 				1A445BCE29FF879C00BC8784 /* scene */,
 				1A445BCD29FF879000BC8784 /* modelbuilder */,
@@ -852,6 +899,17 @@
 			path = EtcCodec;
 			sourceTree = "<group>";
 		};
+		1A445CE92A0227B100BC8784 /* matbuilder */ = {
+			isa = PBXGroup;
+			children = (
+				1A445CEA2A0227B100BC8784 /* MatBuilderApp.cpp */,
+				1A445CEB2A0227B100BC8784 /* MatBuilder.h */,
+				1A445CEC2A0227B100BC8784 /* MatBuilderApp.h */,
+				1A445CED2A0227B100BC8784 /* MatBuilder.cpp */,
+			);
+			path = matbuilder;
+			sourceTree = "<group>";
+		};
 		D36A588328ED538600F171D1 = {
 			isa = PBXGroup;
 			children = (
@@ -874,6 +932,7 @@
 				1A445C182A017BC800BC8784 /* texturebuilder */,
 				1A445C322A017C7600BC8784 /* libsquish-macos.a */,
 				1A445C7C2A017D0800BC8784 /* libetc2comp-macos.a */,
+				1A445CDF2A0226E400BC8784 /* matbuilder */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -928,18 +987,20 @@
 		D36A58DB28ED5ABA00F171D1 /* project */ = {
 			isa = PBXGroup;
 			children = (
+				1A445CE82A02270F00BC8784 /* MatBuilder.pch */,
 				1A445BF729FF888C00BC8784 /* ModelBuilder.pch */,
+				1A445C2C2A017C2A00BC8784 /* TextureBuilder.pch */,
 				1A445BA429FD900700BC8784 /* ToolApp.pch */,
 				1A445BF629FF882B00BC8784 /* ext_assimp.xcconfig */,
 				1A445BC729FE59D300BC8784 /* xe_common.xcconfig */,
 				1A445BC629FE59D300BC8784 /* xe_lib.xcconfig */,
+				1A445CE72A0226FC00BC8784 /* xe_matbuilder.xcconfig */,
 				1A445BF529FF87FA00BC8784 /* xe_modelbuilder.xcconfig */,
 				1A445BC429FE59D300BC8784 /* xe_sdl2.xcconfig */,
+				1A445C132A017B7D00BC8784 /* xe_texturebuilder.xcconfig */,
 				1A445BC829FE59D300BC8784 /* xe_toolapp.xcconfig */,
 				1A445BC529FE59D300BC8784 /* xfighter_macos.xcconfig */,
 				D36A591728ED5F2900F171D1 /* xfighter */,
-				1A445C132A017B7D00BC8784 /* xe_texturebuilder.xcconfig */,
-				1A445C2C2A017C2A00BC8784 /* TextureBuilder.pch */,
 			);
 			name = project;
 			sourceTree = "<group>";
@@ -1397,6 +1458,26 @@
 			productReference = 1A445C7C2A017D0800BC8784 /* libetc2comp-macos.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		1A445CDE2A0226E400BC8784 /* matbuilder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A445CE32A0226E400BC8784 /* Build configuration list for PBXNativeTarget "matbuilder" */;
+			buildPhases = (
+				1A445CDB2A0226E400BC8784 /* Sources */,
+				1A445CDC2A0226E400BC8784 /* Frameworks */,
+				1A445CDD2A0226E400BC8784 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A445CF12A0228EE00BC8784 /* PBXTargetDependency */,
+				1A445CF32A0228EE00BC8784 /* PBXTargetDependency */,
+				1A445CF52A0228EE00BC8784 /* PBXTargetDependency */,
+			);
+			name = matbuilder;
+			productName = matbuilder;
+			productReference = 1A445CDF2A0226E400BC8784 /* matbuilder */;
+			productType = "com.apple.product-type.tool";
+		};
 		D36A58E328ED5BB300F171D1 /* xengine-base-macos */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D36A58EC28ED5BB300F171D1 /* Build configuration list for PBXNativeTarget "xengine-base-macos" */;
@@ -1509,6 +1590,9 @@
 					1A445C7B2A017D0800BC8784 = {
 						CreatedOnToolsVersion = 14.3;
 					};
+					1A445CDE2A0226E400BC8784 = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					D36A58E328ED5BB300F171D1 = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
@@ -1549,6 +1633,7 @@
 				1A445C172A017BC800BC8784 /* texturebuilder */,
 				1A445C312A017C7600BC8784 /* squish-macos */,
 				1A445C7B2A017D0800BC8784 /* etc2comp-macos */,
+				1A445CDE2A0226E400BC8784 /* matbuilder */,
 			);
 		};
 /* End PBXProject section */
@@ -1648,6 +1733,15 @@
 				1A445CAB2A017D3A00BC8784 /* EtcImage.cpp in Sources */,
 				1A445CB82A017D3A00BC8784 /* EtcSortedBlockList.cpp in Sources */,
 				1A445CBC2A017D3A00BC8784 /* EtcBlock4x4Encoding_RGBA8.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A445CDB2A0226E400BC8784 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A445CEF2A0227B100BC8784 /* MatBuilder.cpp in Sources */,
+				1A445CEE2A0227B100BC8784 /* MatBuilderApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1800,6 +1894,21 @@
 			isa = PBXTargetDependency;
 			target = 1A445B8729FD8F8400BC8784 /* xengine-toolapp */;
 			targetProxy = 1A445CD82A017DFE00BC8784 /* PBXContainerItemProxy */;
+		};
+		1A445CF12A0228EE00BC8784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D36A58E328ED5BB300F171D1 /* xengine-base-macos */;
+			targetProxy = 1A445CF02A0228EE00BC8784 /* PBXContainerItemProxy */;
+		};
+		1A445CF32A0228EE00BC8784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D36A58F228ED5BBF00F171D1 /* xengine-platform-macos */;
+			targetProxy = 1A445CF22A0228EE00BC8784 /* PBXContainerItemProxy */;
+		};
+		1A445CF52A0228EE00BC8784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A445B8729FD8F8400BC8784 /* xengine-toolapp */;
+			targetProxy = 1A445CF42A0228EE00BC8784 /* PBXContainerItemProxy */;
 		};
 		D36A593128ED623500F171D1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2282,6 +2391,75 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1A445CE42A0226E400BC8784 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A445CE72A0226FC00BC8784 /* xe_matbuilder.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = B46GUXM6BX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1A445CE52A0226E400BC8784 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A445CE72A0226FC00BC8784 /* xe_matbuilder.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = B46GUXM6BX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -3058,6 +3236,15 @@
 			buildConfigurations = (
 				1A445C832A017D0800BC8784 /* Debug */,
 				1A445C842A017D0800BC8784 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A445CE32A0226E400BC8784 /* Build configuration list for PBXNativeTarget "matbuilder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A445CE42A0226E400BC8784 /* Debug */,
+				1A445CE52A0226E400BC8784 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,0 +1,15 @@
+
+#include "xe_common.xcconfig"
+
+CONFIGURATION_BUILD_DIR             = $(XE_BUILD_DIR_OUT)
+CONFIGURATION_TEMP_DIR              = $(XE_BUILD_DIR_INT)
+
+ALWAYS_SEARCH_USER_PATHS            = YES
+USER_HEADER_SEARCH_PATHS            = $(XE_SOURCE_TOOLS) $(XE_SOURCE) $(XE_LIBS_INCLUDE)
+HEADER_SEARCH_PATHS                 = $(XE_SOURCE_TOOLS) $(XE_SOURCE) $(XE_LIBS_INCLUDE)
+
+GCC_PREPROCESSOR_DEFINITIONS        = $(inherited) XENGINE_TOOLS
+GCC_PREFIX_HEADER                   = MatBuilder.pch
+GCC_PRECOMPILE_PREFIX_HEADER        = YES
+
+OTHER_LDFLAGS                       = -L$(XE_BUILD_DIR_OUT) -lz -lxengine-toolapp -lstb-macos -lxengine-base-macos -lxengine-platform-macos -framework foundation
