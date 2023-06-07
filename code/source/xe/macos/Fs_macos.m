@@ -55,8 +55,6 @@ typedef struct fs_s {
 fs_t fsLocal;
 fs_t* fileSystem = NULL;
 
-static bool_t FS_FindFreeFile(int32_t* indexOut);
-
 /*---------------------------------------------------------------------------------------------------------------------------------------*/
 void FS_Initialise(void) {
     if ( fileSystem != NULL ) {

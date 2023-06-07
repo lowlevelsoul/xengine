@@ -134,6 +134,11 @@ void * Mem_AllocAligned( size_t size, size_t alignment ) {
 }
 
 /*=======================================================================================================================================*/
+void * Mem_CAlloc( size_t count, size_t size ) {
+    return Mem_AllocAligned( count * size, 16 );
+}
+
+/*=======================================================================================================================================*/
 void Mem_Free( void * block ) {
     assert( memInit == true );
     Sys_MutexLock( &mem.mutex );

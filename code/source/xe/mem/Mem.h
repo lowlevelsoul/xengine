@@ -40,6 +40,7 @@ typedef struct mem_stats_s {
 XE_API void Mem_Initialise( mem_allocator_t * allocator );
 XE_API void Mem_Finalise(void);
 XE_API void * Mem_Alloc( size_t size );
+XE_API void * Mem_CAlloc( size_t count, size_t size );
 XE_API void * Mem_AllocAligned( size_t size, size_t alignment );
 XE_API void Mem_Free( void * mem );
 XE_API void Mem_GetStats( mem_stats_t * stats );
