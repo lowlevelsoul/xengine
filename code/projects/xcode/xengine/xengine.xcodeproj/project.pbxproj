@@ -6,6 +6,22 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		1A445CF62A022CFF00BC8784 /* BuildTools */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 1A445CF72A022CFF00BC8784 /* Build configuration list for PBXAggregateTarget "BuildTools" */;
+			buildPhases = (
+			);
+			dependencies = (
+				1A445CFB2A022D0A00BC8784 /* PBXTargetDependency */,
+				1A445CFD2A022D0A00BC8784 /* PBXTargetDependency */,
+				1A445CFF2A022D0A00BC8784 /* PBXTargetDependency */,
+			);
+			name = BuildTools;
+			productName = BuildTools;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1A445B7D29FC16D700BC8784 /* MaterialStream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A445B7C29FC16D700BC8784 /* MaterialStream.c */; };
 		1A445B7E29FC1C2400BC8784 /* Material_local.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2728F538A400CF10A8 /* Material_local.c */; };
@@ -284,6 +300,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1A445B8729FD8F8400BC8784;
 			remoteInfo = "xengine-toolapp";
+		};
+		1A445CFA2A022D0A00BC8784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36A588428ED538600F171D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A445CDE2A0226E400BC8784;
+			remoteInfo = matbuilder;
+		};
+		1A445CFC2A022D0A00BC8784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36A588428ED538600F171D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A445BD229FF87DC00BC8784;
+			remoteInfo = modelbuilder;
+		};
+		1A445CFE2A022D0A00BC8784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D36A588428ED538600F171D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A445C172A017BC800BC8784;
+			remoteInfo = texturebuilder;
 		};
 		D36A593028ED623500F171D1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1593,6 +1630,9 @@
 					1A445CDE2A0226E400BC8784 = {
 						CreatedOnToolsVersion = 14.3;
 					};
+					1A445CF62A022CFF00BC8784 = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					D36A58E328ED5BB300F171D1 = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
@@ -1634,6 +1674,7 @@
 				1A445C312A017C7600BC8784 /* squish-macos */,
 				1A445C7B2A017D0800BC8784 /* etc2comp-macos */,
 				1A445CDE2A0226E400BC8784 /* matbuilder */,
+				1A445CF62A022CFF00BC8784 /* BuildTools */,
 			);
 		};
 /* End PBXProject section */
@@ -1910,6 +1951,21 @@
 			target = 1A445B8729FD8F8400BC8784 /* xengine-toolapp */;
 			targetProxy = 1A445CF42A0228EE00BC8784 /* PBXContainerItemProxy */;
 		};
+		1A445CFB2A022D0A00BC8784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A445CDE2A0226E400BC8784 /* matbuilder */;
+			targetProxy = 1A445CFA2A022D0A00BC8784 /* PBXContainerItemProxy */;
+		};
+		1A445CFD2A022D0A00BC8784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A445BD229FF87DC00BC8784 /* modelbuilder */;
+			targetProxy = 1A445CFC2A022D0A00BC8784 /* PBXContainerItemProxy */;
+		};
+		1A445CFF2A022D0A00BC8784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A445C172A017BC800BC8784 /* texturebuilder */;
+			targetProxy = 1A445CFE2A022D0A00BC8784 /* PBXContainerItemProxy */;
+		};
 		D36A593128ED623500F171D1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D36A58E328ED5BB300F171D1 /* xengine-base-macos */;
@@ -2178,6 +2234,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -2247,6 +2304,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -2458,8 +2516,28 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1A445CF82A022CFF00BC8784 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B46GUXM6BX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1A445CF92A022CFF00BC8784 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B46GUXM6BX;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -3245,6 +3323,15 @@
 			buildConfigurations = (
 				1A445CE42A0226E400BC8784 /* Debug */,
 				1A445CE52A0226E400BC8784 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A445CF72A022CFF00BC8784 /* Build configuration list for PBXAggregateTarget "BuildTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A445CF82A022CFF00BC8784 /* Debug */,
+				1A445CF92A022CFF00BC8784 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
