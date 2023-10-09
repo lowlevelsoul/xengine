@@ -20,7 +20,7 @@
 
 #include "render/Model.h"
 #include "render/ModelStream.h"
-#include "Fs.h"
+#include "core/Fs.h"
 #include "mem/Mem.h"
 #include "resource/Resource.h"
 #include <assert.h>

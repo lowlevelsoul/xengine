@@ -21,7 +21,7 @@
 #ifndef __TEXTURESTREAM_H__
 #define __TEXTURESTREAM_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #define TEXSTREAM_VERSION 2
 #define TEXSTREAM_MAX_MIP_COUNT 32

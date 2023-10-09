@@ -22,7 +22,7 @@
 #ifndef __RENDERCMD_H__
 #define __RENDERCMD_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "math/Math3d.h"
 
 #define RENDER_CMD_ADD_ITEM( LIST, ITEM )\

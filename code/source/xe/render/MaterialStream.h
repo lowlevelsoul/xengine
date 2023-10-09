@@ -21,7 +21,7 @@
 #ifndef __MATERIALSTREAM_H__
 #define __MATERIALSTREAM_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #define  MATERIAL_STREAM_VERSION 1
 

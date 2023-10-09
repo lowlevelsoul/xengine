@@ -21,7 +21,7 @@
 #include "render/Texture.h"
 #include "render/TexStream.h"
 #include "stb_image.h"
-#include "Fs.h"
+#include "core/Fs.h"
 #include "mem/Mem.h"
 #include <assert.h>
 #include <string.h>

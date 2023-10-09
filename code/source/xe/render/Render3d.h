@@ -21,7 +21,7 @@
 #ifndef __RENDER3D_H__
 #define __RENDER3D_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "render/Model.h"
 #include "render/Material.h"
 #include "render/RenderCmd.h"

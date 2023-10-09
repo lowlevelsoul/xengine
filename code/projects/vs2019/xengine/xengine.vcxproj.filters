@@ -29,6 +29,15 @@
     <Filter Include="source\xe\mem">
       <UniqueIdentifier>{db30d1f1-7bf6-4df5-98a6-4eb0a4f6b636}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\xe\render">
+      <UniqueIdentifier>{c1fc9511-3fd3-400a-8763-1443b7df4f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\libs">
+      <UniqueIdentifier>{ff16708f-915c-430b-918f-395443433d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\libs\stb">
+      <UniqueIdentifier>{ec7c1548-7c91-4527-873a-d58a937302d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -118,6 +127,51 @@
     <ClInclude Include="..\..\..\source\xe\core\Platform_apple.h">
       <Filter>source\xe\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Camera.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Material.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Material_local.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\MaterialParser.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\MaterialResource.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\MaterialStream.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Model.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\ModelStream.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Render3d.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Render3d_local.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\RenderCmd.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\SkeletonStream.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\TexStream.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\render\Texture.h">
+      <Filter>source\xe\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\libs\stb\stb_image.h">
+      <Filter>source\libs\stb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -188,6 +242,42 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\xe\util\ParseLiteral.c">
       <Filter>source\xe\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\Camera.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\Material_local.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\MaterialLexer.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\MaterialParser.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\MaterialResource.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\MaterialStream.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\Model_local.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\ModelStream.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\Render3d_local.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\TexStream.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\render\Texture_local.c">
+      <Filter>source\xe\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\libs\stb\stb_image.c">
+      <Filter>source\libs\stb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

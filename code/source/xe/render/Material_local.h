@@ -21,7 +21,7 @@
 #ifndef __MATERIAL_LOCAL_H__
 #define __MATERIAL_LOCAL_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "render/Material.h"
 
 typedef struct material_local_s {

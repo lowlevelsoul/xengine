@@ -28,8 +28,6 @@
 #include "render/Material.h"
 #include "render/MaterialResource.h"
 #include "render/Texture.h"
-#include "ecs/Ecs.h"
-
 
 //CVAR_INT(app_dispWidth, "Display width for the application", 640);
 //CVAR_INT(app_dispHeight, "Display height for the application", 480);
@@ -39,11 +37,11 @@
 #define MEM_STATS_FREQUENCY 120
 
 typedef struct engine_s {
-    game_interface_t gameInterface;
-    mem_allocator_t * gameAllocator;
-    uint64_t lastTick;
-    bool_t firstFrame;
-    uint64_t        memStatFrameCount;
+    game_interface_t    gameInterface;
+    mem_allocator_t *   gameAllocator;
+    uint64_t            lastTick;
+    bool_t              firstFrame;
+    uint64_t            memStatFrameCount;
 } engine_t;
 
 engine_t engine;
@@ -68,9 +66,7 @@ void XE_Initialise(void) {
     Resource_RegisterFactory( texture_resource_factory, "btex" );
     Resource_RegisterFactory( material_resource_factory, "mat" );
     Resource_RegisterFactory( material_resource_factory, "bmat" );
-    
-    Ecs_Initialise();
-    
+        
     Game_Create( &engine.gameInterface );
 }
 
@@ -84,7 +80,6 @@ void XE_Finalise(void) {
     engine.gameInterface.finalise();
     Game_Destroy( &engine.gameInterface );
     
-    Ecs_Finalise();
     Resource_Finalise();
     FS_Finalise();
     //CVAR_finalise();

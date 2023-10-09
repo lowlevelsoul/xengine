@@ -22,7 +22,7 @@
 #ifndef __MODELSTREAM_H__
 #define __MODELSTREAM_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 // Version 5 - skin influences
 // Version 6 - built-in materials

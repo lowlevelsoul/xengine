@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source\libs\stb\stb_image.h" />
     <ClInclude Include="..\..\..\source\xe\core\Array.h" />
     <ClInclude Include="..\..\..\source\xe\core\Bsearch.h" />
     <ClInclude Include="..\..\..\source\xe\core\Crc32.h" />
@@ -176,6 +177,20 @@
     <ClInclude Include="..\..\..\source\xe\mem\FrameHeap.h" />
     <ClInclude Include="..\..\..\source\xe\mem\Mem.h" />
     <ClInclude Include="..\..\..\source\xe\mem\UnitHeap.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Camera.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Material.h" />
+    <ClInclude Include="..\..\..\source\xe\render\MaterialParser.h" />
+    <ClInclude Include="..\..\..\source\xe\render\MaterialResource.h" />
+    <ClInclude Include="..\..\..\source\xe\render\MaterialStream.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Material_local.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Model.h" />
+    <ClInclude Include="..\..\..\source\xe\render\ModelStream.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Render3d.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Render3d_local.h" />
+    <ClInclude Include="..\..\..\source\xe\render\RenderCmd.h" />
+    <ClInclude Include="..\..\..\source\xe\render\SkeletonStream.h" />
+    <ClInclude Include="..\..\..\source\xe\render\TexStream.h" />
+    <ClInclude Include="..\..\..\source\xe\render\Texture.h" />
     <ClInclude Include="..\..\..\source\xe\resource\Resource.h" />
     <ClInclude Include="..\..\..\source\xe\util\Lexer.h" />
     <ClInclude Include="..\..\..\source\xe\util\ParseLiteral.h" />
@@ -186,6 +201,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\libs\stb\stb_image.c" />
     <ClCompile Include="..\..\..\source\xe\core\Array.c" />
     <ClCompile Include="..\..\..\source\xe\core\Bsearch.c" />
     <ClCompile Include="..\..\..\source\xe\core\Crc32.c" />
@@ -204,6 +220,17 @@
     <ClCompile Include="..\..\..\source\xe\mem\FrameHeap.c" />
     <ClCompile Include="..\..\..\source\xe\mem\Mem.c" />
     <ClCompile Include="..\..\..\source\xe\mem\UnitHeap.c" />
+    <ClCompile Include="..\..\..\source\xe\render\Camera.c" />
+    <ClCompile Include="..\..\..\source\xe\render\MaterialLexer.c" />
+    <ClCompile Include="..\..\..\source\xe\render\MaterialParser.c" />
+    <ClCompile Include="..\..\..\source\xe\render\MaterialResource.c" />
+    <ClCompile Include="..\..\..\source\xe\render\MaterialStream.c" />
+    <ClCompile Include="..\..\..\source\xe\render\Material_local.c" />
+    <ClCompile Include="..\..\..\source\xe\render\ModelStream.c" />
+    <ClCompile Include="..\..\..\source\xe\render\Model_local.c" />
+    <ClCompile Include="..\..\..\source\xe\render\Render3d_local.c" />
+    <ClCompile Include="..\..\..\source\xe\render\TexStream.c" />
+    <ClCompile Include="..\..\..\source\xe\render\Texture_local.c" />
     <ClCompile Include="..\..\..\source\xe\resource\Resource.c" />
     <ClCompile Include="..\..\..\source\xe\util\Lexer.c" />
     <ClCompile Include="..\..\..\source\xe\util\ParseLiteral.c" />
