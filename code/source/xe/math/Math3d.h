@@ -21,9 +21,8 @@
 #ifndef __MATH3D_H__
 #define __MATH3D_H__
 
-#include "core/Common.h"
-#include "Scalar.h"
-#include "Debug.h"
+#include "core/Platform.h"
+#include "math/Scalar.h"
 
 typedef struct Vec3_s {
     float x, y, z, pad;

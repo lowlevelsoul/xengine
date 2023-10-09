@@ -21,7 +21,7 @@
 #ifndef __RINGBUFFER_H__
 #define __RINGBUFFER_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 typedef struct ring_buffer_s {
     uint16_t    data[ 8 ];

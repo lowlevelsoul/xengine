@@ -21,7 +21,7 @@
 #ifndef __FS_H__
 #define __FS_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "Str.h"
 
 typedef struct file_s {

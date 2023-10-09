@@ -21,7 +21,7 @@
 #ifndef __MATERIAL_H__
 #define __MATERIAL_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "resource/Resource.h"
 
 typedef struct texture_s texture_t;

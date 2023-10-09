@@ -18,22 +18,14 @@
 ===========================================================================================================================================
 */
 
-#ifndef __XEGAME_H__
-#define __XEGAME_H__
+#ifndef __PLATFORM_WIN_H__
+#define __PLATFORM_WIN_H__
 
-#include "core/Platform.h"
+#include <stdint.h>
+#include <stdlib.h>
+#include <assert.h>
 
-typedef struct mem_allocator_s mem_allocator_t;
-
-typedef struct game_interface_s {
-    void        (*initialise)();
-    void        (*finalise)();
-    void        (*think)( float timeStep );
-    void        (*draw)( float timeStep );
-} game_interface_t;
-
-XE_API mem_allocator_t * Game_GetAllocator(void);
-XE_API void Game_Create( game_interface_t * self_);
-XE_API void Game_Destroy( game_interface_t * self_);
+#define XE_WIN 1
+#define XE_ENDLIAN_LITTLE 1
 
 #endif

@@ -21,7 +21,7 @@
 #ifndef __UNITHEAP_H__
 #define __UNITHEAP_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 typedef struct unit_heap_s unit_heap_t;
 

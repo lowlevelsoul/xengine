@@ -21,7 +21,7 @@
 #ifndef __ARRAY_H__
 #define __ARRAY_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #ifdef __cplusplus
 extern "C" {

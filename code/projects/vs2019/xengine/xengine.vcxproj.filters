@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{e13297bb-526e-488b-87c7-c398e7559140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\xe">
+      <UniqueIdentifier>{b1482e76-7910-4453-b9e0-aa388d38ba1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="project">
+      <UniqueIdentifier>{b620fa75-127e-45c5-ab81-047cd59e4e94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\xe\util">
+      <UniqueIdentifier>{ef32e21a-c62c-4c5e-aa87-1e2ddfe9cc6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\xe\resource">
+      <UniqueIdentifier>{bd34991c-4918-4aeb-9c80-fd4c34341c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\xe\math">
+      <UniqueIdentifier>{b8579697-6ba9-4bf6-a7aa-7360045a6f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\xe\core">
+      <UniqueIdentifier>{9e9077dd-64fd-4d25-9238-cca667a79bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\xe\mem">
+      <UniqueIdentifier>{db30d1f1-7bf6-4df5-98a6-4eb0a4f6b636}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>project</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\Xe.h">
+      <Filter>source\xe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\XeGame.h">
+      <Filter>source\xe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Array.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Bsearch.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Crc32.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\CVar.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Debug.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\fh64.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Fs.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Id.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Str.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Sys.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\math\Frustum.h">
+      <Filter>source\xe\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\math\Math3d.h">
+      <Filter>source\xe\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\math\Plane.h">
+      <Filter>source\xe\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\math\Scalar.h">
+      <Filter>source\xe\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\math\Sphere.h">
+      <Filter>source\xe\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\mem\FrameHeap.h">
+      <Filter>source\xe\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\mem\Mem.h">
+      <Filter>source\xe\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\mem\UnitHeap.h">
+      <Filter>source\xe\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\resource\Resource.h">
+      <Filter>source\xe\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\util\Lexer.h">
+      <Filter>source\xe\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\util\ParseLiteral.h">
+      <Filter>source\xe\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\util\RingBuffer.h">
+      <Filter>source\xe\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Platform.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Platform_win.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\xe\core\Platform_apple.h">
+      <Filter>source\xe\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\Xe.c">
+      <Filter>source\xe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\Array.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\Bsearch.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\Crc32.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\CVar.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\fh64.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\Fs.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\core\Str.c">
+      <Filter>source\xe\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Frustum.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Math3d.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Math3d_mat3.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Math3d_mat4.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Math3d_quat.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Math3d_unit.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Plane.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\math\Sphere.c">
+      <Filter>source\xe\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\mem\FrameHeap.c">
+      <Filter>source\xe\mem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\mem\Mem.c">
+      <Filter>source\xe\mem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\mem\UnitHeap.c">
+      <Filter>source\xe\mem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\resource\Resource.c">
+      <Filter>source\xe\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\util\Lexer.c">
+      <Filter>source\xe\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\xe\util\ParseLiteral.c">
+      <Filter>source\xe\util</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

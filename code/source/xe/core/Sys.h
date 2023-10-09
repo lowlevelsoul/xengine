@@ -21,7 +21,7 @@
 #ifndef __SYS_H__
 #define __SYS_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 typedef struct sys_mutex_s {
     uint64_t data[8];

@@ -21,7 +21,7 @@
 #include "core/Sys.h"
 #include "mem/Mem.h"
 #include "core/CVar.h"
-#include "Fs.h"
+#include "core/Fs.h"
 #include "Xe.h"
 #include "resource/Resource.h"
 #include "render/Model.h"

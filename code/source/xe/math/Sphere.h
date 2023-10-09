@@ -21,7 +21,7 @@
 #ifndef __SPHERE_H__
 #define __SPHERE_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "math/Math3d.h"
 
 typedef vec4_t sphere_t;

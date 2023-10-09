@@ -18,10 +18,9 @@
 ===========================================================================================================================================
 */
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "core/Sys.h"
 #include "mem/Mem.h"
-#include "Debug.h"
 #include "core/CVar.h"
 #include "core/Bsearch.h"
 #include "core/Array.h"
@@ -29,8 +28,8 @@
 #include <string.h>
 #include <assert.h>
 //#include "tlsf/tlsf.h"
-#include <pthread.h>
-#include <malloc/malloc.h>
+//#include <pthread.h>
+//#include <malloc/malloc.h>
 
 typedef struct mem_s {
     mem_allocator_t     defaultAllocator;

@@ -21,7 +21,7 @@
 #ifndef __LEXER_H__
 #define __LEXER_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "core/Fs.h"
 
 typedef struct lexer_token_s {

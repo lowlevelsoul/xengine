@@ -18,8 +18,7 @@
 ===========================================================================================================================================
 */
 
-#include "core/Common.h"
-#include "Debug.h"
+#include "core/Platform.h"
 #include "math/Math3d.h"
 
 #define calcCofactor(a, b, c, d) ((a * d) - (b * c))

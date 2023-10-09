@@ -20,8 +20,8 @@
 
 #include "resource/Resource.h"
 #include "mem/Mem.h"
-#include "Fs.h"
-#include "Str.h"
+#include "core/Fs.h"
+#include "core/Str.h"
 #include "core/fh64.h"
 #include "core/Bsearch.h"
 #include "core/Sys.h"

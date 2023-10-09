@@ -8,8 +8,8 @@
 #ifndef __RESOURCE_H__
 #define __RESOURCE_H__
 
-#include "core/Common.h"
-#include "Fs.h"
+#include "core/Platform.h"
+#include "core/Fs.h"
 
 typedef struct resource_s  {
     uint64_t        data[8];

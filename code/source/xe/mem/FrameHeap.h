@@ -21,7 +21,7 @@
 #ifndef __FRAMEHEAP_H__
 #define __FRAMEHEAP_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 typedef struct frame_heap_s frame_heap_t;
 

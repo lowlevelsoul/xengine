@@ -21,7 +21,7 @@
 #ifndef __FH64_H__
 #define __FH64_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "Str.h"
 
 XE_API uint64_t FH64_Calc( const uint8_t * buffer, size_t bufferLen );

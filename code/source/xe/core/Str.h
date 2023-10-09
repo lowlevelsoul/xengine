@@ -21,7 +21,7 @@
 #ifndef __STR_H__
 #define __STR_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 typedef char * str_t;
 

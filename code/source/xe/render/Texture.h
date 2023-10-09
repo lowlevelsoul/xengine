@@ -21,9 +21,9 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "resource/Resource.h"
-#include "Fs.h"
+#include "core/Fs.h"
 
 typedef struct texture_s {
     uint64_t        data[32];

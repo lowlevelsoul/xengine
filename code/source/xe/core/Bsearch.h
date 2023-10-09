@@ -21,7 +21,7 @@
 #ifndef __BSEARCH_H__
 #define __BSEARCH_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 /*
  Macro used for implementing the body of a binary seach. It determines the index

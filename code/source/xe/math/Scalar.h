@@ -22,7 +22,7 @@
 #define __SCALAR_H__
 
 #include <math.h>
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #define PI 3.14159265359f
 

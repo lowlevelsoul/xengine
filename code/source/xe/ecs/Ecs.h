@@ -21,7 +21,7 @@
 #ifndef __ECS_H__
 #define __ECS_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "ecs/EcsTypes.h"
 
 #define Ecs_RegisterSystem( __system__, __struct__ ) Ecs_RegisterSystemNamed( __system__, #__struct__ )

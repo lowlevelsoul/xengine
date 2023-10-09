@@ -21,7 +21,7 @@
 #ifndef __CVAR_H__
 #define __CVAR_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #define CVAR_INT(VAR, DESC, VAL) cvar_t VAR = {#VAR, DESC, CVAR_TYPE_INT, .defaultValue.intVal=VAL, 0}
 #define CVAR_FLOAT(VAR, DESC, VAL) cvar_t VAR = {#VAR, DESC, CVAR_TYPE_FLOAT, .defaultValue.floatVal=VAL, 0}

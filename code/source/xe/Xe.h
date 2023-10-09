@@ -21,7 +21,7 @@
 #ifndef __XE_H__
 #define __XE_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "XeGame.h"
 
 XE_API void XE_Initialise(void);

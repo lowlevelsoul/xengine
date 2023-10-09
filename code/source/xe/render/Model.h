@@ -21,7 +21,7 @@
 #ifndef __MODEL_H__
 #define __MODEL_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "math/Math3d.h"
 
 typedef struct file_s file_t;

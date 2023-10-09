@@ -18,14 +18,15 @@
 ===========================================================================================================================================
 */
 
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef __PLATFORM_H__
+#define __PLATFORM_H__
 
-#include <stdint.h>
-#include <stdlib.h>
-
-#ifdef __APPLE__
-#   include <TargetConditionals.h>
+#if defined( _WIN32 )
+#   include "core/Platform_win.h"
+#elif defined( __APPLE__ )
+#   include "core/Platform_apple.h"
+#else
+#   error Unsupported platform
 #endif
 
 #define X_INLINE inline

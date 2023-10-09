@@ -21,7 +21,7 @@
 #ifndef __Mem_H__
 #define __Mem_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 typedef struct mem_allocator_s {
     void *      (* malloc )(size_t size);

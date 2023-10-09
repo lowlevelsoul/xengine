@@ -21,7 +21,7 @@
 #ifndef __ECSTYPES_H__
 #define __ECSTYPES_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #define ECS_MAX_ENTITIES 2048
 #define ECS_MAX_SYSTEMS 128

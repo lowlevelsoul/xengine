@@ -22,7 +22,7 @@
 #ifndef __MATERIALRESOURCE_H__
 #define __MATERIALRESOURCE_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "util/ParseLiteral.h"
 #include "render/Material.h"
 #include "resource/Resource.h"

@@ -21,7 +21,7 @@
 #ifndef __CRC32_H__
 #define __CRC32_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #ifdef __cplusplus
 extern "C" {
