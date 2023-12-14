@@ -28,6 +28,7 @@
 static void         ModelResource_Load( resource_t * self_, file_t * file, const char * path );
 static void *       ModelResource_Alloc( void );
 static void         ModelResource_Free( void * data );
+
 static void         Model_LoadMaterials( model_t * self_, model_stream_t * str, const char * path );
 
 DEFINE_RESOURCE_FACTORY("Model", Model, model )

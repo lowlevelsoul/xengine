@@ -18,9 +18,189 @@
 ===========================================================================================================================================
 */
 
-#include "render/MaterialResource.h"
-#include "mem/Mem.h"
-#include "core/Sys.h"
-#include <string.h>
 
+#include "render/Material_local.h"
+#include "render/MaterialResource.h"
+#include "util/ParseLiteral.h"
+#include "render/MaterialStream.h"
+#include "core/Id.h"
+#include "core/Sys.h"
+#include "core/Fs.h"
+#include "mem/Mem.h"
+#include <assert.h>
+#include <string.h>
+#include <stdarg.h>
+
+DEFINE_RESOURCE_FACTORY( "Material", Material, material )
+
+static void         MaterialResource_Load( resource_t * self_, file_t * file, const char * path );
+static void *       MaterialResource_Alloc( void );
+static void         MaterialResource_Free( void * data );
+
+static void         MaterialResource_LoadParseText( material_t * mat, file_t * file );
+
+static void         MaterialResource_LoadBinary( material_t * mat, file_t * file, const char * path );
+
+typedef struct material_parse_s {
+    material_t *    mat;
+    int             line;
+    str_t           parseLog;
+    bool_t       hasErrors;
+} material_parse_t;
+
+material_parse_t matParse;
+bool_t matParseInit = false;
+
+extern bool_t MaterialResource_Parse( file_t * file );
+
+/*=======================================================================================================================================*/
+void MaterialResource_StartParsing( material_t * mat ) {
+    if ( matParseInit == false ) {
+        memset(&matParse, 0, sizeof(matParse) );
+        matParseInit = true;
+    }
+
+    xassert( matParse.mat == NULL );
+    
+    matParse.mat = mat;
+    matParse.parseLog = NULL;
+    matParse.line = 1;
+    matParse.hasErrors = false;
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_EndParsing(void) {
+    xassert( matParse.mat != NULL );
+    matParse.mat = NULL;
+    
+    if ( matParse.parseLog != NULL ) {
+        Str_Destroy( &matParse.parseLog );
+    }
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_SetAlbedoTexture( parse_literal_t * path ) {
+    resource_t * texRes = NULL;
+    
+    xassert( matParse.mat != NULL );
+    xassert( path->type == PARSE_LITERAL_STRING );
+    
+    texRes = Resource_Load( path->value.stringVal );
+    Material_SetTextureAlbedo( matParse.mat, (texture_t*) Resource_GetData( texRes ) );
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_SetGlowTexture( parse_literal_t * path ) {
+    resource_t * texRes = NULL;
+    
+    xassert( matParse.mat != NULL );
+    xassert( path->type == PARSE_LITERAL_STRING );
+    
+    texRes = Resource_Load( path->value.stringVal );
+    Material_SetTextureGlow( matParse.mat, (texture_t*) Resource_GetData( texRes ) );
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_Load( resource_t * self_, file_t * file, const char * path ) {
+    material_t * mat = (material_t*) Resource_GetData( self_ );
+    
+    str_t ext = NULL;
+    Str_PathGetExtension( &ext, (char*) path );
+    Str_ToLower( ext );
+    
+    if ( strcasecmp( ext, "bmat" ) == 0 ) {
+        MaterialResource_LoadBinary( mat, file, path );
+    }
+    else {
+        MaterialResource_LoadParseText( mat, file );
+    }
+    
+    Str_Destroy( &ext );
+}
+
+/*=======================================================================================================================================*/
+void * MaterialResource_Alloc(void) {
+    material_t * mat = (material_t*) Mem_Alloc(sizeof(material_t));
+    Material_Create( mat );
+    return mat;
+}
+
+/*=======================================================================================================================================*/
+void  MaterialResource_Free( void * data ) {
+    Mem_Free( data );
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_LoadParseText( material_t * mat, file_t * file ) {
+    MaterialResource_StartParsing( mat );
+    
+    bool_t parseResult = MaterialResource_Parse( file );
+    xerror( parseResult == false, "%s\n", matParse.parseLog );
+    
+    MaterialResource_EndParsing();
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_LogError( const char * fmt, ... ) {
+    str_t header = NULL;
+    str_t msg = NULL;
+
+    va_list va;
+    va_start( va, fmt );
+    
+    Str_VFormatArgs( &msg, fmt, va );
+    Str_VFormat( &header, "Error : %i : ", matParse.line );
+    
+    Str_Append( &matParse.parseLog, header );
+    Str_Append( &matParse.parseLog, msg );
+    Str_Destroy( &header );
+    Str_Destroy( &msg );
+    
+    matParse.hasErrors = true;
+}
+
+/*=======================================================================================================================================*/
+bool_t MaterialResource_HasErrors( void ) {
+    return matParse.hasErrors;
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_IncLine( void ) {
+    ++matParse.line;
+}
+
+/*=======================================================================================================================================*/
+void MaterialResource_LoadBinary( material_t * mat, file_t * file, const char * path ) {
+    /* Read the data fom the file */
+    size_t dataLength = FS_FileLength( file );
+    void * data = Mem_Alloc( dataLength );
+    assert( data != NULL );
+    
+    size_t amtRead = FS_FileRead( file, data, sizeof(uint8_t) , dataLength );
+    assert( amtRead == dataLength );
+    
+    material_stream_t * str = ( material_stream_t * ) data;
+    
+    resource_t * texRes = NULL;
+
+    const char * albedoPath = ( str->offsAlbedoTexture == 0 ) ? NULL : MaterialStream_GetAlbedo( str );
+    const char * glowPath = ( str->offsGlowTexture == 0 ) ? NULL : MaterialStream_GetGlow( str );
+    const char * amrPath = ( str->offsAmrTexture == 0 ) ? NULL : MaterialStream_GetAmr( str );
+    
+    if ( albedoPath != NULL ) {
+        texRes = Resource_Load( albedoPath );
+        Material_SetTextureAlbedo( mat, (texture_t*) Resource_GetData( texRes ) );
+    }
+    
+    if ( amrPath != NULL ) {
+        texRes = Resource_Load( amrPath );
+        Material_SetTextureAmr( mat, (texture_t*) Resource_GetData( texRes ) );
+    }
+    
+    if ( amrPath != NULL ) {
+        texRes = Resource_Load( amrPath );
+        Material_SetTextureAmr( mat, (texture_t*) Resource_GetData( texRes ) );
+    }
+    
+}
 

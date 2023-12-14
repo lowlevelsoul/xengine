@@ -223,7 +223,9 @@
     <ClCompile Include="..\..\..\source\xe\render\Camera.c" />
     <ClCompile Include="..\..\..\source\xe\render\MaterialLexer.c" />
     <ClCompile Include="..\..\..\source\xe\render\MaterialParser.c" />
-    <ClCompile Include="..\..\..\source\xe\render\MaterialResource.c" />
+    <ClCompile Include="..\..\..\source\xe\render\MaterialResource.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\xe\render\MaterialStream.c" />
     <ClCompile Include="..\..\..\source\xe\render\Material_local.c" />
     <ClCompile Include="..\..\..\source\xe\render\ModelStream.c" />
