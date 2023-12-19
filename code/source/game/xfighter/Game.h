@@ -21,6 +21,6 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 #endif

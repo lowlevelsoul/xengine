@@ -21,7 +21,7 @@
 #ifndef __TEXTURE_METAL_H__
 #define __TEXTURE_METAL_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "render/Texture.h"
 #import <Metal/Metal.h>
 

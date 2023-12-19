@@ -7,7 +7,7 @@
 #ifndef __CC_MATHSCALAR_H__
 #define __CC_MATHSCALAR_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 
 namespace math {
     

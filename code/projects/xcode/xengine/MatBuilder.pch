@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "core/Sys.h"
 #include "core/Fs.h"
 #include "core/Str.h"

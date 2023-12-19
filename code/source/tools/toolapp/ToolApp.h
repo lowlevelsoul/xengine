@@ -78,6 +78,8 @@ public:
     PLATFORM PlatformStringToId( const char * ) const;
     
     static const std::string VFormat( const char * fmt, ... );
+    
+    static void SplitPath( std::vector<std::string> & result, const char * path );
 
 protected:
 	typedef std::map<uint64_t, int32_t> arg_id_map_t;

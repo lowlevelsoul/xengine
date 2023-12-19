@@ -47,7 +47,7 @@ XE_API void Sys_MutexLock( sys_mutex_t * self_ );
 XE_API void Sys_MutexTryLock( sys_mutex_t * self_ );
 XE_API void Sys_MutexUnlock( sys_mutex_t * self_ );
 
-#if defined( DEBUG ) || defined( _DEBUG )
+#if defined( DEBUG ) || defined( _DEBUG ) || defined( XENGINE_TOOLS )
 #   define xassert(C) (void)((C) || ( Sys_AssertPrintf( __FILE__, __LINE__, #C), Sys_Breakpoint(), 0))
 #   define xassertmsg(C, ...) (void)((C) || ( Sys_AssertPrintf( __FILE__, __LINE__, __VA_ARGS__ ), Sys_Breakpoint(), 0))
 #   define xerror(C, ...) (void)((!(C)) || ( Sys_AssertPrintf( __FILE__, __LINE__, __VA_ARGS__ ), Sys_Exit( 0 ), 0 ) )

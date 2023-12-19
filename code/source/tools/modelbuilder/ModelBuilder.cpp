@@ -96,10 +96,8 @@ void ModelBuilder::Compile( const char * path ) {
     
     
     // Write out materials
-    for( uint32_t m = 0; m < scene->materials.size(); ++m ) {
-        WriteMaterial( m_input.c_str(), path, scene->materials[ m ] );
-    }
-    
+    WriteMaterialScript( m_input.c_str() );
+                            
     xprintf("Done.\n");
 }
 
@@ -163,49 +161,66 @@ void ModelBuilder::WriteSkeleton( const char * modelPath, ToolMemStream & str  )
     file.Write( str.GetStream(), str.Length() );
 }
 
-static const char * albedo_fmt          = "    +albedo \"%s\"\n";
-static const char * amr_fmt             = "    +amr \"%s\"\n";
-static const char * glow_fmt            = "    +glow \"%s\"\n";
+static const char * albedo_fmt          = "    albedo \"%s\"\n";
+static const char * amr_fmt             = "    amr \"%s\"\n";
+static const char * glow_fmt            = "    glow \"%s\"\n";
+
 
 //======================================================================================================================
-void ModelBuilder::WriteMaterial( const char * srcModelPath, const char * dstPath, SceneMaterial * mat ) {
-#if 1
+void ModelBuilder::WriteMaterialScript( const char * srcModelPath ) {
+    
+    std::string materialScriptPath = srcModelPath;
+    if (materialScriptPath[0] == '@') {
+        materialScriptPath.erase( materialScriptPath.begin() );
+        PathUtil::SubstituteBasePath( materialScriptPath, "models", "materials");
+    }
+    else {
+        PathUtil::SubstituteBasePath( materialScriptPath, "assets/models", "assets/materials");
+    }
+    
+    PathUtil::RemoveExtension( materialScriptPath );
+    materialScriptPath.append( ".mat" );
+    
     std::string matText;
     
-    std::string basePath = srcModelPath;
-    std::string fileName;
+    for ( uint32_t m = 0; m < scene->materials.size(); ++m ) {
+        WriteMaterialToScript( matText , m_input.c_str(), scene->materials[ m ] );
+    }
     
-    PathUtil::RemoveLastPathElement( basePath );
-    
-    std::string matPath = basePath;
-    PathUtil::AppendPath( matPath, mat->name.c_str() );
-    matPath.append( ".bmat" );
-    
-    std::string matParamsPath = matPath;
-    matParamsPath[0] = '@';
-    matParamsPath.append( ".params" );
-    
-    std::string matDestPath = dstPath;
+    // Write out the material script
+    {
+        xeScopedFile scriptFile( materialScriptPath.c_str(), "wb" );
+        xerror( scriptFile.IsValid() == false, "Could not open material script \"%s\" for writing\n", materialScriptPath.c_str() );
+        scriptFile.Write( matText.c_str(), sizeof(char), matText.size() );
+    }
+}
 
-    PathUtil::RemoveLastPathElement( matDestPath );
-    PathUtil::AppendPath( matDestPath, mat->name.c_str() );
-    matDestPath.append( ".bmat" );
+//======================================================================================================================
+void ModelBuilder::WriteMaterialToScript( std::string & matText, const char * srcModelPath, SceneMaterial * mat ) {
+#if 1
+    matText.append( ToolApp::VFormat( "material \"%s\" {\n", mat->name.c_str() ) );
+
+    std::string textureBasePath = srcModelPath;
+    PathUtil::RemoveLastPathElement( textureBasePath );
     
-    TextureScriptUtil util;
-    util.Initialise( srcModelPath, m_input.c_str() );
-    
-    matText = ToolApp::VFormat("+material \"%s\"\n", matDestPath.c_str() );
+    if ( textureBasePath[ 0 ] == '@' ) {
+        textureBasePath.erase( textureBasePath.begin() );
+        PathUtil::SubstituteBasePath( textureBasePath, "models", "textures" );
+        textureBasePath.insert( textureBasePath.begin(), '@' );
+    }
+    else {
+        PathUtil::SubstituteBasePath( textureBasePath, "assets/models", "assets/textures" );
+    }
     
     //
     // Albedo texture
     //
     if ( mat->albedo != nullptr && mat->albedo->texturePath.empty() == false ) {
-        std::string texPath;
-        util.MakeMaterialTextureDestPath( texPath, mat->albedo->texturePath.c_str() );
-        
+        std::string texPath = textureBasePath;
+        PathUtil::AppendPath( texPath, mat->albedo->texturePath.c_str() );
         matText.append( ToolApp::VFormat( albedo_fmt, texPath.c_str() ) );
     }
-    
+        
     //
     // AMR texture
     //
@@ -216,32 +231,25 @@ void ModelBuilder::WriteMaterial( const char * srcModelPath, const char * dstPat
     std::string amrTexPath;
     
     if ( haveMetallic == true || haveRoughness == true || haveOcclusion == true ) {
-        util.MakeMaterialTextureDestPath( amrTexPath, mat->name.c_str(), "_amr" );
-        matText.append( ToolApp::VFormat( amr_fmt, amrTexPath.c_str()  ) );
-        haveAmr = true;
+        std::string texPath = textureBasePath;
+        PathUtil::AppendPath( texPath,  mat->albedo->texturePath.c_str() );
+        PathUtil::RemoveExtension( texPath );
+        texPath.append("_amr.png");
+        matText.append( ToolApp::VFormat( amr_fmt, texPath.c_str() ) );
     }
     
     //
     // Glow Texture
     //
     if ( mat->glow && mat->glow->texturePath.empty() == false ) {
-        std::string texPath;
-        util.MakeMaterialScriptTexturePath( texPath, mat->albedo );
+        std::string texPath = textureBasePath;
+        PathUtil::AppendPath( texPath, mat->glow->texturePath.c_str() );
         matText.append( ToolApp::VFormat( albedo_fmt, texPath.c_str() ) );
     }
     
-    xprintf("Writing material script \"%s\"\n", matParamsPath.c_str() );
-    
-    // Write out the material script
-    {
-        xeScopedFile scriptFile( matParamsPath.c_str(), "wb" );
-        xerror( scriptFile.IsValid() == false, "Could not opn material script \"%s\" for writing\n", matParamsPath.c_str() );
-        scriptFile.Write( matText.c_str(), sizeof(char), matText.size() );
-    }
+    matText.append("}\n\n");
+
 #endif
-    
-    // TODO - Write out texture build params
-    WriteMaterialTextureParams( dstPath );
 }
 
 

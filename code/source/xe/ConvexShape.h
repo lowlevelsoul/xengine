@@ -21,7 +21,7 @@
 #ifndef __CONVEXSHAPE_H__
 #define __CONVEXSHAPE_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "math/Math3d.h"
 #include "math/Plane.h"
 

@@ -75,7 +75,6 @@ ToolApp::ToolApp() {
     PublishArgId( TOOL_ARG_ID_PLATFORM_BEGIN, "platform_begin" );
     PublishArgId( TOOL_ARG_ID_PLATFORM_END, "platform_end" );
     PublishArgId( TOOL_ARG_ID_DEPENDS, "depends" );
-
 }
 
 //=======================================================================================================================
@@ -487,4 +486,27 @@ const std::string ToolApp::VFormat( const char * fmt, ... ) {
     va_end( vaArgs );
     
     return str;
+}
+
+//==========================================================================================================================================
+void ToolApp::SplitPath( std::vector<std::string> & result, const char * path ) {
+    const char * start = path;
+    const char * end = path + 1;
+    
+    size_t pathLen = strlen( path );
+    const char * pathEnd = path + pathLen;
+    
+    do {
+        if ( ( *end == 0 || *end == '\\' || *end == '/' )  && start != end ) {
+            std::string tmp( start, ( size_t ) ( end - start ) );
+            result.push_back( tmp );
+            
+            end++;
+            start = end;
+        }
+        else {
+            ++end;
+        }
+        
+    } while ( start < pathEnd );
 }

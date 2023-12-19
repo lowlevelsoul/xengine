@@ -21,7 +21,7 @@
 #ifndef __COMPONENTARRAY_H__
 #define __COMPONENTARRAY_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "ecs/EcsTypes.h"
 
 typedef struct ecs_component_array_s {

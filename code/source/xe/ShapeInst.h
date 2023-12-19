@@ -21,7 +21,7 @@
 #ifndef __SHAPE_INST_H__
 #define __SHAPE_INST_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "ConvexShape.h"
 
 struct shape_inst_s {

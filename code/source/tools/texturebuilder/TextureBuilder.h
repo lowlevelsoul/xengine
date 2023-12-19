@@ -65,7 +65,7 @@ public:
     static COMPRESSION CompressionStringToId( const char * str );
     
 public:
-    Options                         options;
+    Options                       options;
     std::vector<Image::ptr_t>     images;                     ///< List of images that we want to save in the tex
     std::vector<Image::ptr_t>     imagesCompressed;           ///< List of compressed versions of the images
 };

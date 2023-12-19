@@ -46,7 +46,29 @@ void TextureScriptUtil::MakeMaterialTextureSourcePath( std::string & pathOut, co
 void TextureScriptUtil::MakeMaterialTextureDestPath( std::string & pathOut, const char * texName, const char * postfix ) {
     std::string texPath = inputPath;
     PathUtil::AppendPath( texPath, texName );
+    
+    bool pathMountAssets = false;
+    
+    std::vector<std::string> pathItems;
+    PathUtil::SplitPath( pathItems, texPath );
+
+    if ( ( pathItems[0] == "@" ) && ( pathItems[0] == "~" ) ) {
+        pathItems.erase( pathItems.begin() );
+        pathMountAssets = true;
+    }
+    
+    if ( pathItems[0] == "assets" ) {
+        pathItems.erase( pathItems.begin() );
+        if ( pathItems[ 0 ] == "models" ) {
+            pathItems.erase( pathItems.begin() );
+        }
+    }
         
+    texPath = "~/textures/";
+    for( uint32_t p = 0; p < pathItems.size(); ++p ) {
+        PathUtil::AppendPath( texPath, pathItems[ p ].c_str() );
+    }
+    
     PathUtil::RemoveExtension( texPath );
 
     if ( postfix != nullptr ) {
@@ -56,7 +78,6 @@ void TextureScriptUtil::MakeMaterialTextureDestPath( std::string & pathOut, cons
     texPath.append( ".btex" );
     
     pathOut = texPath;
-    pathOut[0] = '~';
 }
 
 //======================================================================================================================

@@ -98,7 +98,8 @@ public:
         uint32_t                        mipCount = 0;
         TextureBuilder::COMPRESSION     compression = TextureBuilder::COMPRESSION_NONE;
         ToolMemStream                   str;
-        
+        bool                            blockCompressSet = false;
+        bool                            genMipsSet = false;
     };
     
     void LoadImage( ImageEntry * ie );
@@ -108,6 +109,7 @@ public:
     ImageEntry *                currAmrImage = nullptr;
     ImageEntry::array_t         images;
     ImageEntry::array_t         imageStack;
+
     
 };
 

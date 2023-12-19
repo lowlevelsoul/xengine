@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1430"
+   LastUpgradeVersion = "1510"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A445BD229FF87DC00BC8784"
-               BuildableName = "modelbuilder"
-               BlueprintName = "modelbuilder"
+               BlueprintIdentifier = "1A445C172A017BC800BC8784"
+               BuildableName = "texturebuilder"
+               BlueprintName = "texturebuilder"
                ReferencedContainer = "container:xengine.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,27 +45,15 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1A445BD229FF87DC00BC8784"
-            BuildableName = "modelbuilder"
-            BlueprintName = "modelbuilder"
+            BlueprintIdentifier = "1A445C172A017BC800BC8784"
+            BuildableName = "texturebuilder"
+            BlueprintName = "texturebuilder"
             ReferencedContainer = "container:xengine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "+infile assets/models/barbarian/barbarian_lod0.fbx"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "+outfile data/macos/data/models/barbarian/barbarian_lod0.bmdl"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "+platform macos "
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "+params assets/models/barbarian/barbarian_lod0.fbx.params"
+            argument = "+platform macos +image assets/textures/barbarian/barbarian_Metallic.png +outfile data/macos/data/textures/barbarian/barbarian_Metallic.btex"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -80,9 +68,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1A445BD229FF87DC00BC8784"
-            BuildableName = "modelbuilder"
-            BlueprintName = "modelbuilder"
+            BlueprintIdentifier = "1A445C172A017BC800BC8784"
+            BuildableName = "texturebuilder"
+            BlueprintName = "texturebuilder"
             ReferencedContainer = "container:xengine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

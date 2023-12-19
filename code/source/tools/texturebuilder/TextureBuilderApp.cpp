@@ -132,6 +132,8 @@ bool TextureBuilderApp::HandleArg( Arg * arg, int32_t argId ) {
             
             xerror( currImage == nullptr, "No source image specified\n" );
             currImage->mipCount = atoi( arg->m_params[0].c_str() );
+            currImage->genMipsSet = true;
+            
             break;
         }
             
@@ -142,7 +144,8 @@ bool TextureBuilderApp::HandleArg( Arg * arg, int32_t argId ) {
             
             xerror( currImage == nullptr, "No source image specified\n" );
             currImage->compression = TextureBuilder::CompressionStringToId( arg->m_params[0].c_str() );
-            xerror( currImage->compression == TextureBuilder::COMPRESSION_NONE, "Invalid compression type '%s'\n", arg->m_params[0].c_str() );
+            xerror( currImage->compression == TextureBuilder::COMPRESSION_NONE, "Invalid compression type '%s'\n", arg->m_params[0].c_str() );            
+            currImage->blockCompressSet = true;
             
             break;
         }
@@ -234,6 +237,30 @@ bool TextureBuilderApp::Process() {
     for( uint32_t i = 0; i < images.size(); ++i ) {
         ImageEntry * ie = images[ i ];
         
+        // By default, we block compress textures unless specified
+        if ( ie->blockCompressSet == false && ie->compression == TextureBuilder::COMPRESSION_NONE ) {
+            
+            switch( targetPlatform ) {
+                    
+                case PLATFORM_NONE:
+                    break;
+                    
+                case PLATFORM_MACOS:
+                    ie->compression = TextureBuilder::COMPRESSION_BC3;
+                    break;
+                    
+                case PLATFORM_IOS:
+                case PLATFORM_TVOS:
+                    ie->compression = TextureBuilder::COMPRESSION_ETC;
+                    break;
+            }
+        }
+        
+        // We generate the maximum number of mips for a texture by default.
+        if ( ie->genMipsSet == false && ie->mipCount == 0 ) {
+            ie->mipCount = 32;
+        }
+        
         TextureBuilder::Options opt;
         opt.maxSize = ie->maxSize;
         opt.mipCount = ie->mipCount;
@@ -257,6 +284,8 @@ bool TextureBuilderApp::Process() {
         }
         
         xprintf("Writing texture '%s'\n", dstPath.c_str() );
+        
+        CreateFolderAtPath( dstPath.c_str() );
         
         xeScopedFile file( dstPath.c_str(), "wb" );
         xerror( file.IsValid() == false, "Could not open file '%s' for writing\n", dstPath.c_str() );

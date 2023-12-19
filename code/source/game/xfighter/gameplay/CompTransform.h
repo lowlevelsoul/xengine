@@ -21,7 +21,7 @@
 #ifndef __COMPTRANSFORM_H__
 #define __COMPTRANSFORM_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "ecs/Ecs.h"
 #include "math/Math3d.h"
 

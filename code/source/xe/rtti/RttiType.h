@@ -21,7 +21,7 @@
 #ifndef __RTTITYPE_H__
 #define __RTTITYPE_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "mem/Mem.h"
 
 typedef struct rtti_prop_s {

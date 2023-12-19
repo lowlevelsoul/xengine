@@ -123,6 +123,60 @@ namespace PathUtil {
         }
     }
 
+    //======================================================================================================================
+    bool RemoveBasePath( std::string & path, const std::string & basePath ) {
+        std::vector< std::string > pathList;
+        std::vector< std::string > basePathList;
+        
+        SplitPath( pathList, path );
+        SplitPath( basePathList, basePath );
+        
+        if ( pathList.size() < basePathList.size() ) {
+            return false;
+        }
+        
+        uint32_t currPathItem = 0;
+        
+        for ( uint32_t i = 0; i < basePathList.size(); ++i ) {
+            std::string pathItem = pathList[ currPathItem ];
+            std::string baseItem = basePathList[ i ];
+            
+            std::transform( pathItem.begin(), pathItem.end(), pathItem.begin(), tolower );
+            std::transform( baseItem.begin(), baseItem.end(), baseItem.begin(), tolower );
+            
+            if ( pathItem == baseItem ) {
+                pathList.erase( pathList.begin() + currPathItem );
+            }
+            else {
+                return false;
+            }
+        }
+        
+        path.clear();
+        
+        if ( pathList.size() > 0 ) {
+            path = pathList[ 0 ];
+            for ( uint32_t i = 1; i < pathList.size(); ++i ) {
+                PathUtil::AppendPath( path, pathList[ i ].c_str() );
+            }
+        }
+        
+        return true;
+    }
 
+    //======================================================================================================================
+    bool SubstituteBasePath( std::string & path,  const std::string & basePath,  const std::string & newBasePath ) {
+        std::string pathWithoutBase = path;
+        
+        bool removeOk = RemoveBasePath( pathWithoutBase, basePath );
+        if ( removeOk == false ) {
+            return false;
+        }
+        
+        path = newBasePath;
+        AppendPath( path, pathWithoutBase.c_str() );
+        
+        return true;
+    }
 
 }

@@ -7,7 +7,7 @@
 #ifndef __CC_MATH3D_H__
 #define __CC_MATH3D_H__
 
-#include "core/Common.h"
+#include "core/Platform.h"
 #include "mathcc/MathScalar.h"
 
 #include "mathcc/Vec3.h"

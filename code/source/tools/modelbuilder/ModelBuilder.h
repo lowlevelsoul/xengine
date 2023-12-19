@@ -173,7 +173,9 @@ public:
     
     void BuildVertexWeightsFromParent( MeshEntry * entry );
     
-    void WriteMaterial( const char * srcModelPath, const char * dstPath, SceneMaterial * mat );
+    void WriteMaterialScript( const char * dstPath );
+    
+    void WriteMaterialToScript( std::string & matText, const char * srcModelPath, SceneMaterial * mat );
     
     void CalcShellBounds( math::Vec3 & bmin, math::Vec3 & bmax );
     

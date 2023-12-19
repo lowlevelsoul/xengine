@@ -29,7 +29,10 @@
 #include <assert.h>
 //#include "tlsf/tlsf.h"
 //#include <pthread.h>
-//#include <malloc/malloc.h>
+
+#ifdef __APPLE__
+#   include <malloc/malloc.h>
+#endif
 
 typedef struct mem_s {
     mem_allocator_t     defaultAllocator;

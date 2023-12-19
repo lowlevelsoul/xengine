@@ -19,6 +19,10 @@ namespace PathUtil {
     bool RemoveLastPathElement( std::string & path );
 
     void SplitPath( std::vector<std::string> & pathElements, const std::string & path );
+
+    bool RemoveBasePath( std::string & path, const std::string & basePath );
+
+    bool SubstituteBasePath( std::string & path,  const std::string & basePath,  const std::string & newBasePath );
 }
 
 
