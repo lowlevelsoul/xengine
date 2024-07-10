@@ -16,6 +16,16 @@ ToolMemStream::~ToolMemStream() {
 }
 
 //======================================================================================================================
+void ToolMemStream::Save( const char * filename ) {
+    file_t file;
+    bool_t openOk = FS_FileOpen( &file, filename, "wb");
+    xerror( openOk != bool_true, "Error opening %s for writing\n", filename );
+    
+    FS_FileWrite( &file, &m_stream[0], 1, m_stream.size() );
+    FS_FileClose( & file );
+}
+
+//======================================================================================================================
 size_t ToolMemStream::WriteRaw(const uint8_t* buffer, size_t size) {
     uintptr_t currBufferPos = 0;
     
@@ -36,7 +46,7 @@ size_t ToolMemStream::WriteRaw(const uint8_t* buffer, size_t size) {
 
 //======================================================================================================================
 bool ToolMemStream::Seek(uintptr_t pos) {
-    if (pos <= m_ptr) {
+    if ( pos <= this->m_stream.size() ) {
         m_ptr = pos;
         return true;
     }

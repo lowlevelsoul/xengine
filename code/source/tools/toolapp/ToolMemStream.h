@@ -34,6 +34,8 @@ public:
     
     size_t Write( const ToolMemStream & str );
     
+    void Save( const char * filename );
+    
     TOOL_STREAM_WRITE(char)
     TOOL_STREAM_WRITE(int8_t)
     TOOL_STREAM_WRITE(uint8_t)

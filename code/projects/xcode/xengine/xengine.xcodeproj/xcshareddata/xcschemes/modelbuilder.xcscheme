@@ -53,19 +53,15 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "+infile assets/models/barbarian/barbarian_lod0.fbx"
+            argument = "+infile @/models/EliteTrooper/SK_EliteTrooper.fbx"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "+outfile data/macos/data/models/barbarian/barbarian_lod0.bmdl"
+            argument = "+outfile ~/models/EliteTrooper/EliteTrooper.fbx"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "+platform macos "
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "+params assets/models/barbarian/barbarian_lod0.fbx.params"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

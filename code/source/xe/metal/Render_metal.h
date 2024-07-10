@@ -31,6 +31,8 @@
 
 typedef enum default_tex_e {
     DEFAULT_TEX_BLACK = 0,
+    DEFAULT_TEX_RED,
+    DEFAULT_TEX_WHITE,
     DEFAULT_TEX_COUNT,
 } default_tex_t;
 

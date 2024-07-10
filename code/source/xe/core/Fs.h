@@ -45,6 +45,7 @@ XE_API char         FS_FolderSep        ( void );
 XE_API char         FS_FolderSepOther   ( void );
 XE_API void         FS_GetCurrentFolder ( str_t * pathOut );
 XE_API bool_t       FS_CreateFolder     ( const char * path );
+XE_API void         FS_SetDataPath      ( const char * path );
 
 
 #ifdef __cplusplus

@@ -23,6 +23,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1A1D0F4B2C3D2AC500CCDCC4 /* RttiType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1D0F492C3D2AC500CCDCC4 /* RttiType.cpp */; };
+		1A1D0F4C2C3D2AC500CCDCC4 /* RttiType.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1D0F4A2C3D2AC500CCDCC4 /* RttiType.h */; };
+		1A1D0F552C3EA4DC00CCDCC4 /* RttiObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1D0F532C3EA4DC00CCDCC4 /* RttiObject.cpp */; };
+		1A1D0F562C3EA4DC00CCDCC4 /* RttiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1D0F542C3EA4DC00CCDCC4 /* RttiObject.h */; };
 		1A445B7D29FC16D700BC8784 /* MaterialStream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A445B7C29FC16D700BC8784 /* MaterialStream.c */; };
 		1A445B7E29FC1C2400BC8784 /* Material_local.c in Sources */ = {isa = PBXBuildFile; fileRef = D37D2C2728F538A400CF10A8 /* Material_local.c */; };
 		1A445B8129FC384500BC8784 /* TexStream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A445B8029FC384500BC8784 /* TexStream.c */; };
@@ -145,6 +149,9 @@
 		1ABC39B12B304BA000FF0896 /* Fs.c in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC399D2B304B9F00FF0896 /* Fs.c */; };
 		1ABC39B22B304BA000FF0896 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ABC399E2B304B9F00FF0896 /* Array.h */; };
 		1ABC39B32B304BA000FF0896 /* Crc32.h in Headers */ = {isa = PBXBuildFile; fileRef = 1ABC399F2B304B9F00FF0896 /* Crc32.h */; };
+		1ABC39B92B32ED6B00FF0896 /* MaterialParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1ABC39B62B32ED6B00FF0896 /* MaterialParser.hpp */; };
+		1ABC39BB2B32F04900FF0896 /* MaterialParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC39B42B32ED6B00FF0896 /* MaterialParser.cpp */; };
+		1ABC39BC2B32F04900FF0896 /* MaterialLexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC39B52B32ED6B00FF0896 /* MaterialLexer.cpp */; };
 		D326364428F450A800099842 /* ConvexShape.c in Sources */ = {isa = PBXBuildFile; fileRef = D326364328F450A800099842 /* ConvexShape.c */; };
 		D326364728F45B8000099842 /* ShapeInst.h in Headers */ = {isa = PBXBuildFile; fileRef = D326364528F45B8000099842 /* ShapeInst.h */; };
 		D326364828F45B8000099842 /* ShapeInst.c in Sources */ = {isa = PBXBuildFile; fileRef = D326364628F45B8000099842 /* ShapeInst.c */; };
@@ -388,6 +395,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A1D0F492C3D2AC500CCDCC4 /* RttiType.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RttiType.cpp; sourceTree = "<group>"; };
+		1A1D0F4A2C3D2AC500CCDCC4 /* RttiType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RttiType.h; sourceTree = "<group>"; };
+		1A1D0F532C3EA4DC00CCDCC4 /* RttiObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RttiObject.cpp; sourceTree = "<group>"; };
+		1A1D0F542C3EA4DC00CCDCC4 /* RttiObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RttiObject.h; sourceTree = "<group>"; };
 		1A445B7B29FC162400BC8784 /* MaterialStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialStream.h; sourceTree = "<group>"; };
 		1A445B7C29FC16D700BC8784 /* MaterialStream.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MaterialStream.c; sourceTree = "<group>"; };
 		1A445B7F29FC376700BC8784 /* TexStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TexStream.h; sourceTree = "<group>"; };
@@ -558,6 +569,9 @@
 		1ABC399D2B304B9F00FF0896 /* Fs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Fs.c; sourceTree = "<group>"; };
 		1ABC399E2B304B9F00FF0896 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
 		1ABC399F2B304B9F00FF0896 /* Crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crc32.h; sourceTree = "<group>"; };
+		1ABC39B42B32ED6B00FF0896 /* MaterialParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialParser.cpp; sourceTree = "<group>"; };
+		1ABC39B52B32ED6B00FF0896 /* MaterialLexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaterialLexer.cpp; sourceTree = "<group>"; };
+		1ABC39B62B32ED6B00FF0896 /* MaterialParser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MaterialParser.hpp; sourceTree = "<group>"; };
 		D326364228F44F8300099842 /* ConvexShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvexShape.h; sourceTree = "<group>"; };
 		D326364328F450A800099842 /* ConvexShape.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ConvexShape.c; sourceTree = "<group>"; };
 		D326364528F45B8000099842 /* ShapeInst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeInst.h; sourceTree = "<group>"; };
@@ -742,9 +756,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A1D0F3B2C3D2A5700CCDCC4 /* rtti */ = {
+			isa = PBXGroup;
+			children = (
+				1A1D0F492C3D2AC500CCDCC4 /* RttiType.cpp */,
+				1A1D0F4A2C3D2AC500CCDCC4 /* RttiType.h */,
+				1A1D0F532C3EA4DC00CCDCC4 /* RttiObject.cpp */,
+				1A1D0F542C3EA4DC00CCDCC4 /* RttiObject.h */,
+			);
+			path = rtti;
+			sourceTree = "<group>";
+		};
 		1A445B8229FD8F0900BC8784 /* toolapp */ = {
 			isa = PBXGroup;
 			children = (
+				1A1D0F3B2C3D2A5700CCDCC4 /* rtti */,
 				1A445BC929FEDE7E00BC8784 /* Lexer.cpp */,
 				1A445BCA29FEDE7E00BC8784 /* Lexer.h */,
 				1A445B9929FD8F9600BC8784 /* DictionaryBuilder.cpp */,
@@ -952,10 +978,13 @@
 		1A445CE92A0227B100BC8784 /* matbuilder */ = {
 			isa = PBXGroup;
 			children = (
+				1A445CED2A0227B100BC8784 /* MatBuilder.cpp */,
 				1A445CEA2A0227B100BC8784 /* MatBuilderApp.cpp */,
+				1ABC39B52B32ED6B00FF0896 /* MaterialLexer.cpp */,
+				1ABC39B42B32ED6B00FF0896 /* MaterialParser.cpp */,
 				1A445CEB2A0227B100BC8784 /* MatBuilder.h */,
 				1A445CEC2A0227B100BC8784 /* MatBuilderApp.h */,
-				1A445CED2A0227B100BC8784 /* MatBuilder.cpp */,
+				1ABC39B62B32ED6B00FF0896 /* MaterialParser.hpp */,
 			);
 			path = matbuilder;
 			sourceTree = "<group>";
@@ -1304,12 +1333,14 @@
 				1A445B9A29FD8F9600BC8784 /* ToolApp.h in Headers */,
 				1A445BA029FD8F9600BC8784 /* DictionaryBuilder.h in Headers */,
 				1A445B9F29FD8F9600BC8784 /* RefPointer.h in Headers */,
+				1A1D0F562C3EA4DC00CCDCC4 /* RttiObject.h in Headers */,
 				1A445BBF29FE4BB600BC8784 /* Mat3.h in Headers */,
 				1A445BC029FE4BB600BC8784 /* MathScalar.h in Headers */,
 				1A445BA129FD8F9600BC8784 /* RefObject.h in Headers */,
 				1A445BCC29FEDE7E00BC8784 /* Lexer.h in Headers */,
 				1A445BB929FE4BB600BC8784 /* Vec3.h in Headers */,
 				1A445BBA29FE4BB600BC8784 /* Quat.h in Headers */,
+				1A1D0F4C2C3D2AC500CCDCC4 /* RttiType.h in Headers */,
 				1A445BC129FE4BB600BC8784 /* Mat4.h in Headers */,
 				1A445BBC29FE4BB600BC8784 /* Math3d.h in Headers */,
 			);
@@ -1371,6 +1402,7 @@
 				D37D2C4B28F5C3D300CF10A8 /* MaterialResource.h in Headers */,
 				1ABC39AC2B304BA000FF0896 /* Id.h in Headers */,
 				D37D2C5A28F8782C00CF10A8 /* Ecs.h in Headers */,
+				1ABC39B92B32ED6B00FF0896 /* MaterialParser.hpp in Headers */,
 				D36A596128EDFE2E00F171D1 /* stb_image.h in Headers */,
 				D37D2C5228F5E3F500CF10A8 /* MaterialParser.h in Headers */,
 				1ABC39A12B304BA000FF0896 /* Str.h in Headers */,
@@ -1722,12 +1754,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1D0F552C3EA4DC00CCDCC4 /* RttiObject.cpp in Sources */,
 				1A445BBE29FE4BB600BC8784 /* Mat3.cc in Sources */,
 				1A445B9B29FD8F9600BC8784 /* RefObject.cpp in Sources */,
 				1A445BCB29FEDE7E00BC8784 /* Lexer.cpp in Sources */,
 				1A445B9E29FD8F9600BC8784 /* ToolApp.cpp in Sources */,
 				1A445B9C29FD8F9600BC8784 /* ToolMemStream.cpp in Sources */,
 				1A445BC329FE4BB600BC8784 /* Quat.cc in Sources */,
+				1A1D0F4B2C3D2AC500CCDCC4 /* RttiType.cpp in Sources */,
 				1A445BC229FE4BB600BC8784 /* Math3d.cc in Sources */,
 				1A445BBB29FE4BB600BC8784 /* Mat4.cc in Sources */,
 				1A445C122A00DCA300BC8784 /* PathUtil.cpp in Sources */,
@@ -1808,7 +1842,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A445CEF2A0227B100BC8784 /* MatBuilder.cpp in Sources */,
+				1ABC39BC2B32F04900FF0896 /* MaterialLexer.cpp in Sources */,
 				1A445CEE2A0227B100BC8784 /* MatBuilderApp.cpp in Sources */,
+				1ABC39BB2B32F04900FF0896 /* MaterialParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

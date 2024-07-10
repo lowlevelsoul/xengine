@@ -79,6 +79,8 @@ public:
     
     static const std::string VFormat( const char * fmt, ... );
     
+    static const std::string VFormat( const char * fmt, va_list args );
+    
     static void SplitPath( std::vector<std::string> & result, const char * path );
 
 protected:
@@ -89,6 +91,7 @@ protected:
 
 	std::string				m_infilePath;
 	std::string				m_outfilePath;
+    std::string             paramsFilesPath;
     PLATFORM                currPlatform = PLATFORM_NONE;
     PLATFORM                targetPlatform = PLATFORM_NONE;
     bool                    outputDepends = false;

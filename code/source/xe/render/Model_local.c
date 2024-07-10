@@ -20,10 +20,12 @@
 
 #include "render/Model.h"
 #include "render/ModelStream.h"
+#include "render/Material.h"
 #include "core/Fs.h"
 #include "mem/Mem.h"
 #include "resource/Resource.h"
 #include <assert.h>
+#include <string.h>
 
 static void         ModelResource_Load( resource_t * self_, file_t * file, const char * path );
 static void *       ModelResource_Alloc( void );
@@ -86,23 +88,35 @@ void Model_LoadMaterials( model_t * self_, model_stream_t * str, const char * pa
     const mesh_stream_t * meshStr = ModelStream_GetMeshes( str );
     resource_t * res = NULL;
     
-    str_t resourceFolder = NULL;
-    str_t materialResPath = NULL;
-    Str_SetCapacity( &materialResPath, 256 );
-    Str_CopyCStr( &resourceFolder, path );
-    Str_PathRemoveLastElement( &resourceFolder );
-    
-    for ( uint32_t m = 0; m < str->meshCount; ++m ) {
-        const char * meshMat = ModelStream_GetMaterialNames( str ) + meshStr->material;
-        Str_Copy( &materialResPath, resourceFolder );
-        Str_AppendPathCStr( &materialResPath, meshMat );
-                
-        res = Resource_Load( materialResPath );
-        Model_SetMaterial( self_, m, (material_t*) Resource_GetData( res ) );
+    uint32_t modelsStrIndex = 0;
+    const char * modelsStr = strstr( path, "models" );
+    const char * matPathBase = NULL;
+    if ( modelsStr == NULL) {
+        return;
+    }
+     
+    modelsStrIndex = (uint32_t) ( modelsStr - path );
+    if ( modelsStrIndex > 3 ) {
+        return;
     }
     
-    Str_Destroy( &resourceFolder );
-    Str_Destroy( &materialResPath );
+    matPathBase = path + modelsStrIndex + 6;
+    
+    str_t matLibPath = NULL;
+    Str_CopyCStr( &matLibPath, "~/materials" );
+    Str_AppendPathCStr( &matLibPath, matPathBase );
+    Str_PathRemoveExtension( &matLibPath );
+    Str_AppendCStr( &matLibPath, ".bmat" );
+    
+    Material_LoadLibrary( matLibPath );
+    
+    Str_Destroy( &matLibPath );
+    
+    for ( uint32_t m = 0; m < str->meshCount; ++m ) {
+        const char * meshMatName = ModelStream_GetMaterialNames( str ) + meshStr->material;
+        material_t * mat = Material_Find( meshMatName );
+        Model_SetMaterial( self_, m, mat );
+    }
 }
 
 /*=======================================================================================================================================*/

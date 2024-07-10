@@ -120,10 +120,10 @@ XE_API bool_t Str_PathRemoveExtension( str_t * self_ );
 
 XE_API bool_t Str_PathGetExtension( str_t * ext, const str_t path );
 
+XE_API bool_t Str_PathRemoveLastElement( str_t * self_ );
+
 XE_API void Str_VFormatArgs( str_t * self_, const char * fmt, va_list vaArgs );
 
 XE_API void Str_VFormat( str_t * self_, const char * fmt, ... );
-
-XE_API bool_t Str_PathRemoveLastElement( str_t * self_ );
 
 #endif

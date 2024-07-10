@@ -171,6 +171,7 @@ void MaterialResource_IncLine( void ) {
 
 /*=======================================================================================================================================*/
 void MaterialResource_LoadBinary( material_t * mat, file_t * file, const char * path ) {
+#if 0
     /* Read the data fom the file */
     size_t dataLength = FS_FileLength( file );
     void * data = Mem_Alloc( dataLength );
@@ -201,6 +202,7 @@ void MaterialResource_LoadBinary( material_t * mat, file_t * file, const char * 
         texRes = Resource_Load( amrPath );
         Material_SetTextureAmr( mat, (texture_t*) Resource_GetData( texRes ) );
     }
+#endif
     
 }
 

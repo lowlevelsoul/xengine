@@ -27,6 +27,14 @@
 extern "C" {
 #endif
 
+void Array_RemoveAtPosInt32( int32_t pos, int32_t* valueArray, size_t valueArraySize );
+
+void Array_RemoveAtPosUInt32( int32_t pos, uint32_t* valueArray, size_t valueArraySize );
+
+void Array_RemoveAtPosInt64( int32_t pos, int64_t* valueArray, size_t valueArraySize );
+
+void Array_RemoveAtPosUint64( int32_t pos, uint64_t* valueArray, size_t valueArraySize );
+
 void Array_InsertAtPosUint32(int32_t pos, uint32_t value, uint32_t* valueArray, size_t valueArraySize, size_t valueArrayCapacity);
 
 void Array_InsertAtPosUint64(int32_t pos, uint64_t value, uint64_t* valueArray, size_t valueArraySize, size_t valueArrayCapacity);

@@ -22,6 +22,49 @@
 #include "core/Array.h"
 #include "Debug.h"
 
+void Array_RemoveAtPosUint16( int32_t pos, int16_t* valueArray, size_t valueArraySize ) {
+    xassert( pos >= 0 && pos < valueArraySize );
+    for ( int32_t i = pos; i < valueArraySize -1; ++i ) {
+        valueArray[ i ] = valueArray[ i + 1 ];
+    }
+}
+
+void Array_RemoveAtPosInt32( int32_t pos, int32_t* valueArray, size_t valueArraySize ) {
+    xassert( pos >= 0 && pos < valueArraySize );
+    for ( int32_t i = pos; i < valueArraySize -1; ++i ) {
+        valueArray[ i ] = valueArray[ i + 1 ];
+    }
+}
+
+void Array_RemoveAtPosUint32( int32_t pos, uint32_t* valueArray, size_t valueArraySize ) {
+    xassert( pos >= 0 && pos < valueArraySize );
+    for ( int32_t i = pos; i < valueArraySize -1; ++i ) {
+        valueArray[ i ] = valueArray[ i + 1 ];
+    }
+}
+
+
+void Array_RemoveAtPosUint64( int32_t pos, uint64_t* valueArray, size_t valueArraySize ) {
+    xassert( pos >= 0 && pos < valueArraySize );
+    for ( int32_t i = pos; i < valueArraySize -1; ++i ) {
+        valueArray[ i ] = valueArray[ i + 1 ];
+    }
+}
+
+void Array_RemoveAtPosInt64( int32_t pos, int64_t* valueArray, size_t valueArraySize ) {
+    xassert( pos >= 0 && pos < valueArraySize );
+    for ( int32_t i = pos; i < valueArraySize -1; ++i ) {
+        valueArray[ i ] = valueArray[ i + 1 ];
+    }
+}
+
+void Array_RemoveAtPosUintPtr( int32_t pos, uintptr_t* valueArray, size_t valueArraySize ) {
+    xassert( pos >= 0 && pos < valueArraySize );
+    for ( int32_t i = pos; i < valueArraySize -1; ++i ) {
+        valueArray[ i ] = valueArray[ i + 1 ];
+    }
+}
+
 void Array_InsertAtPosUint32(int32_t pos, uint32_t value, uint32_t* valueArray, size_t valueArraySize, size_t valueArrayCapacity) {
     xassert(valueArraySize < valueArrayCapacity);
     for(int32_t i=(int32_t)valueArraySize; i > pos; --i) {

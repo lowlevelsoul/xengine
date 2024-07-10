@@ -93,10 +93,6 @@ void ModelBuilder::Compile( const char * path ) {
     if ( writeSkinned == true ) {
         WriteSkeleton( path, skeletonStream );
     }
-    
-    
-    // Write out materials
-    WriteMaterialScript( m_input.c_str() );
                             
     xprintf("Done.\n");
 }
@@ -179,7 +175,6 @@ void ModelBuilder::WriteMaterialScript( const char * srcModelPath ) {
     }
     
     PathUtil::RemoveExtension( materialScriptPath );
-    materialScriptPath.append( ".mat" );
     
     std::string matText;
     

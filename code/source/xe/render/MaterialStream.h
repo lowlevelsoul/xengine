@@ -25,17 +25,30 @@
 
 #define  MATERIAL_STREAM_VERSION 1
 
-typedef struct material_stream_s {
-    uint32_t        version;
-    uint32_t        flags;
+typedef struct material_stream_entry_s {
+    uint32_t        offsName;
     uint32_t        offsAlbedoTexture;
     uint32_t        offsAmrTexture;
     uint32_t        offsGlowTexture;
-    float           transparency;
+    uint32_t        offsBumpTexture;
+    uint32_t        transparency;
+    float           alpha;
+} material_stream_entry_t;
+
+typedef struct material_stream_s {
+    uint32_t        version;
+    uint32_t        flags;
+    uint32_t        count;
+    uint32_t        offsMaterials;
+    uint32_t        offsStrings;
+    uint32_t        pad;
 } material_stream_t;
 
-XE_API const char * MaterialStream_GetAlbedo( const material_stream_t * str );
-XE_API const char * MaterialStream_GetAmr( const material_stream_t * str );
-XE_API const char * MaterialStream_GetGlow( const material_stream_t * str );
+XE_API const char * MaterialStream_GetStrings( const material_stream_t * str );
+XE_API const material_stream_entry_t * MaterialStream_GetMaterials( const material_stream_t * str );
+
+//XE_API const char * MaterialStream_GetAlbedo( const material_stream__t, uint * str );
+//XE_API const char * MaterialStream_GetAmr( const material_stream_entry_t * str );
+//XE_API const char * MaterialStream_GetGlow( const material_stream_t * str );
 
 #endif

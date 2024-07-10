@@ -6,19 +6,24 @@
 #ifndef __MATBUILDER_H__
 #define __MATBUILDER_H__
 
-#include "toolapp/RefObject.h"
-#include "toolapp/RefPointer.h"
 #include "toolapp/ToolMemStream.h"
 #include "render/MaterialStream.h"
+#include "util/ParseLiteral.h"
 
 class MatBuilder {
 public:
     class MaterialInfo {
     public:
-        std::string         albedoTexture;
-        std::string         amrTexture;
-        std::string         glowTexture;
-        std::string         normalTexture;
+        enum STAGE {
+            STAGE_ALBEDO=0,
+            STAGE_AMR,
+            STAGE_GLOW,
+            STAGE_BUMP,
+            STAGE_COUNT
+        };
+        
+        std::string         name;
+        std::string         texture[ STAGE_COUNT ];
         float               transparency = 1.0;
         
         MaterialInfo() {
@@ -35,14 +40,36 @@ public:
 
     ~MatBuilder();
     
-    void Build( ToolMemStream & str, MaterialInfo &info );
+    void Build( ToolMemStream & str, const char * scriptPath );
     
     void WriteHeader( ToolMemStream & str, material_stream_t & header );
     
-    uintptr_t WriteString( ToolMemStream & str, const char * string );
+    uintptr_t WriteString( const char * string );
     
+    void BeginMaterial( parse_literal_t * name );
+    
+    void EndMaterial();
+    
+    void SetTexture( MaterialInfo::STAGE stage, parse_literal_t * texPath );
+
+    void LogError( const char * fmt, ... );
+
+    bool HasErrors() const { return hasErrors == true; }
+
+    void IncLine() { ++line; }
+    
+    std::string ResolveTexturePath( const std::string & path );
+        
 public:
-    ToolMemStream       strings;
+    int                             line = 1;
+    bool                            hasErrors = false;
+    std::string                     parseLog;
+    std::vector<MaterialInfo*>      materials;
+    
+    ToolMemStream                   entries;
+    ToolMemStream                   strings;
+    
+    MaterialInfo *                  currMaterial = nullptr;
 };
 
 #endif

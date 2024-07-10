@@ -26,6 +26,8 @@
 
 typedef struct material_local_s {
     uint64_t        magic;          /* Magic number/id to ensure that we have a valid material */
+    uint64_t        index;
+    uint64_t        name;
     int64_t         timeStamp;
     int64_t         batchIndex;
     texture_t *     textureAlbedo;

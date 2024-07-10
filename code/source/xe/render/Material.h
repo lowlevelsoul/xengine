@@ -29,11 +29,17 @@ typedef struct material_s {
     uint64_t    data[32];
 } material_t;
 
+XE_API void Material_Initialise( void );
+XE_API void Material_LoadLibrary( const char * path );
+
 XE_API void Material_Create( material_t * self_ );
 XE_API void Material_Destroy( material_t * self_ );
 XE_API void Material_SetTextureAlbedo( material_t * self_, texture_t * tex );
 XE_API void Material_SetTextureGlow( material_t * self_, texture_t * tex );
 XE_API void Material_SetTextureAmr( material_t * self_, texture_t * tex );
+
+XE_API material_t * Material_Find( const char * name );
+//XE_API material_t * Load( )
 
 extern resource_factory_t * material_resource_factory;
 

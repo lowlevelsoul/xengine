@@ -57,93 +57,27 @@ MatBuilderApp::~MatBuilderApp() {
 
 //======================================================================================================================
 bool MatBuilderApp::HandleArg( Arg * arg, int32_t argId ) {
-    switch ( argId ) {
-        case ARG_MATERIAL : {
-            if ( arg->m_params.size() != 1 ) {
-                DisplayHelpText( argId );
-            }
-            
-            currMat = new MaterialDef;
-            currMat->path = arg->m_params[0].c_str();
-            
-            materialDefs.push_back( currMat );
-            
-            break;
-        }
-            
-        case ARG_ALBEDO : {
-            if ( arg->m_params.size() != 1 ) {
-                DisplayHelpText( argId );
-            }
-            
-            xerror( currMat == nullptr, "Mission material before texture specifier\n");
-            
-            currMat->materialInfo.albedoTexture = arg->m_params[0].c_str();
-            
-            break;
-        }
-
-        case ARG_AMR: {
-            if ( arg->m_params.size() != 1 ) {
-                DisplayHelpText( argId );
-            }
-            
-            xerror( currMat == nullptr, "Mission material before texture specifier\n");
-            
-            currMat->materialInfo.amrTexture = arg->m_params[0].c_str();
-            
-            break;
-        }
-            
-        case ARG_GLOW : {
-            if ( arg->m_params.size() != 1 ) {
-                DisplayHelpText( argId );
-            }
-            
-            xerror( currMat == nullptr, "Mission material before texture specifier\n");
-            
-            currMat->materialInfo.glowTexture = arg->m_params[0].c_str();
-            break;
-        }
-            
-        case ARG_TRANSPARENCY: {
-            if ( arg->m_params.size() != 1 ) {
-                DisplayHelpText( argId );
-            }
-            
-            xerror( currMat == nullptr, "Mission material before transparency specifier\n");
-            
-            currMat->materialInfo.transparency = (float) atof( arg->m_params[0].c_str() );
-            break;
-        }
-    }
-    
     return true;
 }
 
 //======================================================================================================================
 bool MatBuilderApp::Process() {
     
-    for ( int m = 0; m < materialDefs.size(); ++m ) {
-        
-        MaterialDef * matDef = materialDefs[ m ];
+    ToolMemStream stream;
+    MatBuilder builder;
+    
+    xprintf("Building materials from %s\n", m_infilePath.c_str() );
+    builder.Build( stream, m_infilePath.c_str() );
+    
+    xprintf("Writing materials to %s\n", m_outfilePath.c_str() );
+    bool folderOk = CreateFolderAtPath( m_outfilePath.c_str() );
+    xerror( folderOk == false, "Unable to create folder at %s\n", m_outfilePath.c_str() );
+    
+    
+    stream.Save( m_outfilePath.c_str() );
+    
 
-        ToolMemStream str;
-        MatBuilder builder;
-        builder.Build( str, matDef->materialInfo );
-        
-        bool folderOk = CreateFolderAtPath( matDef->path.c_str() );
-        xerror( folderOk == false, "Error creating folder for %", matDef->path.c_str() );
-        
-        xprintf("Writing material '%s'\n", matDef->path.c_str() );
-        
-        {
-            xeScopedFile file( matDef->path.c_str(), "wb" );
-            xerror( file.IsValid() == false, "Error opening '%s' for writing\n", matDef->path.c_str() );
-            file.Write( str.GetStream(), 1, str.Length() );
-        }
-    }
-        
+    xprintf("Done.\n");
     return true;
 }
 

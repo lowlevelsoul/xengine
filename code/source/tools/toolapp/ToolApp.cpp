@@ -121,6 +121,10 @@ bool ToolApp::Run( int argc, const char ** argv ) {
     
     // Check for unterminated platform_begin/platform_end pairs
     xerror( currPlatform != PLATFORM_NONE, "Unterminated platform_begin\n" );
+    
+    if ( paramsFilesPath.empty() == false ) {
+        LoadParamFile( paramsFilesPath.c_str() );
+    }
 
 	return Process();
 }
@@ -139,8 +143,9 @@ bool ToolApp::HandleArgInternal( Arg * arg, int32_t argId ) {
 				}
 				return false;
 			}
-
-			LoadParamFile( arg->m_params[ 0 ].c_str() );
+            
+            paramsFilesPath = arg->m_params[ 0 ];
+            
 			handled = true;
 			break;
 		}			
@@ -180,6 +185,14 @@ bool ToolApp::HandleArgInternal( Arg * arg, int32_t argId ) {
             
             xprintf("Setting target platform to '%s'\n", arg->m_params[0].c_str() );
             targetPlatform = platId;
+            
+            str_t currFolder = NULL;
+            FS_GetCurrentFolder( &currFolder );
+            Str_AppendPathCStr( &currFolder, "data");
+            Str_AppendPathCStr( &currFolder, arg->m_params[0].c_str() );
+            Str_AppendPathCStr( &currFolder, "data" );
+            FS_SetDataPath( currFolder );
+            Str_Destroy( &currFolder );
                   
             handled = true;
             break;
@@ -400,8 +413,8 @@ void ToolApp::ParseParams( const char * buffer ) {
 					currArg = new Arg;
 					currArg->m_name = argName;
 
-					//m_args.push_back( currArg );
-                    m_args.insert( m_args.begin() + currArgInsert, currArg );
+					m_args.push_back( currArg );
+                   // m_args.insert( m_args.begin() + currArgInsert, currArg );
                     ++currArgInsert;
 
 					// Advance curr ptr past the argument name
@@ -484,6 +497,30 @@ const std::string ToolApp::VFormat( const char * fmt, ... ) {
        and without assuming any compiler or platform specific behavior */
     vsnprintf( &str[0], len + 1, fmt, vaArgs );
     va_end( vaArgs );
+    
+    return str;
+}
+
+
+//==========================================================================================================================================
+const std::string ToolApp::VFormat( const char * fmt, va_list args ) {
+    /* initialize use of the variable argument array */
+    va_list vaArgsCopy;
+    
+    /* reliably acquire the size
+       from a copy of the variable argument array
+       and a functionally reliable call to mock the formatting */
+    va_copy( vaArgsCopy, args );
+    size_t len = vsnprintf( NULL, 0, fmt, vaArgsCopy );
+    va_end( vaArgsCopy );
+    
+    std::string str;
+    str.resize( len );
+   
+    /* return a formatted string without risking memory mismanagement
+       and without assuming any compiler or platform specific behavior */
+    vsnprintf( &str[0], len + 1, fmt, args );
+    va_end( args );
     
     return str;
 }

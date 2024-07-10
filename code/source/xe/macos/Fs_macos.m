@@ -77,7 +77,7 @@ void FS_Initialise(void) {
     Str_AppendPathCStr( &fsLocal.dataFolderPath, "/data" );
     
     Str_Copy( &fsLocal.assetFolderPath, fileSystem->basePath );
-    Str_AppendPathCStr( &fsLocal.assetFolderPath, "../../assets" );
+    Str_AppendPathCStr( &fsLocal.assetFolderPath, "/assets" );
     
     xprintf("=== FS Init ====================\n");
     xprintf("     Working path: %s\n", fileSystem->basePath );
@@ -89,6 +89,13 @@ void FS_Initialise(void) {
 void FS_Finalise(void) {
     assert(fileSystem != NULL);
     fileSystem = NULL;
+}
+
+
+/*---------------------------------------------------------------------------------------------------------------------------------------*/
+void FS_SetDataPath( const char * path ) {
+    Str_CopyCStr( &fsLocal.dataFolderPath, path );
+    xprintf("Data now set to path: %s\n", fileSystem->dataFolderPath );
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------*/

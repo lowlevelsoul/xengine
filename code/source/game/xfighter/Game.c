@@ -90,7 +90,7 @@ void Game_Initialise(void) {
     
     xprintf("=== Game Init ==================\n");
 
-    resource_t * modelRes = Resource_Load( "~/models/barbarian/barbarian_lod0.bmdl" );
+    resource_t * modelRes = Resource_Load( "~/models/barbarian/barbarian.bmdl" );
     
     game->shipModel = (model_t *) Resource_GetData( modelRes );
     

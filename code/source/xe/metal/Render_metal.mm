@@ -76,7 +76,9 @@ void Render_Initialise( render_params_t * params ) {
     Render_CreateAllPipelines();
     Render_CreateRenderStates();
     
-    render3dMetal->defaultTextures[ DEFAULT_TEX_BLACK ] = (texture_t *) Resource_GetData( Resource_Load( "~/system/textures/black.btex" ) );
+    render3dMetal->defaultTextures[ DEFAULT_TEX_BLACK ] = (texture_t *) Resource_GetData( Resource_Load( "~/textures/system/black.btex" ) );
+    render3dMetal->defaultTextures[ DEFAULT_TEX_RED ] = (texture_t *) Resource_GetData( Resource_Load( "~/textures/system/red.btex" ) );
+    render3dMetal->defaultTextures[ DEFAULT_TEX_WHITE ] = (texture_t *) Resource_GetData( Resource_Load( "~/textures/system/white.btex" ) );
 }
 
 /*=======================================================================================================================================*/

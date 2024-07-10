@@ -21,16 +21,26 @@
 #include "MaterialStream.h"
 
 /*=======================================================================================================================================*/
+const char * MaterialStream_GetStrings( const material_stream_t * str ) {
+    return ( const char * ) ( ( ( uintptr_t ) str ) + str->offsStrings );
+}
+
+/*=======================================================================================================================================*/
+const material_stream_entry_t * MaterialStream_GetMaterials( const material_stream_t * str ) {
+    return ( const material_stream_entry_t * ) ( ( ( uintptr_t ) str ) + str->offsMaterials );
+}
+
+/*=======================================================================================================================================*/
 const char * MaterialStream_GetAlbedo( const material_stream_t * str ) {
-    return XE_CALC_OFFSET_PTR(const char *, str, str->offsAlbedoTexture );
+    return NULL; //'XE_CALC_OFFSET_PTR(const char *, str, str->offsAlbedoTexture );
 }
 
 /*=======================================================================================================================================*/
 const char * MaterialStream_GetAmr( const material_stream_t * str ) {
-    return XE_CALC_OFFSET_PTR(const char *, str, str->offsAmrTexture );
+    return NULL;    //XE_CALC_OFFSET_PTR(const char *, str, str->offsAmrTexture );
 }
 
 /*=======================================================================================================================================*/
 const char * MaterialStream_GetGlow( const material_stream_t * str ) {
-    return XE_CALC_OFFSET_PTR(const char *, str, str->offsGlowTexture );
+    return NULL;    //XE_CALC_OFFSET_PTR(const char *, str, str->offsGlowTexture );
 }
