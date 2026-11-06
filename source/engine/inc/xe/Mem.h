@@ -19,5 +19,6 @@ X_API void Mem_Free( void * ptr );
 
 X_API void Mem_Set( void * ptr, int value, size_t size );
 X_API void Mem_Copy( void * dest, const void * src, size_t size );
+X_API void Mem_Zero( void * ptr, size_t size );
 
 #endif // __MEM_H__

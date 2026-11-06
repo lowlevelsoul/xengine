@@ -25,6 +25,11 @@ void Mem_Set( void* ptr, int value, size_t size ) {
 }
 
 /*==========================================================================================================*/
+void Mem_Zero( void * ptr, size_t size ) {
+    memset( ptr, 0, size );
+}
+
+/*==========================================================================================================*/
 void Mem_Copy( void* dest, const void* src, size_t size ) {
     memcpy( dest, src, size );
 }

@@ -31,4 +31,7 @@ X_API void Str_AppendCStr( str_t * self_, const char* src);
 X_API void Str_PathJoinCStr( str_t * self_, const char* lhs, const char* rhs );
 X_API void Str_PathJoin( str_t * self_, const str_t lhs, const str_t rhs );
 
+X_API void Str_FormatV( str_t * self_, const char* fmt, ... );
+X_API void Str_FormatArg( str_t * self_, const char* fmt, va_list args );
+
 #endif // __STR_H__
