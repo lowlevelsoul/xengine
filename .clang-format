@@ -1,0 +1,24 @@
+BasedOnStyle: Microsoft
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+AccessModifierOffset: -4
+ColumnLimit: 120
+BreakBeforeBraces: Attach
+SeparateDefinitionBlocks: Always
+MaxEmptyLinesToKeep: 1
+PointerAlignment: Left
+ReferenceAlignment: Left
+NamespaceIndentation: None
+AllowShortFunctionsOnASingleLine: Empty
+SortIncludes: false
+SpacesInParens: Custom
+SpacesInParensOptions:
+  InCStyleCasts: true
+  InConditionalStatements: true
+  InEmptyParentheses: false
+  Other: true
+  ExceptDoubleParentheses: false
+SpacesInSquareBrackets: true
+SpacesInContainerLiterals: true
+SpaceInEmptyBlock: true
