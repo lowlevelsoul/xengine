@@ -6,13 +6,20 @@
 */
 
 #import "xe/Sys.h"
+#import "xe/Str.h"
 #import <Foundation/Foundation.h>
-#import <new>
 #import <pthread.h>
-#import <stdio.h>
-#import <stdlib.h>
-#import <string.h>
-#import <time.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <mach/mach.h>
+#include <mach/mach_time.h>
+#include <unistd.h>
+#include <errno.h>
+#include <dlfcn.h>
+
+#define MAX_NUM_PRINTCALLBACKS 8
 
 typedef struct sys_s{
     bool                        timeIsMonotomic;
@@ -46,7 +53,7 @@ X_API void Sys_Initialise( void ) {
 
     Str_Reserve( &sys.printString, 4096 );
     Str_Reserve( &sys.tmpString, 4096 );
-    Sys_MuxInit( &sys.printMux );
+    Sys_MuxCreate( &sys.printMux );
 
     if ( Sys_IsDebuggerPresent() ) {
         Sys_AddPrintCallback( Sys_DebuggerPrintCb );
@@ -119,7 +126,7 @@ void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
     Str_FormatArg( &sys.tmpString, fmt, args );
     va_end( args );
 
-    Str_Formatf( &sys.printString, "[%s]: ", cat );
+    Str_FormatV( &sys.printString, "[%s]: ", cat );
     Str_Append( &sys.printString, sys.tmpString );
     Sys_DoPrintCallbacks();
 
@@ -127,7 +134,7 @@ void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
 }
 
 /*==========================================================================================================*/
-void Sys_AssertPrint( const char* file, int line, const char** fmt, ... ) {
+void Sys_AssertPrint( const char* file, int line, const char* fmt, ... ) {
     Sys_MuxLock( &sys.printMux );
 
     va_list args;
@@ -135,7 +142,7 @@ void Sys_AssertPrint( const char* file, int line, const char** fmt, ... ) {
     Str_FormatArg( &sys.tmpString, fmt, args );
     va_end( args );
 
-    Str_Formatf( &sys.printString, "[ASSERT] %s:%d: ", file, line );
+    Str_FormatV( &sys.printString, "[ASSERT] %s:%d: ", file, line );
     Str_Append( &sys.printString, sys.tmpString );
     Sys_DoPrintCallbacks();
 
@@ -151,7 +158,23 @@ void Sys_AddPrintCallback( Sys_PrintCallback callback ) {
 
 /*==========================================================================================================*/
 bool Sys_IsDebuggerPresent( void ) {
-    return false; // macOS does not have a direct equivalent to IsDebuggerPresent
+    mach_msg_type_number_t count = 0;
+    exception_mask_t masks[EXC_TYPES_COUNT];
+    mach_port_t ports[EXC_TYPES_COUNT];
+    exception_behavior_t behaviors[EXC_TYPES_COUNT];
+    thread_state_flavor_t flavors[EXC_TYPES_COUNT];
+
+    exception_mask_t mask = EXC_MASK_ALL & ~(EXC_MASK_RESOURCE | EXC_MASK_GUARD);
+    kern_return_t result = task_get_exception_ports(mach_task_self(), mask, masks, &count, ports, behaviors, flavors);
+    if (result == KERN_SUCCESS) {
+        for (mach_msg_type_number_t portIndex = 0; portIndex < count; portIndex++) {
+            if (MACH_PORT_VALID(ports[portIndex])) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }
 
 

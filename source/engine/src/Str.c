@@ -6,7 +6,9 @@
 */
 
 #include "Str.h"
+#include "Mem.h"
 #include "Sys.h"
+#include <stdio.h>
 
 typedef struct str_header_s {
     uint32_t length;
@@ -37,10 +39,14 @@ static void Str_EnsureCapacity( str_t* self_, uint32_t capacity ) {
         copyData = false;
     } else {
         str_header_t* header = Str_GetHeader( *self_ );
-        if ( header->capacity < capacity ) {
+        if ( header->capacity <= capacity ) {
             shouldAllocate = true;
             copyData = true;
         }
+    }
+
+    if ( !shouldAllocate ) {
+        return;
     }
 
     size_t new_capacity = Sys_AlignValue( capacity + 1, sizeof( void* ) );
