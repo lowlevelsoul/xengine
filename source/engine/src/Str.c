@@ -5,9 +5,9 @@
 ==============================================================================================================
 */
 
-#include "Str.h"
-#include "Mem.h"
-#include "Sys.h"
+#include "xe/Str.h"
+#include "xe/Mem.h"
+#include "xe/Sys.h"
 #include <stdio.h>
 
 typedef struct str_header_s {

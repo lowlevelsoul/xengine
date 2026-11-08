@@ -1,0 +1,17 @@
+
+#include "xe_common.xcconfig"
+
+AALWAYS_SEARCH_USER_PATHS        = YES
+USER_HEADER_SEARCH_PATHS        = $(inherited) $(PROJECT_DIR) $(XE_INCLUDE_ENGINE) $(XE_INCLUDE_3RDPARTY)
+HEADER_SEARCH_PATHS             = $(inherited) $(PROJECT_DIR) $(XE_INCLUDE_ENGINE) $(XE_INCLUDE_3RDPARTY)
+
+CONFIGURATION_BUILD_DIR         = $(XE_BUILD_DIR_OUT)
+CONFIGURATION_TEMP_DIR          = $(XE_BUILD_DIR_INT)
+
+USE_HEADERMAP                   = NO
+
+GCC_PREPROCESSOR_DEFINITIONS    = $(inherited) _GLFW_COCOA
+
+FRAMEWORK_SEARCH_PATHS          = $(inherited)
+INF_FRAMEWORKS                   = -framework foundation -framework quartzcore -framework metal -framework metalkit
+OTHER_LDFLAGS                   = $(inherited) -L$(XE_BUILD_DIR_OUT)  $(INF_FRAMEWORKS) -lengine-macos -lglfw-macos

@@ -1,0 +1,19 @@
+//============================================================================================================
+//    This file is part of XEngine
+//    Copyright (C) 2026 James Steele. All rights reserved.
+//============================================================================================================
+
+#include "xe_common.xcconfig"
+
+ALWAYS_SEARCH_USER_PATHS        = YES
+USER_HEADER_SEARCH_PATHS        = $(inherited) $(PROJECT_DIR) $(XE_INCLUDE_ENGINE) $(XE_INCLUDE_3RDPARTY)
+HEADER_SEARCH_PATHS             = $(inherited) $(PROJECT_DIR) $(XE_INCLUDE_ENGINE) $(XE_INCLUDE_3RDPARTY)
+
+CONFIGURATION_BUILD_DIR         = $(XE_BUILD_DIR_OUT)
+CONFIGURATION_TEMP_DIR          = $(XE_BUILD_DIR_INT)
+
+USE_HEADERMAP                   = NO
+
+GCC_PREPROCESSOR_DEFINITIONS    = $(inherited)
+CLANG_ENABLE_OBJC_ARC           = NO
+
