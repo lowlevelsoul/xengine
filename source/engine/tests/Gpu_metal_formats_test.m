@@ -4,7 +4,7 @@
  * \ -framework Metal -framework Foundation -o /tmp/xengine-metal-formats-test && /tmp/xengine-metal-formats-test
  */
 #include <assert.h>
-#include "../src/Gpu_metal.m"
+#include "../src/metal/Gpu_metal.m"
 
 int main( void ) {
     const MTLPixelFormat expected[] = { MTLPixelFormatInvalid,      MTLPixelFormatInvalid,

@@ -46,7 +46,7 @@ X_API void Sys_MuxUnlock( sys_mux_t* mux );
 #else
 #define Sys_Assert( COND )
 #define Sys_FatalErrorOn( COND, ... )
-#define Sys_FatalError( ... )
+#define Sys_FatalError( ... ) ( void )( Sys_PrintCat( "FATAL_ERROR", __VA_ARGS__ ), Sys_Exit(), 0 )
 #endif // DEBUG || _DEBUG
 
 #endif // __SYS_H__

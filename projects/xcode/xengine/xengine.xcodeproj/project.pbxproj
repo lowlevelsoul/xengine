@@ -32,12 +32,15 @@
 		1A190793309F924E00624C2C /* Render.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A19074F309F8F6100624C2C /* Render.c */; };
 		1A190794309F924E00624C2C /* Mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A19074E309F8F6100624C2C /* Mem.c */; };
 		1A190795309F924E00624C2C /* Fs_macos.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A19074A309F8F6100624C2C /* Fs_macos.m */; };
-		1A190796309F924E00624C2C /* Gpu_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A19074D309F8F6100624C2C /* Gpu_metal.m */; };
 		1A190797309F924E00624C2C /* Render_glfw.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A190750309F8F6100624C2C /* Render_glfw.c */; };
 		1A190798309F924E00624C2C /* Str.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A190751309F8F6100624C2C /* Str.c */; };
 		1A190799309F924E00624C2C /* Fs_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A19074B309F8F6100624C2C /* Fs_shared.c */; };
 		1A19079A309F924E00624C2C /* Sys_macos.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A190752309F8F6100624C2C /* Sys_macos.m */; };
 		1A1907B9309FA26F00624C2C /* Engine.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A1907B8309FA26900624C2C /* Engine.c */; };
+		1A1907C830A0649400624C2C /* Gpu_metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1907C530A0649400624C2C /* Gpu_metal.h */; };
+		1A1907C930A0649400624C2C /* Gpu_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1907C630A0649400624C2C /* Gpu_metal.m */; };
+		1A1907CB30A064AE00624C2C /* Gpu_rendercontext_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1907CA30A064A200624C2C /* Gpu_rendercontext_metal.m */; };
+		1A1907CC30A064AE00624C2C /* Gpu_buffer_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1907CD30A064AE00624C2C /* Gpu_buffer_metal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,7 +230,6 @@
 		1A19074A309F8F6100624C2C /* Fs_macos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fs_macos.m; sourceTree = "<group>"; };
 		1A19074B309F8F6100624C2C /* Fs_shared.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Fs_shared.c; sourceTree = "<group>"; };
 		1A19074C309F8F6100624C2C /* Fs_win.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Fs_win.c; sourceTree = "<group>"; };
-		1A19074D309F8F6100624C2C /* Gpu_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Gpu_metal.m; sourceTree = "<group>"; };
 		1A19074E309F8F6100624C2C /* Mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Mem.c; sourceTree = "<group>"; };
 		1A19074F309F8F6100624C2C /* Render.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Render.c; sourceTree = "<group>"; };
 		1A190750309F8F6100624C2C /* Render_glfw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Render_glfw.c; sourceTree = "<group>"; };
@@ -243,6 +245,10 @@
 		1A1907A0309FA25300624C2C /* infestation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = infestation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A1907B8309FA26900624C2C /* Engine.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Engine.c; sourceTree = "<group>"; };
 		1A1907BA309FA58100624C2C /* infestation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = infestation.xcconfig; sourceTree = "<group>"; };
+		1A1907C530A0649400624C2C /* Gpu_metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Gpu_metal.h; sourceTree = "<group>"; };
+		1A1907C630A0649400624C2C /* Gpu_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Gpu_metal.m; sourceTree = "<group>"; };
+		1A1907CA30A064A200624C2C /* Gpu_rendercontext_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Gpu_rendercontext_metal.m; sourceTree = "<group>"; };
+		1A1907CD30A064AE00624C2C /* Gpu_buffer_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Gpu_buffer_metal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -651,11 +657,11 @@
 		1A190754309F8F6100624C2C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1A1907C730A0649400624C2C /* metal */,
 				1A1907B8309FA26900624C2C /* Engine.c */,
 				1A19074A309F8F6100624C2C /* Fs_macos.m */,
 				1A19074B309F8F6100624C2C /* Fs_shared.c */,
 				1A19074C309F8F6100624C2C /* Fs_win.c */,
-				1A19074D309F8F6100624C2C /* Gpu_metal.m */,
 				1A19074E309F8F6100624C2C /* Mem.c */,
 				1A19074F309F8F6100624C2C /* Render.c */,
 				1A190750309F8F6100624C2C /* Render_glfw.c */,
@@ -713,6 +719,17 @@
 			path = infestation;
 			sourceTree = "<group>";
 		};
+		1A1907C730A0649400624C2C /* metal */ = {
+			isa = PBXGroup;
+			children = (
+				1A1907CA30A064A200624C2C /* Gpu_rendercontext_metal.m */,
+				1A1907CD30A064AE00624C2C /* Gpu_buffer_metal.m */,
+				1A1907C530A0649400624C2C /* Gpu_metal.h */,
+				1A1907C630A0649400624C2C /* Gpu_metal.m */,
+			);
+			path = metal;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -724,6 +741,7 @@
 		1A190784309F923200624C2C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			files = (
+				1A1907C830A0649400624C2C /* Gpu_metal.h in Headers */,
 			);
 		};
 /* End PBXHeadersBuildPhase section */
@@ -861,10 +879,12 @@
 		1A190785309F923200624C2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
+				1A1907C930A0649400624C2C /* Gpu_metal.m in Sources */,
 				1A190793309F924E00624C2C /* Render.c in Sources */,
 				1A190794309F924E00624C2C /* Mem.c in Sources */,
 				1A190795309F924E00624C2C /* Fs_macos.m in Sources */,
-				1A190796309F924E00624C2C /* Gpu_metal.m in Sources */,
+				1A1907CB30A064AE00624C2C /* Gpu_rendercontext_metal.m in Sources */,
+				1A1907CC30A064AE00624C2C /* Gpu_buffer_metal.m in Sources */,
 				1A190797309F924E00624C2C /* Render_glfw.c in Sources */,
 				1A190798309F924E00624C2C /* Str.c in Sources */,
 				1A1907B9309FA26F00624C2C /* Engine.c in Sources */,
