@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\FrameHeap.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Fs.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\GameInterface.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Gpu.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\Platform_apple.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Platform_win.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Render.h" />
+    <ClInclude Include="..\..\..\source\engine\inc\xe\RenderBatch.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\RenderTypes.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Str.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Sys.h" />
@@ -38,9 +40,15 @@
     <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.c" />
     <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_d3d12.c" />
     <ClCompile Include="..\..\..\source\engine\src\Engine.c" />
+    <ClCompile Include="..\..\..\source\engine\src\FrameHeap.c">
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <AdditionalOptions>/experimental:c11atomics %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\Fs_shared.c" />
     <ClCompile Include="..\..\..\source\engine\src\Fs_win.c" />
     <ClCompile Include="..\..\..\source\engine\src\Mem.c" />
+    <ClCompile Include="..\..\..\source\engine\src\RenderBatch.c" />
     <ClCompile Include="..\..\..\source\engine\src\Str.c" />
     <ClCompile Include="..\..\..\source\engine\src\Sys_win.c" />
   </ItemGroup>

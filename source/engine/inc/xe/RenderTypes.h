@@ -109,9 +109,22 @@ typedef struct render_material_s {
 typedef struct render_model_s {
     str_t name;
     render_geometry_t geometry;
-    render_draw_surface_t* drawsurfaces[ RENDER_MODEL_DRAW_SURFACE_MAX ];
+    render_draw_surface_t drawsurfaces[ RENDER_MODEL_DRAW_SURFACE_MAX ];
     uint32_t drawSurfaceCount;
+    float boundingBox[ 6 ]; /**< Axis-aligned bounding box: minX, minY, minZ, maxX, maxY, maxZ */
 } render_model_t;
+
+
+typedef struct render_model_instance_s {
+    render_model_t * model;
+    render_draw_surface_t drawSurfaces[ RENDER_MODEL_DRAW_SURFACE_MAX ];
+    render_draw_surface_t * drawSurfaceOpaque[ RENDER_MODEL_DRAW_SURFACE_MAX ];
+    render_draw_surface_t * drawSurfaceTransparent[ RENDER_MODEL_DRAW_SURFACE_MAX ];
+    uint32_t drawSurfaceCount;
+    uint32_t drawSurfaceOpaqueCount;
+    uint32_t drawSurfaceTransparentCount;
+} render_model_instance_t;
+
 
 
 typedef struct render_params_s {

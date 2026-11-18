@@ -18,6 +18,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\FrameHeap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\source\engine\inc\xe\Fs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,8 +63,14 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\GameInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\RenderBatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\engine\src\FrameHeap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\Fs_shared.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,6 +93,9 @@
       <Filter>Source Files\d3d12</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\Engine.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\RenderBatch.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

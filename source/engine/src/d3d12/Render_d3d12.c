@@ -6,6 +6,8 @@
 */
 
 #include "xe/Render.h"
+#include "xe/Mem.h"
+#include "xe/Sys.h"
 #include <d3d12.h>
 #include <dxgi1_6.h>
 
