@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="engine/engine.vcxproj" Id="d74be07c-5f9f-4cea-8207-5ed65ef2b9e2" />
+  <Project Path="glfw/glfw.vcxproj" Id="9f0e2e8c-fb1d-427a-a480-dcc9a640b334" />
+</Solution>
