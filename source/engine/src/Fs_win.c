@@ -96,7 +96,7 @@ static void WinFile_Destroy(file_t* file) {
 }
 
 /*==========================================================================================================*/
-X_API void FS_Create(void) {
+X_API void FS_Initialise(void) {
     if( fs_initialized ) {
         return;
     }
@@ -116,7 +116,7 @@ X_API void FS_Create(void) {
 }
 
 /*==========================================================================================================*/
-X_API void FS_Destroy(void) {
+X_API void FS_Finalise(void) {
     if( !fs_initialized ) {
         return;
     }
@@ -134,7 +134,7 @@ X_API void FS_Destroy(void) {
 X_API void FS_GetCurrentDirectory( str_t * pathOut ) {
     DWORD length = GetCurrentDirectoryA(0, NULL);
     if( length > 0 && length < MAX_PATH ) {
-        Str_Resize(pathOut, length);
+        Str_Resize( pathOut, length);
         GetCurrentDirectoryA(length, *pathOut );
     }
 }

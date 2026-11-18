@@ -8,6 +8,8 @@
 #include "xe/Str.h"
 #include "xe/Sys.h"
 #include "xe/Mem.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 typedef struct str_header_s {
     uint32_t length;
@@ -24,49 +26,45 @@ static inline str_header_t* Str_GetHeader( str_t self_ ) {
 
 /*==========================================================================================================*/
 /**
- * Ensures that the string has at least the specified length.
+ * Ensures that the string has capacity for the specified length without changing its length.
  * If the string is not initialized or its capacity is insufficient,
- * a new string buffer is allocated and the old data is copied if necessary.
+ * a new string buffer is allocated and the existing data is copied if necessary.
  */
-static void Str_EnsureCapacity( str_t* self_, uint32_t capacity ) {
-    bool shouldAllocate = false;
-    bool copyData = false;
-
+static void Str_EnsureCapacityForLength( str_t* self_, uint32_t newLength ) {
     if ( *self_ == NULL ) {
-        // String is not initialized, allocate new header and data
-        shouldAllocate = true;
-        copyData = false;
-    } else {
-        str_header_t* header = Str_GetHeader( *self_ );
-        if ( header->capacity < capacity ) {
-            shouldAllocate = true;
-            copyData = true;
-        }
+        size_t allocSize = Sys_AlignValue( ( size_t )newLength + 1, 64 );
+        str_header_t* new_header = ( str_header_t* )Mem_Alloc( STR_HEADER_SIZE + allocSize );
+        new_header->length = 0;
+        new_header->capacity = ( uint32_t )( allocSize - 1 );
+        new_header->data = ( char* )new_header + STR_HEADER_SIZE;
+        new_header->data[ 0 ] = '\0';
+        *self_ = new_header->data;
+        return;
     }
 
-    size_t new_capacity = Sys_AlignValue( capacity + 1, sizeof( void* ) );
-    str_header_t* new_header = ( str_header_t* )Mem_Alloc( STR_HEADER_SIZE + new_capacity );
-    new_header->length = 0;
-    new_header->capacity = new_capacity;
+    str_header_t* old_header = Str_GetHeader( *self_ );
+
+    if ( newLength < old_header->length ) {
+        return;
+    }
+
+    if ( newLength <= old_header->capacity ) {
+        return;
+    }
+
+    size_t allocSize = Sys_AlignValue( ( size_t )newLength + 1, 64 );
+    str_header_t* new_header = ( str_header_t* )Mem_Alloc( STR_HEADER_SIZE + allocSize );
+    new_header->length = old_header->length;
+    new_header->capacity = ( uint32_t )( allocSize - 1 );
     new_header->data = ( char* )new_header + STR_HEADER_SIZE;
 
-    if ( copyData == true ) {
-        str_header_t* old_header = Str_GetHeader( *self_ );
-        new_header->length = old_header->length;
+    if ( old_header->length > 0 ) {
         memcpy( new_header->data, old_header->data, old_header->length );
     }
 
-    /* Null-terminate the string */
     new_header->data[ new_header->length ] = '\0';
-
-    /* Free the old string if it exists */
-    if ( *self_ != NULL ) {
-        Mem_Free( Str_GetHeader( *self_ ) );
-    }
-
-    if ( shouldAllocate == true ) {
-        *self_ = new_header->data;
-    }
+    *self_ = new_header->data;
+    Mem_Free( old_header );
 }
 
 /*==========================================================================================================*/
@@ -85,7 +83,7 @@ X_API void Str_Destroy( str_t* self_ ) {
 /*==========================================================================================================*/
 X_API void Str_Resize( str_t* self_, size_t length ) {
 
-    Str_EnsureCapacity( self_, ( uint32_t )length );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )length );
     str_header_t* header = Str_GetHeader( *self_ );
 
     if ( header != NULL ) {
@@ -96,7 +94,7 @@ X_API void Str_Resize( str_t* self_, size_t length ) {
 
 /*==========================================================================================================*/
 X_API void Str_Reserve( str_t* self_, size_t reserve ) {
-    Str_EnsureCapacity( self_, ( uint32_t )reserve );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )reserve );
 }
 
 /*==========================================================================================================*/
@@ -108,7 +106,7 @@ X_API void Str_Set( str_t* self_, str_t src ) {
     }
 
     size_t src_length = Str_Length( src );
-    Str_EnsureCapacity( self_, ( uint32_t )src_length );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )src_length );
     str_header_t* header = Str_GetHeader( *self_ );
     if ( header != NULL ) {
         header->length = ( uint32_t )src_length;
@@ -125,7 +123,7 @@ X_API void Str_SetCStr( str_t* self_, const char* src ) {
     }
 
     size_t src_length = strlen( src );
-    Str_EnsureCapacity( self_, ( uint32_t )src_length );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )src_length );
     str_header_t* header = Str_GetHeader( *self_ );
     if ( header != NULL ) {
         header->length = ( uint32_t )src_length;
@@ -161,7 +159,7 @@ X_API void Str_Concat( str_t* self_, const str_t lhs, const str_t rhs ) {
 
     size_t lhs_length = Str_Length( lhs );
     size_t rhs_length = Str_Length( rhs );
-    Str_EnsureCapacity( self_, ( uint32_t )( lhs_length + rhs_length ) );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )( lhs_length + rhs_length ) );
     str_header_t* header = Str_GetHeader( *self_ );
     if ( header != NULL ) {
         memcpy( header->data, lhs, lhs_length );
@@ -175,7 +173,7 @@ X_API void Str_Concat( str_t* self_, const str_t lhs, const str_t rhs ) {
 X_API void Str_ConcatCStr( str_t* self_, const char* lhs, const char* rhs ) {
     size_t lhs_length = strlen( lhs );
     size_t rhs_length = strlen( rhs );
-    Str_EnsureCapacity( self_, ( uint32_t )( lhs_length + rhs_length ) );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )( lhs_length + rhs_length ) );
     str_header_t* header = Str_GetHeader( *self_ );
     if ( header != NULL ) {
         memcpy( header->data, lhs, lhs_length );
@@ -193,7 +191,7 @@ X_API void Str_Append( str_t* self_, str_t src ) {
 
     size_t src_length = Str_Length( src );
     size_t self_length = Str_Length( *self_ );
-    Str_EnsureCapacity( self_, ( uint32_t )( self_length + src_length ) );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )( self_length + src_length ) );
     str_header_t* header = Str_GetHeader( *self_ );
     if ( header != NULL ) {
         memcpy( header->data + self_length, src, src_length );
@@ -210,7 +208,7 @@ X_API void Str_AppendCStr( str_t* self_, const char* src ) {
 
     size_t src_length = strlen( src );
     size_t self_length = Str_Length( *self_ );
-    Str_EnsureCapacity( self_, ( uint32_t )( self_length + src_length ) );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )( self_length + src_length ) );
     str_header_t* header = Str_GetHeader( *self_ );
     if ( header != NULL ) {
         memcpy( header->data + self_length, src, src_length );
@@ -259,7 +257,7 @@ X_API void Str_PathJoinCStr( str_t* self_, const char* lhs, const char* rhs ) {
     size_t total_length = lhs_length + rhs_length +
                           ( ( lhs_ends_with_separator == false ) && ( rhs_starts_with_separator == false ) ? 1 : 0 );
 
-    Str_EnsureCapacity( self_, ( uint32_t )total_length );
+    Str_EnsureCapacityForLength( self_, ( uint32_t )total_length );
     Str_Resize( self_, 0 );
 
     if ( ( lhs_ends_with_separator == false ) && ( rhs_starts_with_separator == false ) ) {

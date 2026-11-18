@@ -17,8 +17,8 @@ typedef struct render_model_s render_model_t;
 typedef struct render_material_s render_material_t;
 
 
-void Render_Create( render_params_t* params );
-void Render_Destroy( void );
+void Render_Initialise( render_params_t* params );
+void Render_Finalise( void );
 
 render_window_t* Render_GetWindow( void );
 bool RenderWindow_PumpEvents( render_window_t* window );

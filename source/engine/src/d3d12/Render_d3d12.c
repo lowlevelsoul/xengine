@@ -26,13 +26,13 @@ static bool isContextCreated = false;
 static void RenderContext_Create( render_params_t* params );
 
 /*==========================================================================================================*/
-void Render_Create( render_params_t* params ) {
+void Render_Initialise( render_params_t* params ) {
     RenderWindow_Create( params );
     RenderContext_Create( params );
 }
 
 /*==========================================================================================================*/
-void Render_Destroy( void ) {
+void Render_Finalise( void ) {
     RenderWindow_Destroy();
     if ( isContextCreated ) {
         // D3D12 device, command queue, swap chain destruction would go here

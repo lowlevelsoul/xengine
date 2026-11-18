@@ -57,6 +57,9 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\Sys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\GameInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\engine\src\Fs_shared.c">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.c">
       <Filter>Source Files\d3d12</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\Engine.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -27,7 +27,7 @@ X_API void Sys_Exit(void);
 X_API bool Sys_IsDebuggerPresent( void );
 X_API void Sys_Sleep( uint32_t milliseconds );
 X_API void Sys_PrintCat( const char* cat, const char* fmt, ... );
-X_API void Sys_AssertPrint( const char* file, int line, const char** fmt, ... );
+X_API void Sys_AssertPrint( const char* file, int line, const char * fmt, ... );
 X_API void Sys_AddPrintCallback( Sys_PrintCallback callback );
 
 X_API void Sys_MuxCreate( sys_mux_t* mux );

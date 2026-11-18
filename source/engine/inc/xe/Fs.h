@@ -21,8 +21,8 @@ typedef struct file_s {
     int32_t (*flush)( struct file_s* );
 } file_t;
 
-X_API void FS_Create(void);
-X_API void FS_Destroy(void);
+X_API void FS_Initialise(void);
+X_API void FS_Finalise(void);
 X_API file_t* FS_OpenFile(const char* path, const char* mode);
 X_API void FS_MakePath( str_t * pathOut, const char * path );
 X_API void FS_GetCurrentDirectory( str_t * pathOut );

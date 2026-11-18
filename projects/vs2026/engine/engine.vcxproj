@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\engine\inc\xe\Fs.h" />
+    <ClInclude Include="..\..\..\source\engine\inc\xe\GameInterface.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Gpu.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Gpu_types.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\MathLinear.h" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.c" />
     <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_d3d12.c" />
+    <ClCompile Include="..\..\..\source\engine\src\Engine.c" />
     <ClCompile Include="..\..\..\source\engine\src\Fs_shared.c" />
     <ClCompile Include="..\..\..\source\engine\src\Fs_win.c" />
     <ClCompile Include="..\..\..\source\engine\src\Mem.c" />
