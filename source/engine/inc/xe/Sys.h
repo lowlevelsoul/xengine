@@ -15,7 +15,7 @@
 typedef void ( *Sys_PrintCallback )( const char* message );
 
 typedef struct sys_mux_s {
-    uint64_t data[ 6 ];
+    uint64_t data[ 8 ];
 } sys_mux_t;
 
 

@@ -6,13 +6,16 @@
 */
 
 #import "xe/Sys.h"
+#import "xe/Str.h"
 #import <Foundation/Foundation.h>
-#import <new>
 #import <pthread.h>
 #import <stdio.h>
 #import <stdlib.h>
 #import <string.h>
 #import <time.h>
+#import <sys/time.h>
+
+#define MAX_NUM_PRINTCALLBACKS 16
 
 typedef struct sys_s{
     bool                        timeIsMonotomic;
@@ -46,7 +49,7 @@ X_API void Sys_Initialise( void ) {
 
     Str_Reserve( &sys.printString, 4096 );
     Str_Reserve( &sys.tmpString, 4096 );
-    Sys_MuxInit( &sys.printMux );
+    Sys_MuxCreate( &sys.printMux );
 
     if ( Sys_IsDebuggerPresent() ) {
         Sys_AddPrintCallback( Sys_DebuggerPrintCb );
@@ -119,7 +122,7 @@ void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
     Str_FormatArg( &sys.tmpString, fmt, args );
     va_end( args );
 
-    Str_Formatf( &sys.printString, "[%s]: ", cat );
+    Str_FormatV( &sys.printString, "[%s]: ", cat );
     Str_Append( &sys.printString, sys.tmpString );
     Sys_DoPrintCallbacks();
 
@@ -127,7 +130,7 @@ void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
 }
 
 /*==========================================================================================================*/
-void Sys_AssertPrint( const char* file, int line, const char** fmt, ... ) {
+void Sys_AssertPrint( const char* file, int line, const char * fmt, ... ) {
     Sys_MuxLock( &sys.printMux );
 
     va_list args;
@@ -135,7 +138,7 @@ void Sys_AssertPrint( const char* file, int line, const char** fmt, ... ) {
     Str_FormatArg( &sys.tmpString, fmt, args );
     va_end( args );
 
-    Str_Formatf( &sys.printString, "[ASSERT] %s:%d: ", file, line );
+    Str_FormatV( &sys.printString, "[ASSERT] %s:%d: ", file, line );
     Str_Append( &sys.printString, sys.tmpString );
     Sys_DoPrintCallbacks();
 
