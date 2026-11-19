@@ -1,0 +1,14 @@
+
+#include "xe_common.xcconfig"
+#include "xe_3rdparty.xcconfig"
+
+ALWAYS_SEARCH_USER_PATHS        = YES
+USER_HEADER_SEARCH_PATHS        = $(inherited) $(PROJECT_DIR) $(XE_ENGINE_INCLUDE) $(XE_3RDPARTY_INCLUDE)
+HEADER_SEARCH_PATHS             = $(inherited) $(PROJECT_DIR) $(XE_ENGINE_INCLUDE) $(XE_3RDPARTY_INCLUDE)
+
+CONFIGURATION_BUILD_DIR         = $(XE_BUILD_DIR_OUT)
+CONFIGURATION_TEMP_DIR          = $(XE_BUILD_DIR_INT)
+
+USE_HEADERMAP                   = NO
+
+GCC_PREPROCESSOR_DEFINITIONS    = $(inherited)

@@ -6,7 +6,7 @@
 */
 
 #include "xe/Render.h"
-#include "glfw/glfw3.h"
+#include "GLFW/glfw3.h"
 
 typedef struct render_window_metal_s {
     GLFWwindow* window;

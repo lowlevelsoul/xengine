@@ -8,7 +8,6 @@
 #ifndef __PLATFORM_APPLE_H__
 #define __PLATFORM_APPLE_H__
 
-/* Note we don't include windows.h here to avoid polluting the global namespace */
 #include <stdint.h>
 #include <stdlib.h>
 #include <math.h>

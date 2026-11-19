@@ -1,0 +1,18 @@
+
+#include "xe_common.xcconfig"
+#include "xe_3rdparty.xcconfig"
+
+ALWAYS_SEARCH_USER_PATHS        = YES
+USER_HEADER_SEARCH_PATHS        = $(inherited) $(PROJECT_DIR) $(XE_ENGINE_INCLUDE) $(XE_SOURCE)/game/infestation
+HEADER_SEARCH_PATHS             = $(inherited) $(PROJECT_DIR) $(XE_ENGINE_INCLUDE) $(XE_SOURCE)/game/infestation
+
+CONFIGURATION_BUILD_DIR         = $(XE_BUILD_DIR_OUT)
+CONFIGURATION_TEMP_DIR          = $(XE_BUILD_DIR_INT)
+
+USE_HEADERMAP                   = NO
+
+GCC_PREPROCESSOR_DEFINITIONS    = $(inherited)
+
+FRAMEWORK_SEARCH_PATHS          = $(inherited)
+XE_FRAMEWORKS                   = -framework foundation -framework quartzcore -framework metal -framework metalkit
+OTHER_LDFLAGS                   = $(inherited) -L$(XE_BUILD_DIR_OUT) $(XE_FRAMEWORKS) -lc++ -lglfw3 -lstb -ltlsf -lfarmhash -lengine
