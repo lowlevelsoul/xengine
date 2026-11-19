@@ -15,23 +15,18 @@ typedef struct vec3_s vec3_t;
 typedef struct vec4_s vec4_t;
 typedef struct render_model_s render_model_t;
 typedef struct render_material_s render_material_t;
+typedef struct batch_cmd_scene_s batch_cmd_scene_t;
 
 
 void Render_Initialise( render_params_t* params );
 void Render_Finalise( void );
-
-render_window_t* Render_GetWindow( void );
 bool RenderWindow_PumpEvents( render_window_t* window );
 
+/* Render Window */
+render_window_t* Render_GetWindow( void );
 
 /* Rendering */
-
-void Render_BeginFrame( void );
-void Render_Begin3d( const mat4_t* projMat, const mat4_t* viewMat, const float * viewport );
-void Render_SubmitModel( const render_model_t* model, const render_material_t* materials, const mat4_t* modelMat );
-void Render_SumbitGlobalLight( const vec3_t* direction, const vec3_t* color, const vec3_t* ambient );
-void Render_End3d( const mat4_t* projMat, const mat4_t* viewMat, const float * viewport );
-void Render_EndFrame( void );
+void Render_SubmitScene( batch_cmd_scene_t * scene );
 
 /* GPU Buffer */
 render_gpu_buffer_t * Render_GpuBufferCreate( size_t size, uint64_t usage );

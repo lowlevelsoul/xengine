@@ -66,6 +66,9 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\RenderBatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\MPMCQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\engine\src\FrameHeap.c">

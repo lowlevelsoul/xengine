@@ -25,12 +25,12 @@ typedef struct render_context_d3d12_s {
 static render_context_d3d12_t theContext;
 static bool isContextCreated = false;
 
-static void RenderContext_Create( render_params_t* params );
+static void Render_CreateSwapchain( render_params_t* params );
 
 /*==========================================================================================================*/
 void Render_Initialise( render_params_t* params ) {
     RenderWindow_Create( params );
-    RenderContext_Create( params );
+    Render_CreateSwapchain( params );
 }
 
 /*==========================================================================================================*/
@@ -43,7 +43,7 @@ void Render_Finalise( void ) {
 }
 
 /*==========================================================================================================*/
-void RenderContext_Create( render_params_t* params ) {
+void Render_CreateSwapchain( render_params_t* params ) {
     if ( isContextCreated ) {
         return;
     }
@@ -51,4 +51,9 @@ void RenderContext_Create( render_params_t* params ) {
     // D3D12 device, command queue, swap chain creation would go here
 
     isContextCreated = true;
+}
+
+/*==========================================================================================================*/
+void Render_SubmitScene( batch_cmd_scene_t * scene ) {
+    
 }
