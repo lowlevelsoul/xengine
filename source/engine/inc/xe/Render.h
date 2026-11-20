@@ -17,13 +17,13 @@ typedef struct render_model_s render_model_t;
 typedef struct render_material_s render_material_t;
 typedef struct batch_cmd_scene_s batch_cmd_scene_t;
 
-void RenderParams_Initialise( render_params_t* params );
-void Render_Initialise( render_params_t* params );
-void Render_Finalise( void );
-bool RenderWindow_PumpEvents( render_window_t* window );
+X_API void RenderParams_Initialise( render_params_t* params );
+X_API void Render_Initialise( render_params_t* params );
+X_API void Render_Finalise( void );
+X_API bool RenderWindow_PumpEvents( render_window_t* window );
 
 /* Render Window */
-render_window_t* Render_GetWindow( void );
+X_API render_window_t* Render_GetWindow( void );
 
 /* Rendering */
 void Render_SubmitScene( batch_cmd_scene_t* scene );

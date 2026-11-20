@@ -155,3 +155,20 @@ void RB_SetGlobalLight( render_batch_t * self_, const vec3_t * direction, const 
     self_->currScene3d->globalLightColor = *color;
     self_->currScene3d->globalLightAmbient = *ambient;
 }
+
+/*==========================================================================================================*/
+void RB_QueueBufferWrite( render_batch_t * self_, render_gpu_buffer_t* srcBuffer, render_gpu_buffer_t* dstBuffer, size_t offset, bool canDiscardSrc ) {
+    Sys_Assert( self_ );
+    Sys_Assert( self_->currScene3d );
+    Sys_Assert( srcBuffer );
+    Sys_Assert( dstBuffer );
+    Sys_Assert( offset >= 0 );
+
+    batch_cmd_buffer_write_t * cmd = FrameHeap_Calloc( self_->frameHeap, sizeof( batch_cmd_buffer_write_t ), 1 );
+    cmd->srcbuffer = srcBuffer;
+    cmd->dstbuffer = dstBuffer;
+    cmd->offset = offset;
+    cmd->canDiscardSrc = canDiscardSrc;
+
+    RB_AppendCmdList( self_->currScene3d->bufferWriteListHead, self_->currScene3d->bufferWriteListTail, cmd );
+}

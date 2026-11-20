@@ -26,6 +26,9 @@ typedef enum render_opacity_e {
     RENDER_OPACITY_COUNT,
 } render_opacity_t;
 
+typedef enum render_gpu_buffer_usage_e {
+    RENDER_GPU_BUFFER_USAGE_GPU_ONLY = 1,           /* Buffer is intended for GPU-only usage and cannot be mapped to the CPU */
+} render_gpu_buffer_usage_t;
 typedef enum render_gpu_buffer_flag_s {
     RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY = 1,
 } render_gpu_buffer_flag_t;

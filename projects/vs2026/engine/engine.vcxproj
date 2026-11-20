@@ -36,10 +36,18 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\RenderTypes.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Str.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Sys.h" />
+    <ClInclude Include="..\..\..\source\engine\src\d3d12\Render_d3d12.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.c" />
-    <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_d3d12.c" />
+    <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_d3d12.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_buffer_3d312.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\Engine.c" />
     <ClCompile Include="..\..\..\source\engine\src\FrameHeap.c">
       <LanguageStandard_C>stdc11</LanguageStandard_C>
@@ -52,6 +60,11 @@
     <ClCompile Include="..\..\..\source\engine\src\RenderBatch.c" />
     <ClCompile Include="..\..\..\source\engine\src\Str.c" />
     <ClCompile Include="..\..\..\source\engine\src\Sys_win.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D3D12MemoryAllocator\D3D12MemoryAllocator.vcxproj">
+      <Project>{4858290e-ec72-4703-bda3-24ec65853bef}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

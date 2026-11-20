@@ -3,6 +3,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="D3D12MemoryAllocator/D3D12MemoryAllocator.vcxproj" Id="4858290e-ec72-4703-bda3-24ec65853bef" />
   <Project Path="engine/engine.vcxproj" Id="d74be07c-5f9f-4cea-8207-5ed65ef2b9e2" />
   <Project Path="glfw/glfw.vcxproj" Id="9f0e2e8c-fb1d-427a-a480-dcc9a640b334" />
   <Project Path="Infestation/Infestation.vcxproj" Id="d033d9d4-a2ff-4073-94b7-6e1d5c552b04" />

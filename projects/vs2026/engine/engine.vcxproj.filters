@@ -69,6 +69,9 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\MPMCQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\src\d3d12\Render_d3d12.h">
+      <Filter>Source Files\d3d12</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\engine\src\FrameHeap.c">
@@ -89,10 +92,13 @@
     <ClCompile Include="..\..\..\source\engine\src\Sys_win.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_d3d12.c">
+    <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_d3d12.cpp">
       <Filter>Source Files\d3d12</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.c">
+    <ClCompile Include="..\..\..\source\engine\src\d3d12\Render_buffer_3d312.cpp">
+      <Filter>Source Files\d3d12</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.cpp">
       <Filter>Source Files\d3d12</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\Engine.c">

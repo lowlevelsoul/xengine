@@ -154,6 +154,9 @@
     <ProjectReference Include="..\engine\engine.vcxproj">
       <Project>{d74be07c-5f9f-4cea-8207-5ed65ef2b9e2}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\D3D12MemoryAllocator\D3D12MemoryAllocator.vcxproj">
+      <Project>{4858290e-ec72-4703-bda3-24ec65853bef}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\glfw\glfw.vcxproj">
       <Project>{9f0e2e8c-fb1d-427a-a480-dcc9a640b334}</Project>
     </ProjectReference>

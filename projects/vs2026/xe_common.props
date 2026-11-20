@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\source\engine/inc\;$(SolutionDir)..\..\source\3rdparty\glfw\include\;$(SolutionDir)../../source/3rdparty/tlsf/;$(SolutionDir)../../source/3rdparty/stb/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\..\source\engine/inc\;$(SolutionDir)..\..\source\3rdparty\glfw\include\;$(SolutionDir)..\..\source\3rdparty\tlsf\;$(SolutionDir)..\..\source\3rdparty\stb\;$(SolutionDir)..\..\source\3rdparty\D3D12MemoryAllocator-master\include\;$(SolutionDir)..\..\source\3rdparty\DirectX-Headers\include\directx\;$(SolutionDir)..\..\source\3rdparty\DirectX-Headers\include\dxguids\;$(SolutionDir)..\..\source\3rdparty\DirectX-Headers\include\wsl\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
