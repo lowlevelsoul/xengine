@@ -36,6 +36,7 @@ static void Engine_Initialise(void) {
     renderParams.width = 800;
     renderParams.height = 600;
     renderParams.fullscreen = false;
+    renderParams.vsync = true;
     renderParams.maxNumFramesInFlight = 2;
     renderParams.renderMemHeapSize = 1024 * 1024 * 4;
 

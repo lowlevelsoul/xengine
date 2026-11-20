@@ -6,6 +6,8 @@
 */
 
 #include "xe/GameInterface.h"
+#include "xe/Render.h"
+#include "xe/RenderBatch.h"
 
 static void Game_Initialise( void );
 static void Game_Finalise( void );
@@ -30,6 +32,8 @@ static void Game_Finalise( void ) {
 
 /*==========================================================================================================*/
 static void Game_Think( void ) {
+    batch_cmd_scene_t scene = { 0 };
+    Render_SubmitScene( &scene );
 }
 
 /*==========================================================================================================*/

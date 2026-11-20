@@ -135,6 +135,8 @@ typedef struct render_params_s {
     int32_t width;                            /**< Width of the render window */
     int32_t height;                           /**< Height of the render window */
     bool fullscreen;                         /**< Whether the render window should be fullscreen */
+    bool debug;                               /**< Whether to enable debug mode */
+    bool vsync;                                /**< Whether to enable vertical synchronization */
     uint32_t maxNumFramesInFlight;          /**< Maximum number of frames that can be in flight */
     uint32_t renderMemHeapSize;             /**< Size of the render memory heap */
     void * nativeWindow;

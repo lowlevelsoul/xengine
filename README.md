@@ -4,6 +4,19 @@ Small 3d engine written in C
 The Visual Studio 2026 solution includes a GLFW static library project. It
 builds `glfw3.lib` into the output directory configured by `xe_common.props`.
 
+The D3D12 swapchain accepts 1-16 frames in flight. Its flip-model swapchain
+uses at least two buffers, and its DXGI maximum frame latency is set to the
+requested value. The renderer waits for frame latency and GPU completion before
+reusing frame resources, clears each submitted scene to red, and presents it.
+Scene contents and render passes are not yet processed.
+
+To run the D3D12 swapchain tests from a Visual Studio Developer Command Prompt:
+
+```bat
+cl /nologo /std:c11 /I source\engine\inc tests\RenderSwapchain_d3d12_test.c /Fe:render_swapchain_test.exe /link d3d12.lib dxgi.lib dxguid.lib user32.lib
+render_swapchain_test.exe
+```
+
 To run the frame heap tests from a Visual Studio Developer Command Prompt:
 
 ```bat

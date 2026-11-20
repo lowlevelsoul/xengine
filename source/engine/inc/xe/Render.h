@@ -17,6 +17,7 @@ typedef struct render_model_s render_model_t;
 typedef struct render_material_s render_material_t;
 typedef struct batch_cmd_scene_s batch_cmd_scene_t;
 
+void RenderParams_Initialise( render_params_t* params );
 void Render_Initialise( render_params_t* params );
 void Render_Finalise( void );
 bool RenderWindow_PumpEvents( render_window_t* window );
