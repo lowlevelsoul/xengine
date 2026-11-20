@@ -75,11 +75,8 @@ void Render_GpuBufferDestroyNow( render_gpu_buffer_t* buffer ) {
         buffer->resource->Unmap( 0, NULL );
     }
 
-    if ( buffer->allocation ) {
-        buffer->allocation->Release();
-    }
-
-    Mem_Free( buffer );
+   Render_GpuBufferDestroy( buffer );
+   
     --renderLocal.liveBufferCount;
 }
 
