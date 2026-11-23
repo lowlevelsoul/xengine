@@ -13,7 +13,7 @@
 		1A7F825830AECB3B00BDFD28 /* Fs_macos.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F822E30AECA0200BDFD28 /* Fs_macos.m */; };
 		1A7F825930AECB3B00BDFD28 /* Fs_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F822F30AECA0200BDFD28 /* Fs_shared.c */; };
 		1A7F825A30AECB3B00BDFD28 /* Mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F823130AECA0200BDFD28 /* Mem.c */; };
-		1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.c */; };
+		1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.m */; };
 		1A7F826030AF7CCB00BDFD28 /* MPMCQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F825E30AF7CCB00BDFD28 /* MPMCQueue.h */; };
 		1A7F826130AF7CCB00BDFD28 /* FrameHeap.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F825D30AF7CCB00BDFD28 /* FrameHeap.h */; };
 		1A7F826230AF7CCB00BDFD28 /* RenderBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F825F30AF7CCB00BDFD28 /* RenderBatch.h */; };
@@ -288,7 +288,7 @@
 		1A7F822530AECA0200BDFD28 /* Sys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sys.h; sourceTree = "<group>"; };
 		1A7F822830AECA0200BDFD28 /* Render_d3d12.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Render_d3d12.c; sourceTree = "<group>"; };
 		1A7F822930AECA0200BDFD28 /* RenderWindow_d3d12.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = RenderWindow_d3d12.c; sourceTree = "<group>"; };
-		1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = RenderWindow_metal.c; sourceTree = "<group>"; };
+		1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderWindow_metal.m; sourceTree = "<group>"; };
 		1A7F822D30AECA0200BDFD28 /* Engine.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Engine.c; sourceTree = "<group>"; };
 		1A7F822E30AECA0200BDFD28 /* Fs_macos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fs_macos.m; sourceTree = "<group>"; };
 		1A7F822F30AECA0200BDFD28 /* Fs_shared.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Fs_shared.c; sourceTree = "<group>"; };
@@ -735,7 +735,7 @@
 				1A7F833330B2E55500BDFD28 /* Render_metal.h */,
 				1A7F833430B2E55500BDFD28 /* RenderHeapPool_metal.h */,
 				1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */,
-				1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.c */,
+				1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.m */,
 				1A7F831430AF80A600BDFD28 /* Render_metal.m */,
 			);
 			path = metal;
@@ -1068,7 +1068,7 @@
 				1A7F826630AF7CDA00BDFD28 /* FrameHeap.c in Sources */,
 				1A7F833830B2E55500BDFD28 /* RenderHeapPool_metal.m in Sources */,
 				1A7F825A30AECB3B00BDFD28 /* Mem.c in Sources */,
-				1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.c in Sources */,
+				1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.m in Sources */,
 				1A7F831530AF80A600BDFD28 /* Render_metal.m in Sources */,
 			);
 		};

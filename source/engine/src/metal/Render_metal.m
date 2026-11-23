@@ -18,6 +18,7 @@ extern void RenderWindow_Destroy( void );
 
 render_metal_t renderLocal;
 static bool isRenderCreated = false;
+MTLClearColor color;
 
 static void Render_CreateSwapchain( render_params_t* params );
 
@@ -32,6 +33,8 @@ void Render_Initialise( render_params_t * params ) {
     
     RenderWindow_Create( params );
     Render_CreateSwapchain( params );
+    
+    color = MTLClearColorMake(0, 0, 0, 1);
 }
 
 /*==========================================================================================================*/
@@ -46,7 +49,7 @@ void Render_Finalise( void ) {
 void Render_CreateSwapchain( render_params_t* params ) {
     isRenderCreated = true;
     
-    NSWindow* cocoaWindow = ( ( __bridge NSWindow * ) params->nativeWindow );
+    NSWindow* cocoaWindow = ( __bridge NSWindow * ) RenderWindow_GetNativeHandle();
     NSView * cocoaView = cocoaWindow.contentView;
     bool isValidView = [cocoaView isKindOfClass: [NSView class ] ];
 
@@ -97,8 +100,6 @@ static void Render_ProcessBufferWrites( id<MTLBlitCommandEncoder> blitEncoder ) 
 static void Render_ProceesWriteRequests( id<MTLCommandBuffer> commandBuffer ) {
     
     @autoreleasepool {
-        
-    
         MTLBlitPassDescriptor* blitDescriptor = [MTLBlitPassDescriptor blitPassDescriptor];
         Sys_FatalErrorOn( ( blitDescriptor == nil ), "Failed to create blit descriptor" );
         id<MTLBlitCommandEncoder> blitEncoder = [commandBuffer blitCommandEncoderWithDescriptor: blitDescriptor];
@@ -106,8 +107,6 @@ static void Render_ProceesWriteRequests( id<MTLCommandBuffer> commandBuffer ) {
         
         Render_ProcessBufferWrites( blitEncoder );
         [blitEncoder endEncoding];
-        
-        [commandBuffer commit];
     }
 }
 
@@ -117,30 +116,50 @@ void Render_SubmitScene( batch_cmd_scene_t * scene ) {
     @autoreleasepool {
         
         dispatch_semaphore_wait( renderLocal.inflightSem, DISPATCH_TIME_FOREVER );
-        
+ 
+        /* Get the next surface we'll be drawing to */
         id<CAMetalDrawable> surface = renderLocal.metalLayer.nextDrawable;
         if ( surface == nil ) {
             dispatch_semaphore_signal( renderLocal.inflightSem );
             return;
         }
-        
+
         renderLocal.presentSurface = surface;
         
-        /* Process the buffer write requests before submitting the command buffer */
         id<MTLCommandBuffer> commandBuffer = [renderLocal.commandQueue commandBuffer];
         commandBuffer.label = @"MyCommand";
-        
+                
         __block dispatch_semaphore_t block_sema = renderLocal.inflightSem;
         [ commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer) {
             dispatch_semaphore_signal( block_sema );
         }];
         
-        Render_ProceesWriteRequests( commandBuffer );
+        /* Process the buffer write requests before submitting the command buffer */
+        if ( BufferWriteQueue_IsEmpty( &renderLocal.bufferWriteQueue ) == false ) {
+            Render_ProceesWriteRequests( commandBuffer );
+        }
+        
+        /* TEMP - Just want to display something to ensure it's all working. */
+        @autoreleasepool {
+            color.red = (color.red > 1.0) ? 0 : color.red + 0.01;
+            
+            MTLRenderPassDescriptor *pass = [MTLRenderPassDescriptor renderPassDescriptor];
+            pass.colorAttachments[0].clearColor = color;
+            pass.colorAttachments[0].loadAction  = MTLLoadActionClear;
+            pass.colorAttachments[0].storeAction = MTLStoreActionStore;
+            pass.colorAttachments[0].texture = surface.texture;
+            
+            id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor:pass];
+            [encoder endEncoding];
+        }
         
         /* Present the drawable and commit the command buffer */
         [commandBuffer presentDrawable: surface];
         [commandBuffer commit];
     }
+    
+    /* Update the buffer index for the next frame */
+    renderLocal.currBufferIndex = ( renderLocal.currBufferIndex + 1 ) % renderLocal.maxInflightFrames;
 }
 
 /*

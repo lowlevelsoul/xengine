@@ -24,16 +24,17 @@ X_API bool RenderWindow_PumpEvents( render_window_t* window );
 
 /* Render Window */
 X_API render_window_t* Render_GetWindow( void );
+X_API void * RenderWindow_GetNativeHandle( void );
 
 /* Rendering */
-void Render_SubmitScene( batch_cmd_scene_t* scene );
+X_API void Render_SubmitScene( batch_cmd_scene_t* scene );
 
 /* GPU Buffer */
-render_gpu_buffer_t* Render_GpuBufferCreate( size_t size, uint64_t usage );
-void Render_GpuBufferDestroy( render_gpu_buffer_t* buffer );
-void Render_GpuBuffer_QueueWrite( render_gpu_buffer_t* buffer, render_gpu_buffer_t* srcBuffer, size_t offset,
+X_API render_gpu_buffer_t* Render_GpuBufferCreate( size_t size, uint64_t usage );
+X_API void Render_GpuBufferDestroy( render_gpu_buffer_t* buffer );
+X_API void Render_GpuBuffer_QueueWrite( render_gpu_buffer_t* buffer, render_gpu_buffer_t* srcBuffer, size_t offset,
                                   bool releaseSrcBuffer );
-void* Render_GpuBuffer_Map( render_gpu_buffer_t* buffer );
-void Render_GpuBuffer_Unmap( render_gpu_buffer_t* buffer );
+X_API void* Render_GpuBuffer_Map( render_gpu_buffer_t* buffer );
+X_API void Render_GpuBuffer_Unmap( render_gpu_buffer_t* buffer );
 
 #endif // __RENDER_H__

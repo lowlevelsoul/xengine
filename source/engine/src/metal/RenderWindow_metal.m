@@ -6,7 +6,10 @@
 */
 
 #include "xe/Render.h"
-#include "GLFW/glfw3.h"
+
+#define GLFW_EXPOSE_NATIVE_COCOA
+#include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
 
 typedef struct render_window_metal_s {
     GLFWwindow* window;
@@ -24,6 +27,9 @@ void RenderWindow_Create( render_params_t* params ) {
     if ( !glfwInit() ) {
         return;
     }
+    
+    glfwWindowHint( GLFW_CLIENT_API, GLFW_NO_API );
+    glfwWindowHint( GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE );
 
     theWindow.window = glfwCreateWindow( params->width, params->height, "Meh", NULL, NULL );
     if ( !theWindow.window ) {
@@ -55,10 +61,20 @@ render_window_t* Render_GetWindow( void ) {
 }
 
 /*==========================================================================================================*/
+void * RenderWindow_GetNativeHandle() {
+    NSWindow * nsWindow = glfwGetCocoaWindow( theWindow.window );
+    return ( __bridge void * ) nsWindow;
+}
+
+/*==========================================================================================================*/
 bool RenderWindow_PumpEvents( render_window_t* window ) {
     if ( !isWindowCreated )
         return false;
 
     glfwPollEvents();
+    if ( glfwWindowShouldClose( (( render_window_metal_t *) window )->window ) ) {
+        return false;
+    }
+    
     return true;
 }
