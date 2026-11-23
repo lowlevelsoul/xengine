@@ -26,6 +26,10 @@ typedef enum render_opacity_e {
     RENDER_OPACITY_COUNT,
 } render_opacity_t;
 
+typedef enum render_gpu_buffer_flag_s {
+    RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY = 1,
+} render_gpu_buffer_flag_t;
+
 #define RENDER_MODEL_DRAW_SURFACE_MAX 8
 
 typedef struct render_window_s render_window_t;
@@ -133,6 +137,7 @@ typedef struct render_params_s {
     bool fullscreen;                         /**< Whether the render window should be fullscreen */
     uint32_t maxNumFramesInFlight;          /**< Maximum number of frames that can be in flight */
     uint32_t renderMemHeapSize;             /**< Size of the render memory heap */
+    void * nativeWindow;
 } render_params_t;
 
 #endif // __RENDERTYPES_H__

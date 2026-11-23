@@ -18,6 +18,13 @@ cl /nologo /std:c11 /experimental:c11atomics /I source\engine\inc tests\MPMCQueu
 mpmcqueue_test.exe
 ```
 
+To run the Metal heap pool test on macOS with a Metal-capable device:
+
+```sh
+xcrun clang -fobjc-arc -I source/engine/inc tests/RenderHeapPool_metal_test.m source/engine/src/metal/RenderHeapPool_metal.m -framework Metal -framework Foundation -o /tmp/render_heap_pool_test
+/tmp/render_heap_pool_test
+```
+
 Define a queue type with inline storage and use its generated functions:
 
 ```c

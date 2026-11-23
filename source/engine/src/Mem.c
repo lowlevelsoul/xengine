@@ -53,6 +53,12 @@ void* Mem_AllocAligned( size_t size, size_t alignment ) {
 }
 
 /*==========================================================================================================*/
+X_API void * Mem_Calloc( size_t size, size_t count ) {
+    size_t totalSize = size * count;
+    return Mem_AllocAligned( totalSize, 64 );
+}
+
+/*==========================================================================================================*/
 void* Mem_Realloc( void* ptr, size_t size ) {
 #if XE_PLATFORM_WIN
     return _aligned_realloc( ptr, size, 16 );

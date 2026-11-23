@@ -48,6 +48,9 @@
 		1A7F82D430AF7E5700BDFD28 /* tlsf.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F821530AECA0200BDFD28 /* tlsf.c */; };
 		1A7F830130AF7F5B00BDFD28 /* Game.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F823B30AECA0200BDFD28 /* Game.c */; };
 		1A7F831530AF80A600BDFD28 /* Render_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F831430AF80A600BDFD28 /* Render_metal.m */; };
+		1A7F833630B2E55500BDFD28 /* Render_metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F833330B2E55500BDFD28 /* Render_metal.h */; };
+		1A7F833730B2E55500BDFD28 /* RenderHeapPool_metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F833430B2E55500BDFD28 /* RenderHeapPool_metal.h */; };
+		1A7F833830B2E55500BDFD28 /* RenderHeapPool_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -318,6 +321,9 @@
 		1A7F82D530AF7E6900BDFD28 /* infestation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = infestation.xcconfig; sourceTree = "<group>"; };
 		1A7F82DA30AF7EED00BDFD28 /* Infestation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Infestation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A7F831430AF80A600BDFD28 /* Render_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Render_metal.m; sourceTree = "<group>"; };
+		1A7F833330B2E55500BDFD28 /* Render_metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Render_metal.h; sourceTree = "<group>"; };
+		1A7F833430B2E55500BDFD28 /* RenderHeapPool_metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderHeapPool_metal.h; sourceTree = "<group>"; };
+		1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderHeapPool_metal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -726,6 +732,9 @@
 		1A7F822C30AECA0200BDFD28 /* metal */ = {
 			isa = PBXGroup;
 			children = (
+				1A7F833330B2E55500BDFD28 /* Render_metal.h */,
+				1A7F833430B2E55500BDFD28 /* RenderHeapPool_metal.h */,
+				1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */,
 				1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.c */,
 				1A7F831430AF80A600BDFD28 /* Render_metal.m */,
 			);
@@ -849,6 +858,8 @@
 		1A7F824530AECB2400BDFD28 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			files = (
+				1A7F833630B2E55500BDFD28 /* Render_metal.h in Headers */,
+				1A7F833730B2E55500BDFD28 /* RenderHeapPool_metal.h in Headers */,
 				1A7F826030AF7CCB00BDFD28 /* MPMCQueue.h in Headers */,
 				1A7F826130AF7CCB00BDFD28 /* FrameHeap.h in Headers */,
 				1A7F826230AF7CCB00BDFD28 /* RenderBatch.h in Headers */,
@@ -1055,6 +1066,7 @@
 				1A7F825930AECB3B00BDFD28 /* Fs_shared.c in Sources */,
 				1A7F826530AF7CDA00BDFD28 /* RenderBatch.c in Sources */,
 				1A7F826630AF7CDA00BDFD28 /* FrameHeap.c in Sources */,
+				1A7F833830B2E55500BDFD28 /* RenderHeapPool_metal.m in Sources */,
 				1A7F825A30AECB3B00BDFD28 /* Mem.c in Sources */,
 				1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.c in Sources */,
 				1A7F831530AF80A600BDFD28 /* Render_metal.m in Sources */,
