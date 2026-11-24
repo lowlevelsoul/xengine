@@ -10,6 +10,7 @@
 
 #include "xe/Render.h"
 #include "xe/Sys.h"
+#include "xe/MPMCQueue.h"
 #include "D3D12MemAlloc.h"
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -18,7 +19,16 @@ extern void RenderWindow_Create( render_params_t* params );
 extern void RenderWindow_Destroy( void );
 extern HWND RenderWindow_GetNativeHandle( void );
 
-#define MAX_NUM_BUFFER_COMPLETE_ITEMS 1024
+#define MAX_NUM_BUFFER_WRITE_REQUESTS 2048
+
+typedef struct buffer_write_request_s {
+    render_gpu_buffer_t* dstBuffer;
+    render_gpu_buffer_t* srcBuffer;
+    size_t offset;
+    uint64_t canDisposeSrcBuffer : 1;
+} buffer_write_request_t;
+
+MPMC_QUEUE_DEFINE( BufferWriteQueue, buffer_write_request_t, MAX_NUM_BUFFER_WRITE_REQUESTS )
 
 typedef struct render_frame_d3d12_s {
     ID3D12CommandAllocator* allocator;
@@ -26,7 +36,7 @@ typedef struct render_frame_d3d12_s {
 } render_frame_d3d12_t;
 
 typedef struct render_buffer_write_complete_s {
-    render_gpu_buffer_t* srcBuffer; /* Source buffer - can be CPU or GPU */
+    render_gpu_buffer_t* buffer;    /* Source buffer - can be CPU or GPU */
     UINT64 fenceValue;              /* Fence value indicating when the write is complete */
 } render_buffer_write_complete_t;
 
@@ -41,7 +51,10 @@ typedef struct render_context_d3d12_s {
     ID3D12Resource* backBuffers[ DXGI_MAX_SWAP_CHAIN_BUFFERS ];
     render_frame_d3d12_t frames[ DXGI_MAX_SWAP_CHAIN_BUFFERS ];
 
-    render_buffer_write_complete_t bufferWriteCompleteItems[ MAX_NUM_BUFFER_COMPLETE_ITEMS ];
+    BufferWriteQueue bufferWriteQueue; /* Queue for pending buffer write requests */
+    render_buffer_write_complete_t * bufferWriteCompleteItems;
+    render_buffer_write_complete_t * bufferWriteCompleteItemsTmp;
+    render_buffer_write_complete_t bufferWriteCompleteItemsPool[ 2 ][ MAX_NUM_BUFFER_WRITE_REQUESTS ];
     UINT bufferWriteCompleteCount;
     UINT liveBufferCount;
 

@@ -36,6 +36,16 @@ void Render_Initialise( render_params_t* params ) {
     if ( !Render_CreateSwapchain( params ) ) {
         RenderWindow_Destroy();
     }
+
+    renderLocal.bufferWriteCompleteItems = renderLocal.bufferWriteCompleteItemsPool[ 0 ];
+    renderLocal.bufferWriteCompleteItemsTmp = renderLocal.bufferWriteCompleteItemsPool[ 1 ];
+}
+
+/*==========================================================================================================*/
+void Render_SwapRenderCompleteItems( void ) {
+    render_buffer_write_complete_t* tmp = renderLocal.bufferWriteCompleteItems;
+    renderLocal.bufferWriteCompleteItems = renderLocal.bufferWriteCompleteItemsTmp;
+    renderLocal.bufferWriteCompleteItemsTmp = tmp;
 }
 
 /*==========================================================================================================*/
@@ -173,7 +183,7 @@ static bool Render_CreateSwapchain( render_params_t* params ) {
     IDXGIFactory4* factory = NULL;
     IDXGIAdapter* adapter = NULL;
     IDXGISwapChain1* swapChain = NULL;
-    HWND window = RenderWindow_GetNativeHandle();
+    HWND window = (HWND) RenderWindow_GetNativeHandle();
     HRESULT result;
     const char* operation = "get render window";
     D3D12_COMMAND_QUEUE_DESC queueDesc = {};
@@ -361,63 +371,6 @@ static void Render_RecordScene( UINT bufferIndex ) {
 }
 
 /*==========================================================================================================*/
-static void Render_CollectBufferWrites( UINT64 completed ) {
-    UINT remaining = 0;
-    for ( UINT i = 0; i < renderLocal.bufferWriteCompleteCount; ++i ) {
-        render_buffer_write_complete_t item = renderLocal.bufferWriteCompleteItems[ i ];
-        if ( item.fenceValue <= completed ) {
-            Render_GpuBufferDestroyNow( item.srcBuffer );
-        } else {
-            renderLocal.bufferWriteCompleteItems[ remaining++ ] = item;
-        }
-    }
-
-    renderLocal.bufferWriteCompleteCount = remaining;
-}
-
-/*==========================================================================================================*/
-static bool Render_ValidateBufferWrites( batch_cmd_scene_t* scene, render_gpu_buffer_t** discardBuffers,
-                                         UINT* discardCount ) {
-    for ( batch_cmd_scene3d_t* scene3d = scene->scene3dListHead; scene3d; scene3d = scene3d->next ) {
-        for ( batch_cmd_buffer_write_t* request = scene3d->bufferWriteListHead; request; request = request->next ) {
-            for ( UINT i = 0; i < renderLocal.bufferWriteCompleteCount; ++i ) {
-                if ( request->srcbuffer == renderLocal.bufferWriteCompleteItems[ i ].srcBuffer ||
-                     request->dstbuffer == renderLocal.bufferWriteCompleteItems[ i ].srcBuffer ) {
-                    Sys_PrintCat( "ERROR", "Cannot use a D3D12 buffer pending disposal." );
-                    return false;
-                }
-            }
-
-            render_gpu_buffer_t* src = request->srcbuffer;
-            render_gpu_buffer_t* dst = request->dstbuffer;
-            if ( !src || !dst || !src->resource || !dst->resource || src->resource == dst->resource || !dst->gpuOnly ||
-                 !src->size || request->offset > dst->size || src->size > dst->size - request->offset ) {
-                Sys_PrintCat( "ERROR", "Invalid D3D12 buffer write request." );
-                return false;
-            }
-
-            if ( request->canDiscardSrc ) {
-                UINT i = 0;
-                while ( i < *discardCount && discardBuffers[ i ] != src ) {
-                    ++i;
-                }
-
-                if ( i == *discardCount ) {
-                    if ( renderLocal.bufferWriteCompleteCount + *discardCount >= MAX_NUM_BUFFER_COMPLETE_ITEMS ) {
-                        Sys_PrintCat( "ERROR", "Too many D3D12 buffers pending disposal." );
-                        return false;
-                    }
-
-                    discardBuffers[ ( *discardCount )++ ] = src;
-                }
-            }
-        }
-    }
-
-    return true;
-}
-
-/*==========================================================================================================*/
 static void Render_TransitionBuffer( render_gpu_buffer_t* buffer, D3D12_RESOURCE_STATES state ) {
     if ( buffer->state == state || ( state != D3D12_RESOURCE_STATE_COMMON && ( buffer->state & state ) == state ) ) {
         return;
@@ -434,13 +387,51 @@ static void Render_TransitionBuffer( render_gpu_buffer_t* buffer, D3D12_RESOURCE
 }
 
 /*==========================================================================================================*/
-static void Render_ProcessBufferWriteRequests( batch_cmd_scene3d_t* scene3d ) {
-    for ( batch_cmd_buffer_write_t* request = scene3d->bufferWriteListHead; request; request = request->next ) {
-        Render_TransitionBuffer( request->srcbuffer, D3D12_RESOURCE_STATE_COPY_SOURCE );
-        Render_TransitionBuffer( request->dstbuffer, D3D12_RESOURCE_STATE_COPY_DEST );
-        renderLocal.commandList->CopyBufferRegion( request->dstbuffer->resource, request->offset,
-                                                   request->srcbuffer->resource, 0, request->srcbuffer->size );
+static void Render_ProcessBufferWriteRequests(void) {
+    if ( BufferWriteQueue_IsEmpty( &renderLocal.bufferWriteQueue ) == true ) {
+        return;
     }
+
+    bool haveWriteRequest = false;
+    buffer_write_request_t request;
+    do {
+        haveWriteRequest = BufferWriteQueue_Read( &renderLocal.bufferWriteQueue, &request );
+        if ( haveWriteRequest == true ) {            
+            renderLocal.commandList->CopyBufferRegion( request.dstBuffer->resource, request.offset,
+                                                     request.srcBuffer->resource, 0, request.srcBuffer->size );
+
+            Render_TransitionBuffer( request.dstBuffer, D3D12_RESOURCE_STATE_COPY_DEST );
+
+            if ( request.canDisposeSrcBuffer ) {
+                /* Add the buffer to the list of buffers to be discarded */
+                Sys_AssertMsg( renderLocal.bufferWriteCompleteCount < MAX_NUM_BUFFER_WRITE_REQUESTS, "Buffer write complete array overflow." );
+
+                render_buffer_write_complete_t completeItem;
+                completeItem.buffer = request.srcBuffer;
+                completeItem.fenceValue = renderLocal.lastFenceValue;
+
+                renderLocal.bufferWriteCompleteItems[ renderLocal.bufferWriteCompleteCount ] = completeItem;
+                renderLocal.bufferWriteCompleteCount++;
+            }            
+        }
+
+    } while ( haveWriteRequest == true );
+}
+
+/*==========================================================================================================*/
+static void Render_ProcessCompletedBufferWrites( UINT64 completed ) {
+    UINT remaining = 0;
+    for ( UINT i = 0; i < renderLocal.bufferWriteCompleteCount; ++i ) {
+        render_buffer_write_complete_t item = renderLocal.bufferWriteCompleteItems[ i ];
+        if ( item.fenceValue <= completed ) {
+            Render_GpuBufferDestroyNow( item.buffer );
+        } else {
+            renderLocal.bufferWriteCompleteItemsTmp[ remaining++ ] = item;
+        }
+    }
+
+    Render_SwapRenderCompleteItems();
+    renderLocal.bufferWriteCompleteCount = remaining;
 }
 
 /*==========================================================================================================*/
@@ -455,18 +446,6 @@ void Render_SubmitScene( batch_cmd_scene_t* scene ) {
         Sys_PrintCat( "ERROR", "D3D12 device removed while processing buffer writes (HRESULT 0x%08lx).",
                       ( unsigned long )renderLocal.device->GetDeviceRemovedReason() );
         renderLocal.failed = true;
-        return;
-    }
-
-    Render_CollectBufferWrites( completed );
-    render_gpu_buffer_t* discardBuffers[ MAX_NUM_BUFFER_COMPLETE_ITEMS ];
-    UINT discardCount = 0;
-    if ( renderLocal.lastFenceValue == UINT64_MAX - 1 ||
-         !Render_ValidateBufferWrites( scene, discardBuffers, &discardCount ) ) {
-        if ( renderLocal.lastFenceValue == UINT64_MAX - 1 ) {
-            Sys_PrintCat( "ERROR", "D3D12 fence value exhausted." );
-        }
-
         return;
     }
 
@@ -499,36 +478,25 @@ void Render_SubmitScene( batch_cmd_scene_t* scene ) {
         goto fail;
     }
 
-    for ( batch_cmd_scene3d_t* scene3d = scene->scene3dListHead; scene3d; scene3d = scene3d->next ) {
-        Render_ProcessBufferWriteRequests( scene3d );
+    /* Process any pending buffer write requests before recording the scene */
+    if ( BufferWriteQueue_IsEmpty( &renderLocal.bufferWriteQueue ) == false ) {
+        Render_ProcessBufferWriteRequests();
     }
 
-    /* Buffers decay to COMMON between command-list executions. */
-    for ( batch_cmd_scene3d_t* scene3d = scene->scene3dListHead; scene3d; scene3d = scene3d->next ) {
-        for ( batch_cmd_buffer_write_t* request = scene3d->bufferWriteListHead; request; request = request->next ) {
-            if ( request->srcbuffer->gpuOnly ) {
-                Render_TransitionBuffer( request->srcbuffer, D3D12_RESOURCE_STATE_COMMON );
-            }
-
-            Render_TransitionBuffer( request->dstbuffer, D3D12_RESOURCE_STATE_COMMON );
-        }
+    /* Process any completed buffer writes before recording the scene */
+    if ( renderLocal.bufferWriteCompleteCount > 0 ) {
+        Render_ProcessCompletedBufferWrites( renderLocal.fence->GetCompletedValue() );
     }
 
     Render_RecordScene( renderLocal.swapChain->GetCurrentBackBufferIndex() );
+
+    /** TOODO: Perform rendering here. */
 
     operation = "close command list";
     result = renderLocal.commandList->Close();
     if ( FAILED( result ) ) {
         goto fail;
-    }
-
-    fenceValue = renderLocal.lastFenceValue + 1;
-    for ( UINT i = 0; i < discardCount; ++i ) {
-        render_buffer_write_complete_t* item =
-            &renderLocal.bufferWriteCompleteItems[ renderLocal.bufferWriteCompleteCount++ ];
-        item->srcBuffer = discardBuffers[ i ];
-        item->fenceValue = fenceValue;
-    }
+    }    
 
     renderLocal.commandQueue->ExecuteCommandLists( 1, lists );
     presentResult = renderLocal.swapChain->Present( renderLocal.vsync ? 1 : 0, 0 );

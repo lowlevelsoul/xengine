@@ -39,6 +39,7 @@ X_API void Sys_MuxUnlock( sys_mux_t* mux );
 
 #if defined( DEBUG ) || defined( _DEBUG )
 #define Sys_Assert( COND ) ( void )( ( COND ) || ( Sys_AssertPrint( __FILE__, __LINE__, #COND ), Sys_Breakpoint(), 0 ) )
+#define Sys_AssertMsg( COND, ... ) ( void )( ( COND ) || ( Sys_AssertPrint( __FILE__, __LINE__, __VA_ARGS__ ), Sys_Breakpoint(), 0 ) )
 #define Sys_FatalErrorOn( COND, ... ) ( void )( ( !(COND) ) || ( Sys_PrintCat( "FATAL_ERROR", __VA_ARGS__ ), Sys_Breakpoint(), 0 ) )
 #define Sys_FatalError( ... ) ( void )( Sys_PrintCat( "FATAL_ERROR", __VA_ARGS__ ), Sys_Breakpoint(), 0 )
 #define Sys_Warning( ... ) ( void )( Sys_PrintCat( "WARNING", __VA_ARGS__ ) )
