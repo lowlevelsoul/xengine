@@ -30,6 +30,7 @@ void RenderWindow_Create( render_params_t* params ) {
     }
 
     glfwWindowHint( GLFW_CLIENT_API, GLFW_NO_API );
+    
     theWindow.window = glfwCreateWindow( params->width, params->height, "Meh", NULL, NULL );
     if ( !theWindow.window ) {
         Sys_PrintCat( "ERROR", "Failed to create render window." );

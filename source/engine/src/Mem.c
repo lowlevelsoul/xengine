@@ -55,7 +55,12 @@ void* Mem_AllocAligned( size_t size, size_t alignment ) {
 /*==========================================================================================================*/
 X_API void * Mem_Calloc( size_t size, size_t count ) {
     size_t totalSize = size * count;
-    return Mem_AllocAligned( totalSize, 64 );
+    void* ptr = Mem_AllocAligned( totalSize, 64 );
+    if ( ptr != NULL ) {
+        Mem_Zero( ptr, totalSize );
+    }
+    
+    return ptr; 
 }
 
 /*==========================================================================================================*/
