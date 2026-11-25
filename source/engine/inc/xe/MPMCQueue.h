@@ -8,6 +8,10 @@
 #ifndef XE_MPMCQUEUE_H
 #define XE_MPMCQUEUE_H
 
+#ifdef __cplusplus
+#error "MPMCQueue.h is a C header and cannot be included in C++ code."
+#endif
+
 #include "xe/Platform.h"
 #include <stdatomic.h>
 

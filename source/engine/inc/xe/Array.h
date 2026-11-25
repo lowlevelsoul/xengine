@@ -79,8 +79,34 @@
                 return true;\
             }\
         }\
+        if ( indexOut ) {\
+            *indexOut = left;\
+        }\
         return false;\
     }\
+    X_API bool Array_##name##_InsertSorted( type* elements, size_t count, size_t capacity, size_t* indexOut, const type* value ) {\
+        size_t insertIndex = 0;\
+        bool found = Array_##name##_FindSorted( elements, count, value, &insertIndex );\
+        if ( found ) {\
+            if ( indexOut ) {\
+                *indexOut = insertIndex;\
+            }\
+            return false;\
+        }\
+        if ( count >= capacity ) {\
+            return false;\
+        }\
+        for ( size_t i = count; i > insertIndex; --i ) {\
+            elements[i] = elements[i - 1];\
+        }\
+        elements[insertIndex] = *value;\
+        if ( indexOut ) {\
+            *indexOut = insertIndex;\
+        }\
+        return true;\
+    } \
+
+
 
 
 ARRAY_DECLARE( Int32, int32_t )

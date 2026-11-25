@@ -32,6 +32,7 @@
     <ClInclude Include="..\..\..\source\engine\inc\xe\MathScalar.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Mem.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\MPMCQueue.h" />
+    <ClInclude Include="..\..\..\source\engine\inc\xe\MPMCQueue.hpp" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Platform.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Platform_apple.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Platform_win.h" />

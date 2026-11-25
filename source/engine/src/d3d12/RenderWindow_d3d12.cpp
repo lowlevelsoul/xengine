@@ -53,7 +53,7 @@ void RenderWindow_Destroy( void ) {
 }
 
 /*==========================================================================================================*/
-HWND RenderWindow_GetNativeHandle( void ) {
+void * RenderWindow_GetNativeHandle( void ) {
     if ( !isWindowCreated ) {
         return NULL;
     }

@@ -157,6 +157,9 @@
     <ProjectReference Include="..\D3D12MemoryAllocator\D3D12MemoryAllocator.vcxproj">
       <Project>{4858290e-ec72-4703-bda3-24ec65853bef}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\farmhash\farmhash.vcxproj">
+      <Project>{2f2858d7-63aa-4c32-8b94-ea153b96a527}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\glfw\glfw.vcxproj">
       <Project>{9f0e2e8c-fb1d-427a-a480-dcc9a640b334}</Project>
     </ProjectReference>

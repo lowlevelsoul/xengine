@@ -7,7 +7,7 @@
 
 #include "Render_D3D12.h"
 #include "xe/RenderBatch.h"
-#include "xe/Mem.h"
+#include <new>
 
 render_context_d3d12_t renderLocal;
 static bool isContextCreated = false;
@@ -15,15 +15,12 @@ static bool isContextCreated = false;
 static bool Render_CreateSwapchain( render_params_t* params );
 static void Render_DestroySwapchain( void );
 static bool Render_WaitForFence( UINT64 value );
-static void Render_CollectBufferWrites( UINT64 completed );
 
 /*==========================================================================================================*/
 void Render_Initialise( render_params_t* params ) {
     if ( isContextCreated ) {
         return;
     }
-
-    Mem_Zero( &renderLocal, sizeof( renderLocal ) );
 
     if ( !params || params->width <= 0 || params->height <= 0 || params->maxNumFramesInFlight < 1 ||
          params->maxNumFramesInFlight > DXGI_MAX_SWAP_CHAIN_BUFFERS ) {
@@ -62,7 +59,6 @@ static void Render_DestroySwapchain( void ) {
         return;
     }
 
-    Render_CollectBufferWrites( renderLocal.lastFenceValue );
     if ( renderLocal.liveBufferCount ) {
         Sys_PrintCat( "ERROR", "Cannot finalise D3D12 renderer with %u live buffers.", renderLocal.liveBufferCount );
         return;
@@ -116,7 +112,9 @@ static void Render_DestroySwapchain( void ) {
         renderLocal.device->Release();
     }
 
-    memset( &renderLocal, 0, sizeof( renderLocal ) );
+    // Reconstruct the context rather than byte-resetting its atomic queue.
+    renderLocal.~render_context_d3d12_t();
+    new ( &renderLocal ) render_context_d3d12_t{};
     isContextCreated = false;
 }
 
@@ -388,14 +386,14 @@ static void Render_TransitionBuffer( render_gpu_buffer_t* buffer, D3D12_RESOURCE
 
 /*==========================================================================================================*/
 static void Render_ProcessBufferWriteRequests(void) {
-    if ( BufferWriteQueue_IsEmpty( &renderLocal.bufferWriteQueue ) == true ) {
+    if ( renderLocal.bufferWriteQueue.IsEmpty() == true ) {
         return;
     }
 
     bool haveWriteRequest = false;
     buffer_write_request_t request;
     do {
-        haveWriteRequest = BufferWriteQueue_Read( &renderLocal.bufferWriteQueue, &request );
+        haveWriteRequest = renderLocal.bufferWriteQueue.Read( request );
         if ( haveWriteRequest == true ) {            
             renderLocal.commandList->CopyBufferRegion( request.dstBuffer->resource, request.offset,
                                                      request.srcBuffer->resource, 0, request.srcBuffer->size );
@@ -479,7 +477,7 @@ void Render_SubmitScene( batch_cmd_scene_t* scene ) {
     }
 
     /* Process any pending buffer write requests before recording the scene */
-    if ( BufferWriteQueue_IsEmpty( &renderLocal.bufferWriteQueue ) == false ) {
+    if ( renderLocal.bufferWriteQueue.IsEmpty() == false ) {
         Render_ProcessBufferWriteRequests();
     }
 

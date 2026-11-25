@@ -55,13 +55,6 @@ X_API void Render_GpuBufferDestroy( render_gpu_buffer_t* buffer ) {
         return;
     }
 
-    for ( UINT i = 0; i < renderLocal.bufferWriteCompleteCount; ++i ) {
-        if ( renderLocal.bufferWriteCompleteItems[ i ].srcBuffer == buffer ) {
-            Sys_PrintCat( "ERROR", "Cannot destroy a D3D12 buffer owned by a pending write." );
-            return;
-        }
-    }
-
     if ( !Render_WaitForBufferUse() ) {
         return;
     }
@@ -130,9 +123,12 @@ X_API void Render_GpuBuffer_QueueWrite( render_gpu_buffer_t* buffer, render_gpu_
     buffer_write_request_t request = {
         .dstBuffer = buffer,
         .srcBuffer = srcBuffer,
-        .offset = offset,
-        .canDisposeSrcBuffer = releaseSrcBuffer ? 1 : 0
+        .offset = offset
     };
 
-    BufferWriteQueue_Enqueue( &renderLocal.bufferWriteQueue, &request );
+    request.canDisposeSrcBuffer = releaseSrcBuffer ? 1 : 0;
+
+    if ( !renderLocal.bufferWriteQueue.Write( request ) ) {
+        Sys_PrintCat( "ERROR", "Failed to write to buffer write queue." );
+    }
 }

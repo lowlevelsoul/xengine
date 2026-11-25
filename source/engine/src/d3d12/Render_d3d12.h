@@ -10,14 +10,14 @@
 
 #include "xe/Render.h"
 #include "xe/Sys.h"
-#include "xe/MPMCQueue.h"
+#include "xe/MPMCQueue.hpp"
 #include "D3D12MemAlloc.h"
 #include <d3d12.h>
 #include <dxgi1_6.h>
 
 extern void RenderWindow_Create( render_params_t* params );
 extern void RenderWindow_Destroy( void );
-extern HWND RenderWindow_GetNativeHandle( void );
+extern void * RenderWindow_GetNativeHandle( void );
 
 #define MAX_NUM_BUFFER_WRITE_REQUESTS 2048
 
@@ -28,7 +28,7 @@ typedef struct buffer_write_request_s {
     uint64_t canDisposeSrcBuffer : 1;
 } buffer_write_request_t;
 
-MPMC_QUEUE_DEFINE( BufferWriteQueue, buffer_write_request_t, MAX_NUM_BUFFER_WRITE_REQUESTS )
+using BufferWriteQueue = CMPMCQueue<buffer_write_request_t, MAX_NUM_BUFFER_WRITE_REQUESTS>;
 
 typedef struct render_frame_d3d12_s {
     ID3D12CommandAllocator* allocator;
