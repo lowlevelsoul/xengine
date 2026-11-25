@@ -17,17 +17,17 @@
 
 #define MAX_NUM_PRINTCALLBACKS 16
 
-typedef struct sys_s{
-    bool                        timeIsMonotomic;
-    mach_timebase_info_data_t   timeBaseInfo;
-    uint64_t                    machStartTime;
-    struct timeval              tvStartTime;    
+typedef struct sys_s {
+    bool timeIsMonotomic;
+    mach_timebase_info_data_t timeBaseInfo;
+    uint64_t machStartTime;
+    struct timeval tvStartTime;
 
-    str_t                       printString;
-    str_t                       tmpString;
-    sys_mux_t                   printMux;
-    Sys_PrintCallback           printCallbacks[ MAX_NUM_PRINTCALLBACKS ];
-    uint32_t                    printCallbackCount;
+    str_t printString;
+    str_t tmpString;
+    sys_mux_t printMux;
+    Sys_PrintCallback printCallbacks[ MAX_NUM_PRINTCALLBACKS ];
+    uint32_t printCallbackCount;
 } sys_t;
 
 sys_t sys;
@@ -36,13 +36,13 @@ bool sysInitialised = false;
 static_assert( sizeof( sys_mux_t ) >= sizeof( pthread_mutex_t ), "sys_mux_t is too small for pthread_mutex_t" );
 
 /*==========================================================================================================*/
-static void Sys_DebuggerPrintCb( const char * msg ) {
+static void Sys_DebuggerPrintCb( const char* msg ) {
     printf( "%s\n", msg );
 }
 
 /*==========================================================================================================*/
 X_API void Sys_Initialise( void ) {
-    
+
     if ( sysInitialised == true ) {
         return;
     }
@@ -58,18 +58,17 @@ X_API void Sys_Initialise( void ) {
     sys.timeIsMonotomic = false;
 
     kern_return_t res = mach_timebase_info( &sys.timeBaseInfo );
-            
+
     // Is the machine CPU clock constant, or does it change over time?
-    sys.timeIsMonotomic  = ( res == 0 );
+    sys.timeIsMonotomic = ( res == 0 );
 
     if ( sys.timeIsMonotomic ) {
-        //fxprintf("System clock is monotomic\n");
-        // CPU clock is constant, so use the machine absolute time tick as our clock-tick
+        // fxprintf("System clock is monotomic\n");
+        //  CPU clock is constant, so use the machine absolute time tick as our clock-tick
         sys.machStartTime = mach_absolute_time();
-    }
-    else {
-        //fxprintf("System clock is non-monotomic\n");
-        // CPU clock is not constant, so use the absolute system time
+    } else {
+        // fxprintf("System clock is non-monotomic\n");
+        //  CPU clock is not constant, so use the absolute system time
         gettimeofday( &sys.tvStartTime, NULL );
     }
 
@@ -77,9 +76,7 @@ X_API void Sys_Initialise( void ) {
 }
 
 /*==========================================================================================================*/
-X_API void Sys_Finalise( void ) {
-
-}
+X_API void Sys_Finalise( void ) { }
 
 /*==========================================================================================================*/
 X_API uint64_t Sys_GetTicks( void ) {
@@ -104,7 +101,7 @@ X_API void Sys_Sleep( uint32_t milliseconds ) {
 }
 
 /*==========================================================================================================*/
-static void Sys_DoPrintCallbacks(void) {
+static void Sys_DoPrintCallbacks( void ) {
     for ( uint32_t i = 0; i < sys.printCallbackCount; ++i ) {
         if ( sys.printCallbacks[ i ] != NULL ) {
             sys.printCallbacks[ i ]( sys.printString );
@@ -116,7 +113,7 @@ static void Sys_DoPrintCallbacks(void) {
 void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
 
     Sys_MuxLock( &sys.printMux );
-    
+
     va_list args;
     va_start( args, fmt );
     Str_FormatArg( &sys.tmpString, fmt, args );
@@ -130,7 +127,7 @@ void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
 }
 
 /*==========================================================================================================*/
-void Sys_AssertPrint( const char* file, int line, const char * fmt, ... ) {
+void Sys_AssertPrint( const char* file, int line, const char* fmt, ... ) {
     Sys_MuxLock( &sys.printMux );
 
     va_list args;
@@ -156,7 +153,6 @@ void Sys_AddPrintCallback( Sys_PrintCallback callback ) {
 bool Sys_IsDebuggerPresent( void ) {
     return false; // macOS does not have a direct equivalent to IsDebuggerPresent
 }
-
 
 /*==========================================================================================================*/
 /* Mux */

@@ -25,7 +25,7 @@ void Mem_Set( void* ptr, int value, size_t size ) {
 }
 
 /*==========================================================================================================*/
-void Mem_Zero( void * ptr, size_t size ) {
+void Mem_Zero( void* ptr, size_t size ) {
     memset( ptr, 0, size );
 }
 
@@ -48,19 +48,20 @@ void* Mem_AllocAligned( size_t size, size_t alignment ) {
     if ( posix_memalign( &ptr, alignment, size ) != 0 ) {
         return NULL;
     }
+
     return ptr;
 #endif
 }
 
 /*==========================================================================================================*/
-X_API void * Mem_Calloc( size_t size, size_t count ) {
+X_API void* Mem_Calloc( size_t size, size_t count ) {
     size_t totalSize = size * count;
     void* ptr = Mem_AllocAligned( totalSize, 64 );
     if ( ptr != NULL ) {
         Mem_Zero( ptr, totalSize );
     }
-    
-    return ptr; 
+
+    return ptr;
 }
 
 /*==========================================================================================================*/

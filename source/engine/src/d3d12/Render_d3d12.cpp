@@ -181,7 +181,7 @@ static bool Render_CreateSwapchain( render_params_t* params ) {
     IDXGIFactory4* factory = NULL;
     IDXGIAdapter* adapter = NULL;
     IDXGISwapChain1* swapChain = NULL;
-    HWND window = (HWND) RenderWindow_GetNativeHandle();
+    HWND window = ( HWND )RenderWindow_GetNativeHandle();
     HRESULT result;
     const char* operation = "get render window";
     D3D12_COMMAND_QUEUE_DESC queueDesc = {};
@@ -385,7 +385,7 @@ static void Render_TransitionBuffer( render_gpu_buffer_t* buffer, D3D12_RESOURCE
 }
 
 /*==========================================================================================================*/
-static void Render_ProcessBufferWriteRequests(void) {
+static void Render_ProcessBufferWriteRequests( void ) {
     if ( renderLocal.bufferWriteQueue.IsEmpty() == true ) {
         return;
     }
@@ -394,15 +394,16 @@ static void Render_ProcessBufferWriteRequests(void) {
     buffer_write_request_t request;
     do {
         haveWriteRequest = renderLocal.bufferWriteQueue.Read( request );
-        if ( haveWriteRequest == true ) {            
+        if ( haveWriteRequest == true ) {
             renderLocal.commandList->CopyBufferRegion( request.dstBuffer->resource, request.offset,
-                                                     request.srcBuffer->resource, 0, request.srcBuffer->size );
+                                                       request.srcBuffer->resource, 0, request.srcBuffer->size );
 
             Render_TransitionBuffer( request.dstBuffer, D3D12_RESOURCE_STATE_COPY_DEST );
 
             if ( request.canDisposeSrcBuffer ) {
                 /* Add the buffer to the list of buffers to be discarded */
-                Sys_AssertMsg( renderLocal.bufferWriteCompleteCount < MAX_NUM_BUFFER_WRITE_REQUESTS, "Buffer write complete array overflow." );
+                Sys_AssertMsg( renderLocal.bufferWriteCompleteCount < MAX_NUM_BUFFER_WRITE_REQUESTS,
+                               "Buffer write complete array overflow." );
 
                 render_buffer_write_complete_t completeItem;
                 completeItem.buffer = request.srcBuffer;
@@ -410,7 +411,7 @@ static void Render_ProcessBufferWriteRequests(void) {
 
                 renderLocal.bufferWriteCompleteItems[ renderLocal.bufferWriteCompleteCount ] = completeItem;
                 renderLocal.bufferWriteCompleteCount++;
-            }            
+            }
         }
 
     } while ( haveWriteRequest == true );
@@ -494,7 +495,7 @@ void Render_SubmitScene( batch_cmd_scene_t* scene ) {
     result = renderLocal.commandList->Close();
     if ( FAILED( result ) ) {
         goto fail;
-    }    
+    }
 
     renderLocal.commandQueue->ExecuteCommandLists( 1, lists );
     presentResult = renderLocal.swapChain->Present( renderLocal.vsync ? 1 : 0, 0 );

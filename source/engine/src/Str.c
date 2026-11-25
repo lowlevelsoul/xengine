@@ -217,9 +217,8 @@ X_API void Str_AppendCStr( str_t* self_, const char* src ) {
     }
 }
 
-
 /*==========================================================================================================*/
-X_API void Str_FormatV( str_t * self_, const char* fmt, ... ) {
+X_API void Str_FormatV( str_t* self_, const char* fmt, ... ) {
     va_list args;
     va_start( args, fmt );
     Str_FormatArg( self_, fmt, args );
@@ -227,7 +226,7 @@ X_API void Str_FormatV( str_t * self_, const char* fmt, ... ) {
 }
 
 /*==========================================================================================================*/
-X_API void Str_FormatArg( str_t * self_, const char* fmt, va_list args ) {
+X_API void Str_FormatArg( str_t* self_, const char* fmt, va_list args ) {
     va_list args_copy;
     int length = vsnprintf( NULL, 0, fmt, args );
 
@@ -236,9 +235,9 @@ X_API void Str_FormatArg( str_t * self_, const char* fmt, va_list args ) {
     }
 
     Str_Resize( self_, ( uint32_t )length );
-;
+    ;
     va_copy( args_copy, args );
-    vsnprintf( *self_, length+1, fmt, args_copy );
+    vsnprintf( *self_, length + 1, fmt, args_copy );
     va_end( args_copy );
 }
 

@@ -11,27 +11,14 @@
 #include "xe/MathLinear.h"
 
 /* Cube vertices are defined in clockwise order for the front and back face*/
-static const vec3_t CUBE_VERTICES[8] = {
-    { -0.5f,  0.5f, -0.5f },
-    {  0.5f,  0.5f, -0.5f },
-    {  0.5f, -0.5f, -0.5f },
-    { -0.5f, -0.5f, -0.5f },
-    { -0.5f,  0.5f, -0.5f },
-    {  0.5f,  0.5f, -0.5f },
-    {  0.5f, -0.5f, -0.5f },
-    { -0.5f, -0.5f, -0.5f },
+static const vec3_t CUBE_VERTICES[ 8 ] = {
+    { -0.5f, 0.5f, -0.5f }, { 0.5f, 0.5f, -0.5f }, { 0.5f, -0.5f, -0.5f }, { -0.5f, -0.5f, -0.5f },
+    { -0.5f, 0.5f, -0.5f }, { 0.5f, 0.5f, -0.5f }, { 0.5f, -0.5f, -0.5f }, { -0.5f, -0.5f, -0.5f },
 };
 
 /* Cube indices are defined in each triangle in counter-clockwise order */
-static const uint32_t CUBE_INDICES[36] = {
-    0, 1, 2, 2, 3, 0,
-    4, 5, 6, 6, 7, 4,
-    0, 4, 7, 7, 3, 0,
-    1, 5, 6, 6, 2, 1,
-    0, 1, 5, 5, 4, 0,
-    3, 2, 6, 6, 7, 3 
-};
-
+static const uint32_t CUBE_INDICES[ 36 ] = { 0, 1, 2, 2, 3, 0, 4, 5, 6, 6, 7, 4, 0, 4, 7, 7, 3, 0,
+                                             1, 5, 6, 6, 2, 1, 0, 1, 5, 5, 4, 0, 3, 2, 6, 6, 7, 3 };
 
 /*==========================================================================================================*/
 void RenderParams_Initialise( render_params_t* params ) {
@@ -47,14 +34,16 @@ void RenderParams_Initialise( render_params_t* params ) {
 }
 
 /*==========================================================================================================*/
-X_API void RenderModel_Create( render_model_t * self_, uint32_t vertexCount, uint32_t indexCount, uint32_t surfaceCount, uint32_t weightCount ) {
+X_API void RenderModel_Create( render_model_t* self_, uint32_t vertexCount, uint32_t indexCount, uint32_t surfaceCount,
+                               uint32_t weightCount ) {
     Mem_Zero( self_, sizeof( render_model_t ) );
 
     self_->geometry.vertexCount = vertexCount;
     self_->geometry.indexCount = indexCount;
     self_->geometry.weightCount = weightCount;
 
-    self_->geometry.vertexStride = ( weightCount == 0 ) ? sizeof( render_static_vertex_t ) : sizeof( render_skin_vertex_t );
+    self_->geometry.vertexStride =
+        ( weightCount == 0 ) ? sizeof( render_static_vertex_t ) : sizeof( render_skin_vertex_t );
     self_->geometry.weightStride = ( weightCount == 0 ) ? 0 : sizeof( render_skin_weight_t );
     self_->geometry.indexStride = sizeof( uint32_t );
 
@@ -62,16 +51,19 @@ X_API void RenderModel_Create( render_model_t * self_, uint32_t vertexCount, uin
     self_->geometry.indexDataSize = self_->geometry.indexCount * self_->geometry.indexStride;
     self_->geometry.weightDataSize = self_->geometry.weightCount * self_->geometry.weightStride;
 
-    self_->geometry.vertexBuffer = Render_GpuBufferCreate( self_->geometry.vertexDataSize, RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY );
-    self_->geometry.indexBuffer = Render_GpuBufferCreate( self_->geometry.indexDataSize, RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY );
+    self_->geometry.vertexBuffer =
+        Render_GpuBufferCreate( self_->geometry.vertexDataSize, RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY );
+    self_->geometry.indexBuffer =
+        Render_GpuBufferCreate( self_->geometry.indexDataSize, RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY );
 
     if ( self_->geometry.weightDataSize > 0 ) {
-        self_->geometry.weightBuffer = Render_GpuBufferCreate( self_->geometry.weightDataSize, RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY );
+        self_->geometry.weightBuffer =
+            Render_GpuBufferCreate( self_->geometry.weightDataSize, RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY );
     }
 }
 
 /*==========================================================================================================*/
-X_API void RenderModel_Destroy( render_model_t * self_ ) {
+X_API void RenderModel_Destroy( render_model_t* self_ ) {
     if ( self_->geometry.vertexBuffer ) {
         Render_GpuBufferDestroy( self_->geometry.vertexBuffer );
         self_->geometry.vertexBuffer = NULL;
@@ -89,50 +81,50 @@ X_API void RenderModel_Destroy( render_model_t * self_ ) {
 }
 
 /*==========================================================================================================*/
-X_API void RenderModel_CreateCube( render_model_t * self_, float sizeX, float sizeY, float sizeZ ) {
+X_API void RenderModel_CreateCube( render_model_t* self_, float sizeX, float sizeY, float sizeZ ) {
     RenderModel_Create( self_, 8, 36, 6, 0 );
-    
-    render_static_vertex_t vertices[8];
-    Mem_Zero( vertices, sizeof(vertices) ); 
+
+    render_static_vertex_t vertices[ 8 ];
+    Mem_Zero( vertices, sizeof( vertices ) );
 
     vec3_t scaledVertex;
     vec3_t normal;
 
     const vec3_t boxScale = { sizeX, sizeY, sizeZ };
     for ( uint32_t i = 0; i < 8; ++i ) {
-        Vec3_Mul( &scaledVertex, &CUBE_VERTICES[i], &boxScale );
+        Vec3_Mul( &scaledVertex, &CUBE_VERTICES[ i ], &boxScale );
 
-        vertices[i].positionTexU[0] = scaledVertex.x;
-        vertices[i].positionTexU[1] = scaledVertex.y;
-        vertices[i].positionTexU[2] = scaledVertex.z;
-        vertices[i].positionTexU[3] = 1.0f;
+        vertices[ i ].positionTexU[ 0 ] = scaledVertex.x;
+        vertices[ i ].positionTexU[ 1 ] = scaledVertex.y;
+        vertices[ i ].positionTexU[ 2 ] = scaledVertex.z;
+        vertices[ i ].positionTexU[ 3 ] = 1.0f;
 
         // Calculate normal
         normal = scaledVertex;
         Vec3_Normalise( &normal );
-        vertices[i].normalTexV[0] = normal.x;
-        vertices[i].normalTexV[1] = normal.y;
-        vertices[i].normalTexV[2] = normal.z;
-        vertices[i].normalTexV[3] = 1.0f;
+        vertices[ i ].normalTexV[ 0 ] = normal.x;
+        vertices[ i ].normalTexV[ 1 ] = normal.y;
+        vertices[ i ].normalTexV[ 2 ] = normal.z;
+        vertices[ i ].normalTexV[ 3 ] = 1.0f;
     }
 
-    /* Create transfer buffers, copy over the contents ( although we could have just written the 
-        vertex data directly to the transfer buffer ) and queue the upload to the gpu buffers 
+    /* Create transfer buffers, copy over the contents ( although we could have just written the
+        vertex data directly to the transfer buffer ) and queue the upload to the gpu buffers
     */
-    render_gpu_buffer_t* vertexTransferBuffer = Render_GpuBufferCreate( sizeof(vertices), 0 );
+    render_gpu_buffer_t* vertexTransferBuffer = Render_GpuBufferCreate( sizeof( vertices ), 0 );
     Sys_Assert( vertexTransferBuffer != NULL );
-    
-    render_gpu_buffer_t* indexTransferBuffer = Render_GpuBufferCreate( sizeof(CUBE_INDICES), 0 );
+
+    render_gpu_buffer_t* indexTransferBuffer = Render_GpuBufferCreate( sizeof( CUBE_INDICES ), 0 );
     Sys_Assert( indexTransferBuffer != NULL );
 
-    render_static_vertex_t * mappedVerts = ( render_static_vertex_t * ) Render_GpuBuffer_Map( vertexTransferBuffer );
+    render_static_vertex_t* mappedVerts = ( render_static_vertex_t* )Render_GpuBuffer_Map( vertexTransferBuffer );
     Sys_Assert( mappedVerts != NULL );
 
-    uint32_t * mappedIndices = ( uint32_t * ) Render_GpuBuffer_Map( indexTransferBuffer );
+    uint32_t* mappedIndices = ( uint32_t* )Render_GpuBuffer_Map( indexTransferBuffer );
     Sys_Assert( mappedIndices != NULL );
 
-    Mem_Copy( mappedVerts, vertices, sizeof(vertices) );
-    Mem_Copy( mappedIndices, CUBE_INDICES, sizeof(CUBE_INDICES) );
+    Mem_Copy( mappedVerts, vertices, sizeof( vertices ) );
+    Mem_Copy( mappedIndices, CUBE_INDICES, sizeof( CUBE_INDICES ) );
 
     Render_GpuBuffer_Unmap( vertexTransferBuffer );
     Render_GpuBuffer_Unmap( indexTransferBuffer );

@@ -68,8 +68,8 @@ void Render_GpuBufferDestroyNow( render_gpu_buffer_t* buffer ) {
         buffer->resource->Unmap( 0, NULL );
     }
 
-   Render_GpuBufferDestroy( buffer );
-   
+    Render_GpuBufferDestroy( buffer );
+
     --renderLocal.liveBufferCount;
 }
 
@@ -114,17 +114,13 @@ X_API void Render_GpuBuffer_Unmap( render_gpu_buffer_t* buffer ) {
 
 /*==========================================================================================================*/
 X_API void Render_GpuBuffer_QueueWrite( render_gpu_buffer_t* buffer, render_gpu_buffer_t* srcBuffer, size_t offset,
-                                         bool releaseSrcBuffer ) {
+                                        bool releaseSrcBuffer ) {
 
     Sys_AssertMsg( buffer && srcBuffer, "Cannot queue a write with a null source or destination buffer." );
     Sys_AssertMsg( offset < buffer->size, "Offset is out of bounds for the destination buffer." );
     Sys_AssertMsg( offset + srcBuffer->size <= buffer->size, "Source buffer size exceeds destination buffer bounds." );
 
-    buffer_write_request_t request = {
-        .dstBuffer = buffer,
-        .srcBuffer = srcBuffer,
-        .offset = offset
-    };
+    buffer_write_request_t request = { .dstBuffer = buffer, .srcBuffer = srcBuffer, .offset = offset };
 
     request.canDisposeSrcBuffer = releaseSrcBuffer ? 1 : 0;
 

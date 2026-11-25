@@ -19,10 +19,10 @@ typedef struct engine_s {
 static engine_t engine;
 static bool engineInitialised = false;
 static void Engine_PublishGame();
-extern void Game_Publish( game_interface_t *gameInterface );
+extern void Game_Publish( game_interface_t* gameInterface );
 
 /*==========================================================================================================*/
-static void Engine_Initialise(void) {
+static void Engine_Initialise( void ) {
     if ( engineInitialised == true ) {
         return;
     }
@@ -52,7 +52,7 @@ static void Engine_Initialise(void) {
 }
 
 /*==========================================================================================================*/
-static void Engine_Finalise(void) {
+static void Engine_Finalise( void ) {
     if ( engineInitialised == false ) {
         return;
     }
@@ -71,29 +71,30 @@ static void Engine_Finalise(void) {
 }
 
 /*==========================================================================================================*/
-static void Engine_Think(void) {
+static void Engine_Think( void ) {
     if ( engineInitialised == false ) {
         return;
     }
 
-    render_window_t * rw = Render_GetWindow();
+    render_window_t* rw = Render_GetWindow();
     bool windowOpen = RenderWindow_PumpEvents( rw );
-    if ( !windowOpen ) {       
+    if ( !windowOpen ) {
         return;
     }
-    
+
     if ( engine.gameInterface.GameThink ) {
         engine.gameInterface.GameThink();
     }
 }
 
 /*==========================================================================================================*/
-static void Engine_Run(void) {
+static void Engine_Run( void ) {
     Engine_Initialise();
 
     while ( engineInitialised ) {
         Engine_Think();
     }
+
     Engine_Finalise();
 }
 
@@ -103,7 +104,7 @@ void Engine_PublishGame() {
 }
 
 /*==========================================================================================================*/
-int Engine_Main( int argc, char *argv[] ) {
+int Engine_Main( int argc, char* argv[] ) {
     Engine_Run();
     return 0;
 }

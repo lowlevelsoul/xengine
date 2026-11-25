@@ -17,18 +17,18 @@
 static_assert( sizeof( sys_mux_t ) >= sizeof( CRITICAL_SECTION ), "sys_mux_t is too small for CRITICAL_SECTION" );
 
 typedef struct sys_win_s {
-    str_t               printString;
-    str_t               tmpString;
-    sys_mux_t           printMux;
-    Sys_PrintCallback   printCallbacks[ MAX_NUM_PRINTCALLBACKS ];
-    uint32_t            printCallbackCount;
+    str_t printString;
+    str_t tmpString;
+    sys_mux_t printMux;
+    Sys_PrintCallback printCallbacks[ MAX_NUM_PRINTCALLBACKS ];
+    uint32_t printCallbackCount;
 } sys_win_t;
 
 static sys_win_t sys;
 static bool sysInitialised = false;
 
 /*==========================================================================================================*/
-static void Sys_DebuggerPrintCb( const char * message ) {
+static void Sys_DebuggerPrintCb( const char* message ) {
     OutputDebugStringA( message );
 }
 
@@ -39,7 +39,7 @@ void Sys_Initialise( void ) {
     }
 
     Mem_Zero( &sys, sizeof( sys ) );
-    
+
     Sys_MuxCreate( &sys.printMux );
     sys.printCallbackCount = 0;
 
@@ -78,8 +78,8 @@ void Sys_Breakpoint() {
 }
 
 /*==========================================================================================================*/
-void Sys_Exit(void) {
-    ExitProcess(0);
+void Sys_Exit( void ) {
+    ExitProcess( 0 );
 }
 
 /*==========================================================================================================*/
@@ -93,7 +93,7 @@ void Sys_Sleep( uint32_t milliseconds ) {
 }
 
 /*==========================================================================================================*/
-static void Sys_DoPrintCallbacks(void) {
+static void Sys_DoPrintCallbacks( void ) {
     for ( uint32_t i = 0; i < sys.printCallbackCount; ++i ) {
         if ( sys.printCallbacks[ i ] != NULL ) {
             sys.printCallbacks[ i ]( sys.printString );
@@ -105,7 +105,7 @@ static void Sys_DoPrintCallbacks(void) {
 void Sys_PrintCat( const char* cat, const char* fmt, ... ) {
 
     Sys_MuxLock( &sys.printMux );
-    
+
     va_list args;
     va_start( args, fmt );
     Str_FormatArg( &sys.tmpString, fmt, args );
