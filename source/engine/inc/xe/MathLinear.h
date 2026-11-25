@@ -96,7 +96,7 @@ INLINE float Vec2_Length(const vec2_t* v) {
 }
 
 /*==========================================================================================================*/
-INLINE float Vec2_Normalize(vec2_t* v) {
+INLINE float Vec2_Normalise(vec2_t* v) {
     float len = Vec2_Length(v);
     if (len > 0.0f) {
         v->x /= len;
@@ -198,7 +198,7 @@ INLINE float Vec3_Length(const vec3_t* v) {
 }
 
 /*==========================================================================================================*/
-INLINE float Vec3_Normalize(vec3_t* v) {
+INLINE float Vec3_Normalise(vec3_t* v) {
     float len = Vec3_Length(v);
     if (len > 0.0f) {
         v->x /= len;
@@ -230,11 +230,6 @@ INLINE void Vec3_MixSin(vec3_t* v, const vec3_t* a, const vec3_t* b, float t) {
     v->y = a->y * (1.0f - s) + b->y * s;
     v->z = a->z * (1.0f - s) + b->z * s;
 }
-/*==========================================================================================================*/
-
-
-
-
 
 /* 
 Vec4 Functions
@@ -306,7 +301,7 @@ INLINE float Vec4_Length(const vec4_t* v) {
 }
 
 /*==========================================================================================================*/
-INLINE float Vec4_Normalize(vec4_t* v) {
+INLINE float Vec4_Normalise(vec4_t* v) {
     float len = Vec4_Length(v);
     if (len > 0.0f) {
         v->x /= len;
@@ -438,7 +433,7 @@ INLINE float Quat_Length(const quat_t* q) {
 }
 
 /*==========================================================================================================*/
-INLINE float Quat_Normalize(quat_t* q) {
+INLINE float Quat_Normalise(quat_t* q) {
     float len = Quat_Length(q);
     if (len > 0.0f) {
         q->x /= len;
@@ -812,9 +807,9 @@ INLINE void Mat4_SetLookAtLH(mat4_t* dst, const vec3_t* eye, const vec3_t* targe
     vec3_t xAxis, yAxis, zAxis;
 
     Vec3_Sub(&zAxis, target, eye);
-    Vec3_Normalize(&zAxis);
+    Vec3_Normalise(&zAxis);
     Vec3_Cross(&xAxis, up, &zAxis);
-    Vec3_Normalize(&xAxis);
+    Vec3_Normalise(&xAxis);
     Vec3_Cross(&yAxis, &zAxis, &xAxis);
 
     Vec4_SetXyzw(&dst->rows[ 0 ], xAxis.x, yAxis.x, zAxis.x, 0.0f);

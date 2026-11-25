@@ -29,6 +29,11 @@ X_API void * RenderWindow_GetNativeHandle( void );
 /* Rendering */
 X_API void Render_SubmitScene( batch_cmd_scene_t* scene );
 
+/* Model */
+X_API void RenderModel_Create( render_model_t * self, uint32_t vertexCount, uint32_t indexCount, uint32_t surfaceCount, uint32_t weightCount );
+X_API void RenderModel_Destroy( render_model_t * self_ );
+
+
 /* GPU Buffer */
 X_API render_gpu_buffer_t* Render_GpuBufferCreate( size_t size, uint64_t usage );
 X_API void Render_GpuBufferDestroy( render_gpu_buffer_t* buffer );

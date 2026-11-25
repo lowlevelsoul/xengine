@@ -67,9 +67,9 @@ typedef struct render_skin_weight_s {
  * @brief Render geometry encapsulates all of the buffers that we use for rendering geometry.
  */
 typedef struct render_geometry_s {
-    render_gpu_buffer_t* vertex_buffer;
-    render_gpu_buffer_t* index_buffer;
-    render_gpu_buffer_t* weight_buffer;
+    render_gpu_buffer_t * vertexBuffer;
+    render_gpu_buffer_t * indexBuffer;
+    render_gpu_buffer_t * weightBuffer;
 
     uint32_t vertexCount;
     uint32_t vertexStride;
