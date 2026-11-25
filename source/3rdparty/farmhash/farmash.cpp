@@ -340,7 +340,7 @@ STATIC_INLINE uint64_t farmhash_na_len_33_to_64( const char * s, size_t len )
 }
 
 // 64-bit Fingerprint function for a byte array (farmhashna::Hash64)
-uint64_t farmhash64( const char * s, size_t len )
+extern "C" uint64_t farmhash64( const char * s, size_t len )
 {
     const uint64_t seed = 81;
     if ( len <= 32 )
@@ -399,7 +399,7 @@ uint64_t farmhash64( const char * s, size_t len )
 }
 
 // 32-bit Fingerprint function for a byte array
-uint32_t farmhash32( const char * s, size_t len )
+extern "C" uint32_t farmhash32( const char * s, size_t len )
 {
     return mix_64_to_32( farmhash64( s, len ) );
 }

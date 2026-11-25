@@ -19,11 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\Array.h" />
+    <ClInclude Include="..\..\..\source\engine\inc\xe\AtomicString.h" />
+    <ClInclude Include="..\..\..\source\engine\inc\xe\BSearch.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\FrameHeap.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Fs.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\GameInterface.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Gpu.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Gpu_types.h" />
+    <ClInclude Include="..\..\..\source\engine\inc\xe\Hash.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\MathLinear.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\MathScalar.h" />
     <ClInclude Include="..\..\..\source\engine\inc\xe\Mem.h" />
@@ -39,6 +43,9 @@
     <ClInclude Include="..\..\..\source\engine\src\d3d12\Render_d3d12.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\engine\src\Array.c" />
+    <ClCompile Include="..\..\..\source\engine\src\AtomicString.c" />
+    <ClCompile Include="..\..\..\source\engine\src\BSearch.c" />
     <ClCompile Include="..\..\..\source\engine\src\d3d12\RenderWindow_d3d12.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -56,6 +63,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\Fs_shared.c" />
     <ClCompile Include="..\..\..\source\engine\src\Fs_win.c" />
+    <ClCompile Include="..\..\..\source\engine\src\Hash.c" />
     <ClCompile Include="..\..\..\source\engine\src\Mem.c" />
     <ClCompile Include="..\..\..\source\engine\src\RenderBatch.c" />
     <ClCompile Include="..\..\..\source\engine\src\Str.c" />

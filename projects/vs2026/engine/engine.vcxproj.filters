@@ -72,6 +72,18 @@
     <ClInclude Include="..\..\..\source\engine\src\d3d12\Render_d3d12.h">
       <Filter>Source Files\d3d12</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\Array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\AtomicString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\BSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\engine\inc\xe\Hash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\engine\src\FrameHeap.c">
@@ -105,6 +117,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\engine\src\RenderBatch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\BSearch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\Array.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\AtomicString.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\engine\src\Hash.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

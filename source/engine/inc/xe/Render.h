@@ -37,4 +37,6 @@ X_API void Render_GpuBuffer_QueueWrite( render_gpu_buffer_t* buffer, render_gpu_
 X_API void* Render_GpuBuffer_Map( render_gpu_buffer_t* buffer );
 X_API void Render_GpuBuffer_Unmap( render_gpu_buffer_t* buffer );
 
+
+
 #endif // __RENDER_H__

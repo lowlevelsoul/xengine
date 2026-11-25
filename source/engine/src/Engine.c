@@ -8,6 +8,7 @@
 #include "xe/Mem.h"
 #include "xe/Sys.h"
 #include "xe/Fs.h"
+#include "xe/AtomicString.h"
 #include "xe/Render.h"
 #include "xe/GameInterface.h"
 
@@ -29,6 +30,7 @@ static void Engine_Initialise(void) {
     Engine_PublishGame();
 
     Mem_Initialise();
+    AStr_Initialise();
     Sys_Initialise();
     FS_Initialise();
 
@@ -62,6 +64,7 @@ static void Engine_Finalise(void) {
     Render_Finalise();
     FS_Finalise();
     Sys_Finalise();
+    AStr_Finalise();
     Mem_Finalise();
 
     engineInitialised = false;
