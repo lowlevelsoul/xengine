@@ -6,6 +6,7 @@
 */
 
 #include "xe/Render.h"
+#include "xe/Sys.h"
 #include "xe/Mem.h"
 #include "xe/MathLinear.h"
 
@@ -107,7 +108,8 @@ X_API void RenderModel_CreateCube( render_model_t * self_, float sizeX, float si
         vertices[i].positionTexU[3] = 1.0f;
 
         // Calculate normal
-        Vec3_Normalize( &normal, &scaledVertex );
+        normal = scaledVertex;
+        Vec3_Normalise( &normal );
         vertices[i].normalTexV[0] = normal.x;
         vertices[i].normalTexV[1] = normal.y;
         vertices[i].normalTexV[2] = normal.z;

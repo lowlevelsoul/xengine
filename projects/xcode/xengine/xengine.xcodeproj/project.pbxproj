@@ -51,6 +51,12 @@
 		1A7F833630B2E55500BDFD28 /* Render_metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F833330B2E55500BDFD28 /* Render_metal.h */; };
 		1A7F833730B2E55500BDFD28 /* RenderHeapPool_metal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F833430B2E55500BDFD28 /* RenderHeapPool_metal.h */; };
 		1A7F833830B2E55500BDFD28 /* RenderHeapPool_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */; };
+		1A7F833F30B75BC300BDFD28 /* Render_shared.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A7F833E30B75BC300BDFD28 /* Render_shared.h */; };
+		1A7F834030B75BC300BDFD28 /* Hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833C30B75BC300BDFD28 /* Hash.c */; };
+		1A7F834130B75BC300BDFD28 /* BSearch.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833B30B75BC300BDFD28 /* BSearch.c */; };
+		1A7F834230B75BC300BDFD28 /* AtomicString.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833A30B75BC300BDFD28 /* AtomicString.c */; };
+		1A7F834330B75BC300BDFD28 /* Array.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833930B75BC300BDFD28 /* Array.c */; };
+		1A7F834430B75BC300BDFD28 /* Render.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833D30B75BC300BDFD28 /* Render.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -324,6 +330,12 @@
 		1A7F833330B2E55500BDFD28 /* Render_metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Render_metal.h; sourceTree = "<group>"; };
 		1A7F833430B2E55500BDFD28 /* RenderHeapPool_metal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderHeapPool_metal.h; sourceTree = "<group>"; };
 		1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderHeapPool_metal.m; sourceTree = "<group>"; };
+		1A7F833930B75BC300BDFD28 /* Array.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Array.c; sourceTree = "<group>"; };
+		1A7F833A30B75BC300BDFD28 /* AtomicString.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = AtomicString.c; sourceTree = "<group>"; };
+		1A7F833B30B75BC300BDFD28 /* BSearch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = BSearch.c; sourceTree = "<group>"; };
+		1A7F833C30B75BC300BDFD28 /* Hash.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Hash.c; sourceTree = "<group>"; };
+		1A7F833D30B75BC300BDFD28 /* Render.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Render.c; sourceTree = "<group>"; };
+		1A7F833E30B75BC300BDFD28 /* Render_shared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Render_shared.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -744,6 +756,12 @@
 		1A7F823530AECA0200BDFD28 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				1A7F833930B75BC300BDFD28 /* Array.c */,
+				1A7F833A30B75BC300BDFD28 /* AtomicString.c */,
+				1A7F833B30B75BC300BDFD28 /* BSearch.c */,
+				1A7F833C30B75BC300BDFD28 /* Hash.c */,
+				1A7F833D30B75BC300BDFD28 /* Render.c */,
+				1A7F833E30B75BC300BDFD28 /* Render_shared.h */,
 				1A7F822D30AECA0200BDFD28 /* Engine.c */,
 				1A7F826330AF7CDA00BDFD28 /* FrameHeap.c */,
 				1A7F822F30AECA0200BDFD28 /* Fs_shared.c */,
@@ -861,6 +879,7 @@
 				1A7F833630B2E55500BDFD28 /* Render_metal.h in Headers */,
 				1A7F833730B2E55500BDFD28 /* RenderHeapPool_metal.h in Headers */,
 				1A7F826030AF7CCB00BDFD28 /* MPMCQueue.h in Headers */,
+				1A7F833F30B75BC300BDFD28 /* Render_shared.h in Headers */,
 				1A7F826130AF7CCB00BDFD28 /* FrameHeap.h in Headers */,
 				1A7F826230AF7CCB00BDFD28 /* RenderBatch.h in Headers */,
 			);
@@ -1067,6 +1086,11 @@
 				1A7F826530AF7CDA00BDFD28 /* RenderBatch.c in Sources */,
 				1A7F826630AF7CDA00BDFD28 /* FrameHeap.c in Sources */,
 				1A7F833830B2E55500BDFD28 /* RenderHeapPool_metal.m in Sources */,
+				1A7F834030B75BC300BDFD28 /* Hash.c in Sources */,
+				1A7F834130B75BC300BDFD28 /* BSearch.c in Sources */,
+				1A7F834230B75BC300BDFD28 /* AtomicString.c in Sources */,
+				1A7F834330B75BC300BDFD28 /* Array.c in Sources */,
+				1A7F834430B75BC300BDFD28 /* Render.c in Sources */,
 				1A7F825A30AECB3B00BDFD28 /* Mem.c in Sources */,
 				1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.m in Sources */,
 				1A7F831530AF80A600BDFD28 /* Render_metal.m in Sources */,
