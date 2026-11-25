@@ -42,6 +42,14 @@ X_API void Render_GpuBuffer_QueueWrite( render_gpu_buffer_t* buffer, render_gpu_
 X_API void* Render_GpuBuffer_Map( render_gpu_buffer_t* buffer );
 X_API void Render_GpuBuffer_Unmap( render_gpu_buffer_t* buffer );
 
+/* GPU Fence */
+/* We only have create destroy functions for fences because exactly how they are used
+   is down to the renderer implementation.
+*/
+X_API render_gpu_fence_t* Render_GpuFenceCreate( void );
+X_API void Render_GpuFenceDestroy( render_gpu_fence_t* fence );
+
+
 
 
 #endif // __RENDER_H__

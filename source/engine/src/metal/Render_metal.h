@@ -76,6 +76,11 @@ typedef struct render_gpu_buffer_s {
     uint32_t mapCount;
 } render_gpu_buffer_s;
 
+typedef struct render_gpu_fence_s {
+    id<MTLFence> fence;
+    uint64_t value;
+} render_gpu_fence_t;
+
 extern render_metal_t renderLocal;
 
 #endif

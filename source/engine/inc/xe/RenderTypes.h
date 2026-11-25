@@ -26,9 +26,6 @@ typedef enum render_opacity_e {
     RENDER_OPACITY_COUNT,
 } render_opacity_t;
 
-typedef enum render_gpu_buffer_usage_e {
-    RENDER_GPU_BUFFER_USAGE_GPU_ONLY = 1,           /* Buffer is intended for GPU-only usage and cannot be mapped to the CPU */
-} render_gpu_buffer_usage_t;
 typedef enum render_gpu_buffer_flag_s {
     RENDER_GPU_BUFFER_FLAGS_USAGE_GPU_ONLY = 1,
 } render_gpu_buffer_flag_t;
@@ -40,6 +37,7 @@ typedef struct render_context_s render_context_t;
 
 typedef struct render_gpu_buffer_s render_gpu_buffer_t;
 typedef struct render_gpu_texture_s render_gpu_texture_t;
+typedef struct render_gpu_fence_s render_gpu_fence_t;
 
 typedef struct render_static_vertex_s {
     float positionTexU[ 4 ];

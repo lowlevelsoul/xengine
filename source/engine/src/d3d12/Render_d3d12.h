@@ -80,6 +80,11 @@ typedef struct render_gpu_buffer_s {
     bool gpuOnly;
 } render_gpu_buffer_t;
 
+typedef struct render_gpu_fence_s {
+    ID3D12Fence* fence;
+    UINT64 value;
+} render_gpu_fence_t;
+
 extern render_context_d3d12_t renderLocal;
 bool Render_WaitForBufferUse( void );
 void Render_GpuBufferDestroyNow( render_gpu_buffer_t* buffer );
