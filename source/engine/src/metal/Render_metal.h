@@ -12,7 +12,7 @@
 #import "xe/Render.h"
 #import "xe/RenderBatch.h"
 #import "RenderHeapPool_metal.h"
-#import "Render_metal.h"
+#import "Render_shared.h"
 #import <QuartzCore/QuartzCore.h>
 #import <Metal/Metal.h>
 
@@ -25,16 +25,6 @@ typedef struct buffer_write_request_s {
     size_t offset;
     uint64_t canDisposeSrcBuffer : 1;
 } buffer_write_request_t;
-
-typedef struct render_pass_s {
-    void ( *Initialise )( struct render_pass_s* self_ );
-    void ( *Finalise )( struct render_pass_s* self_ );
-    void ( *Render )( struct render_pass_s* self_, struct render_pass_s* prev, batch_cmd_scene3d_t* scene );
-    void ( *Resize )( struct render_pass_s* self_, int width, int height );
-    bool ( *HasFence )( struct render_pass_s* self_ );
-    id<MTLFence> ( *GetFence )( struct render_pass_s* self_ );
-
-} render_pass_t;
 
 MPMC_QUEUE_DEFINE( BufferWriteQueue, buffer_write_request_t, 2048 )
 
@@ -52,6 +42,7 @@ typedef struct render_metal_s {
     id<MTLDevice> device;
     id<MTLCommandQueue> commandQueue;
     id<CAMetalDrawable> presentSurface;
+    id<MTLCommandBuffer> commandBuffer;
 
     CAMetalLayer* metalLayer;
     heap_pool_t gpuHeapPool;
@@ -61,8 +52,12 @@ typedef struct render_metal_s {
     dispatch_semaphore_t inflightSem;
     uint32_t maxInflightFrames;
     uint32_t currBufferIndex;
+    
+    render_gpu_fence_t * lastPassFence;
+    bool lastPassHadFence;
 
     render_constantbuffer_t constantBuffers[ RENDER_MAX_INFLIGHT_FRAMES ];
+    
 
     render_pass_t* passes[ RENDER_MAX_NUM_PASSES ];
     uint32_t numPasses;
@@ -82,5 +77,25 @@ typedef struct render_gpu_fence_s {
 } render_gpu_fence_t;
 
 extern render_metal_t renderLocal;
+
+
+X_API void Render_DidUpdateFence( render_gpu_fence_t * fence );
+
+/* Evil, evil macros.... */
+#define RenderPass_UpdateFence( pass_, encoder_, fence_ )\
+    [encoder_ updateFence: fence_->fence ];\
+    pass_->fence = fence_;\
+    pass_->isFenceValid = true;\
+
+#define RenderPass_HasFence( pass_ ) (pass_->isFenceValid == true )
+
+#define RenderPass_WaitForFence( pass_, encoder_ )\
+    [encoder_ waitForFence:pass_->fence ];\
+    pass_->fence = NULL;\
+    pass_->isFencevalid = false;
+
+#define RenderPass_ClearFence( pass_ )\
+    pass_->fence = NULL;\
+    pass_->isFenceValid = false;
 
 #endif

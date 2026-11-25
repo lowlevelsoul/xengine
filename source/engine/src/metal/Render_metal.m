@@ -73,6 +73,7 @@ void Render_CreateSwapchain( render_params_t* params ) {
     renderLocal.commandQueue = [renderLocal.device newCommandQueue];
 }
 
+#if 0
 /*==========================================================================================================*/
 static void Render_ProcessBufferWrites( id<MTLBlitCommandEncoder> blitEncoder ) {
 
@@ -95,6 +96,7 @@ static void Render_ProcessBufferWrites( id<MTLBlitCommandEncoder> blitEncoder ) 
     }
 }
 
+
 /*==========================================================================================================*/
 static void Render_ProceesWriteRequests( id<MTLCommandBuffer> commandBuffer ) {
 
@@ -109,8 +111,17 @@ static void Render_ProceesWriteRequests( id<MTLCommandBuffer> commandBuffer ) {
     }
 }
 
+#endif
+
 /*==========================================================================================================*/
-void Render_SubmitScene( batch_cmd_scene_t* scene ) {
+X_API void Render_DidUpdateFence( render_gpu_fence_t * fence ) {
+    renderLocal.lastPassFence = fence;
+    renderLocal.lastPassHadFence = true;
+}
+
+
+/*==========================================================================================================*/
+X_API void Render_SubmitScene( batch_cmd_scene_t* scene ) {
 
     @autoreleasepool {
 
@@ -127,29 +138,34 @@ void Render_SubmitScene( batch_cmd_scene_t* scene ) {
 
         id<MTLCommandBuffer> commandBuffer = [renderLocal.commandQueue commandBuffer];
         commandBuffer.label = @"MyCommand";
+        renderLocal.commandBuffer = commandBuffer;
 
         __block dispatch_semaphore_t block_sema = renderLocal.inflightSem;
         [commandBuffer addCompletedHandler:^( id<MTLCommandBuffer> buffer ) {
           dispatch_semaphore_signal( block_sema );
         }];
 
-        /* Process the buffer write requests before submitting the command buffer */
-        if ( BufferWriteQueue_IsEmpty( &renderLocal.bufferWriteQueue ) == false ) {
-            Render_ProceesWriteRequests( commandBuffer );
-        }
-
         /* TEMP - Just want to display something to ensure it's all working. */
-        @autoreleasepool {
-            color.red = ( color.red > 1.0 ) ? 0 : color.red + 0.01;
+        color.red = ( color.red > 1.0 ) ? 0 : color.red + 0.01;
 
-            MTLRenderPassDescriptor* pass = [MTLRenderPassDescriptor renderPassDescriptor];
-            pass.colorAttachments[ 0 ].clearColor = color;
-            pass.colorAttachments[ 0 ].loadAction = MTLLoadActionClear;
-            pass.colorAttachments[ 0 ].storeAction = MTLStoreActionStore;
-            pass.colorAttachments[ 0 ].texture = surface.texture;
+        MTLRenderPassDescriptor* pass = [MTLRenderPassDescriptor renderPassDescriptor];
+        pass.colorAttachments[ 0 ].clearColor = color;
+        pass.colorAttachments[ 0 ].loadAction = MTLLoadActionClear;
+        pass.colorAttachments[ 0 ].storeAction = MTLStoreActionStore;
+        pass.colorAttachments[ 0 ].texture = surface.texture;
 
-            id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor:pass];
-            [encoder endEncoding];
+        id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor:pass];
+        [encoder endEncoding];
+        
+        /* Perform the render passes */
+        render_pass_t * prevPass = NULL;
+        render_pass_t * currPass = NULL;
+        for ( uint32_t passIndex = 0; passIndex != renderLocal.numPasses; ++passIndex ) {
+            currPass = renderLocal.passes[ passIndex ];
+            
+            RenderPass_ClearFence( currPass );
+            currPass->Render( currPass, prevPass, scene->scene3dListHead );
+            prevPass = currPass;
         }
 
         /* Present the drawable and commit the command buffer */

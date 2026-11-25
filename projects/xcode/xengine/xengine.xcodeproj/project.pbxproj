@@ -57,6 +57,7 @@
 		1A7F834230B75BC300BDFD28 /* AtomicString.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833A30B75BC300BDFD28 /* AtomicString.c */; };
 		1A7F834330B75BC300BDFD28 /* Array.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833930B75BC300BDFD28 /* Array.c */; };
 		1A7F834430B75BC300BDFD28 /* Render.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F833D30B75BC300BDFD28 /* Render.c */; };
+		1A7F834730B7625C00BDFD28 /* RenderPass_CopyBuffers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F834530B7625C00BDFD28 /* RenderPass_CopyBuffers.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,6 +337,7 @@
 		1A7F833C30B75BC300BDFD28 /* Hash.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Hash.c; sourceTree = "<group>"; };
 		1A7F833D30B75BC300BDFD28 /* Render.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Render.c; sourceTree = "<group>"; };
 		1A7F833E30B75BC300BDFD28 /* Render_shared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Render_shared.h; sourceTree = "<group>"; };
+		1A7F834530B7625C00BDFD28 /* RenderPass_CopyBuffers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderPass_CopyBuffers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -749,6 +751,7 @@
 				1A7F833530B2E55500BDFD28 /* RenderHeapPool_metal.m */,
 				1A7F822B30AECA0200BDFD28 /* RenderWindow_metal.m */,
 				1A7F831430AF80A600BDFD28 /* Render_metal.m */,
+				1A7F834630B7625C00BDFD28 /* passes */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -868,6 +871,14 @@
 				1A7F82DA30AF7EED00BDFD28 /* Infestation.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1A7F834630B7625C00BDFD28 /* passes */ = {
+			isa = PBXGroup;
+			children = (
+				1A7F834530B7625C00BDFD28 /* RenderPass_CopyBuffers.m */,
+			);
+			path = passes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1092,6 +1103,7 @@
 				1A7F834330B75BC300BDFD28 /* Array.c in Sources */,
 				1A7F834430B75BC300BDFD28 /* Render.c in Sources */,
 				1A7F825A30AECB3B00BDFD28 /* Mem.c in Sources */,
+				1A7F834730B7625C00BDFD28 /* RenderPass_CopyBuffers.m in Sources */,
 				1A7F825B30AECB4200BDFD28 /* RenderWindow_metal.m in Sources */,
 				1A7F831530AF80A600BDFD28 /* Render_metal.m in Sources */,
 			);
