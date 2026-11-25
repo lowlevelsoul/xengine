@@ -11,10 +11,10 @@
 #include "xe/Platform.h"
 
 typedef struct game_interface_s {
-    void (*GameInitialise)(void);
-    void (*GameThink)(void);
-    void (*GameFinalise)(void);
-    const char * (*GameGetTitle)(void);
+    void ( *GameInitialise )( void );
+    void ( *GameThink )( void );
+    void ( *GameFinalise )( void );
+    const char* ( *GameGetTitle )( void );
 
 } game_interface_t;
 

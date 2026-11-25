@@ -1,6 +1,6 @@
 /*
 ==============================================================================================================
-    This file is part of XEngine 
+    This file is part of XEngine
     Copyright (C) 2026 James Steele. All rights reserved.
 ==============================================================================================================
 */
@@ -33,7 +33,7 @@ typedef enum render_gpu_buffer_flag_s {
 #define RENDER_MODEL_DRAW_SURFACE_MAX 8
 
 typedef struct render_window_s render_window_t;
-typedef struct render_context_s render_context_t;  
+typedef struct render_context_s render_context_t;
 
 typedef struct render_gpu_buffer_s render_gpu_buffer_t;
 typedef struct render_gpu_texture_s render_gpu_texture_t;
@@ -65,9 +65,9 @@ typedef struct render_skin_weight_s {
  * @brief Render geometry encapsulates all of the buffers that we use for rendering geometry.
  */
 typedef struct render_geometry_s {
-    render_gpu_buffer_t * vertexBuffer;
-    render_gpu_buffer_t * indexBuffer;
-    render_gpu_buffer_t * weightBuffer;
+    render_gpu_buffer_t* vertexBuffer;
+    render_gpu_buffer_t* indexBuffer;
+    render_gpu_buffer_t* weightBuffer;
 
     uint32_t vertexCount;
     uint32_t vertexStride;
@@ -115,33 +115,30 @@ typedef struct render_model_s {
     str_t name;
     render_geometry_t geometry;
     render_draw_surface_t drawsurfaces[ RENDER_MODEL_DRAW_SURFACE_MAX ];
-    
+
     uint32_t drawSurfaceCount;
     float boundingBox[ 6 ]; /**< Axis-aligned bounding box: minX, minY, minZ, maxX, maxY, maxZ */
 } render_model_t;
 
-
 typedef struct render_model_instance_s {
-    render_model_t * model;
+    render_model_t* model;
     render_draw_surface_t drawSurfaces[ RENDER_MODEL_DRAW_SURFACE_MAX ];
-    render_draw_surface_t * drawSurfaceOpaque[ RENDER_MODEL_DRAW_SURFACE_MAX ];
-    render_draw_surface_t * drawSurfaceTransparent[ RENDER_MODEL_DRAW_SURFACE_MAX ];
+    render_draw_surface_t* drawSurfaceOpaque[ RENDER_MODEL_DRAW_SURFACE_MAX ];
+    render_draw_surface_t* drawSurfaceTransparent[ RENDER_MODEL_DRAW_SURFACE_MAX ];
     uint32_t drawSurfaceCount;
     uint32_t drawSurfaceOpaqueCount;
     uint32_t drawSurfaceTransparentCount;
 } render_model_instance_t;
 
-
-
 typedef struct render_params_s {
-    int32_t width;                            /**< Width of the render window */
-    int32_t height;                           /**< Height of the render window */
-    bool fullscreen;                         /**< Whether the render window should be fullscreen */
-    bool debug;                               /**< Whether to enable debug mode */
-    bool vsync;                                /**< Whether to enable vertical synchronization */
-    uint32_t maxNumFramesInFlight;          /**< Maximum number of frames that can be in flight */
-    uint32_t renderMemHeapSize;             /**< Size of the render memory heap */
-    void * nativeWindow;
+    int32_t width;                 /**< Width of the render window */
+    int32_t height;                /**< Height of the render window */
+    bool fullscreen;               /**< Whether the render window should be fullscreen */
+    bool debug;                    /**< Whether to enable debug mode */
+    bool vsync;                    /**< Whether to enable vertical synchronization */
+    uint32_t maxNumFramesInFlight; /**< Maximum number of frames that can be in flight */
+    uint32_t renderMemHeapSize;    /**< Size of the render memory heap */
+    void* nativeWindow;
 } render_params_t;
 
 #endif // __RENDERTYPES_H__

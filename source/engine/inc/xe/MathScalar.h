@@ -1,6 +1,6 @@
 /*
 ==============================================================================================================
-    This file is part of XEngine 
+    This file is part of XEngine
     Copyright (C) 2026 James Steele. All rights reserved.
 ==============================================================================================================
 */
@@ -25,125 +25,124 @@
 #define XE_EPSILON 1.1920928955078125e-07f
 
 /*==========================================================================================================*/
-INLINE bool Scalar_IsValid(float x) {
+INLINE bool Scalar_IsValid( float x ) {
     return ( x == x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Sqrt(float x) {
-    return sqrtf(x);
+INLINE float Scalar_Sqrt( float x ) {
+    return sqrtf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Abs(float x) {
-    return fabsf(x);
+INLINE float Scalar_Abs( float x ) {
+    return fabsf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Sin(float x) {
-    return sinf(x);
+INLINE float Scalar_Sin( float x ) {
+    return sinf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Cos(float x) {
-    return cosf(x);
+INLINE float Scalar_Cos( float x ) {
+    return cosf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Tan(float x) {
-    return tanf(x);
+INLINE float Scalar_Tan( float x ) {
+    return tanf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_ATan2(float x, float y) {
-    return atan2f(y, x);
+INLINE float Scalar_ATan2( float x, float y ) {
+    return atan2f( y, x );
 }
 
 /*==========================================================================================================*/
 INLINE float Scalar_ACos( float x ) {
-    return acosf(x);
+    return acosf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_ASin(float x) {
-    return asinf(x);
+INLINE float Scalar_ASin( float x ) {
+    return asinf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_ATan(float x) {
-    return atanf(x);
+INLINE float Scalar_ATan( float x ) {
+    return atanf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Exp(float x) {
-    return expf(x);
+INLINE float Scalar_Exp( float x ) {
+    return expf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Log(float x) {
-    return logf(x);
+INLINE float Scalar_Log( float x ) {
+    return logf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Pow(float x, float y) {
-    return powf(x, y);
+INLINE float Scalar_Pow( float x, float y ) {
+    return powf( x, y );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Floor(float x) {
-    return floorf(x);
+INLINE float Scalar_Floor( float x ) {
+    return floorf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Ceil(float x) {
-    return ceilf(x);
+INLINE float Scalar_Ceil( float x ) {
+    return ceilf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Round(float x) {
-    return roundf(x);
-}   
-
-/*==========================================================================================================*/
-INLINE float Scalar_Trunc(float x) {
-    return truncf(x);
+INLINE float Scalar_Round( float x ) {
+    return roundf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Fract(float x) {
-    return x - truncf(x);
+INLINE float Scalar_Trunc( float x ) {
+    return truncf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Sign(float x) {
-    return (float)(x > 0) - (float)(x < 0);
-}   
-
-/*==========================================================================================================*/
-INLINE float Scalar_Mix(float x, float y, float t ) {
-    return ( x * (1.0f - t) ) + ( y * t );
+INLINE float Scalar_Fract( float x ) {
+    return x - truncf( x );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_MixSin(float x, float y, float t) {
-    float ts = Scalar_Sin(t * XE_PI * 0.5f);
-    return ( x * (1.0f - ts) ) + ( y * ts );
+INLINE float Scalar_Sign( float x ) {
+    return ( float )( x > 0 ) - ( float )( x < 0 );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Clamp(float x, float minVal, float maxVal) {
-    return fminf(fmaxf(x, minVal), maxVal);
+INLINE float Scalar_Mix( float x, float y, float t ) {
+    return ( x * ( 1.0f - t ) ) + ( y * t );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Min( float x, float y) {
-    return fminf(x, y);
+INLINE float Scalar_MixSin( float x, float y, float t ) {
+    float ts = Scalar_Sin( t * XE_PI * 0.5f );
+    return ( x * ( 1.0f - ts ) ) + ( y * ts );
 }
 
 /*==========================================================================================================*/
-INLINE float Scalar_Max( float x, float y) {
-    return fmaxf(x, y);
+INLINE float Scalar_Clamp( float x, float minVal, float maxVal ) {
+    return fminf( fmaxf( x, minVal ), maxVal );
 }
 
+/*==========================================================================================================*/
+INLINE float Scalar_Min( float x, float y ) {
+    return fminf( x, y );
+}
+
+/*==========================================================================================================*/
+INLINE float Scalar_Max( float x, float y ) {
+    return fmaxf( x, y );
+}
 
 #endif

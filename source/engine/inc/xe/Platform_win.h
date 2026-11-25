@@ -1,6 +1,6 @@
 /*
 ==============================================================================================================
-    This file is part of XEngine 
+    This file is part of XEngine
     Copyright (C) 2026 James Steele. All rights reserved.
 ==============================================================================================================
 */
@@ -24,12 +24,12 @@
 
 #define strcasecmp _stricmp
 
-#define INLINE static inline 
+#define INLINE static inline
 
 #ifdef __cplusplus
-#   define X_API extern "C"
+#define X_API extern "C"
 #else
-#   define X_API
-#endif // __cplusplus   
+#define X_API
+#endif // __cplusplus
 
 #endif // __PLATFORM_WIN_H__
